@@ -35,8 +35,8 @@
       <g transform="translate(14, 50)">
         <rect width="232" height="60" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
         <text x="10" y="20" class="box-label" fill="#1e40af">作用：存放模型权重文件</text>
-        <text x="10" y="38" class="box-desc" fill="#1e3a8a">如 70B 模型 FP16 模式占用 140 GB</text>
-        <text x="10" y="52" class="box-desc" fill="#64748b">容量不够直接触发 CUDA OOM 崩溃</text>
+        <text x="10" y="38" class="box-desc" fill="#1e3a8a">如 70B FP16 占用 140 GB</text>
+        <text x="10" y="52" class="box-desc" fill="#64748b">容量不足直接触发 OOM 崩溃</text>
       </g>
 
       <g transform="translate(14, 122)">
@@ -55,7 +55,7 @@
       <text x="160" y="48" text-anchor="middle" class="mono" fill="#2563eb">H100 理论带宽 ≈ 3.35 TB/s (3350 GB/s)</text>
 
       <line x1="30" y1="70" x2="290" y2="70" stroke="#2563eb" stroke-width="3" marker-end="url(#arrowBlue)"/>
-      <text x="160" y="92" text-anchor="middle" font-size="11px" font-weight="700" fill="#1e40af">每吐 1 个词，整套 140 GB 权重搬运 1 次</text>
+      <text x="160" y="92" text-anchor="middle" font-size="11px" font-weight="700" fill="#1e40af">每吐 1 词，整套 140 GB 权重搬运 1 次</text>
       <text x="160" y="112" text-anchor="middle" class="mono" fill="#0284c7">延迟 = 140 GB ÷ 2000 GB/s = 70 ms</text>
     </g>
 
@@ -69,8 +69,8 @@
       <g transform="translate(14, 50)">
         <rect width="246" height="60" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
         <text x="10" y="20" class="box-label" fill="#166534">作用：执行具体矩阵点积</text>
-        <text x="10" y="38" class="box-desc" fill="#14532d">算力极其充沛（数百 TFLOPs），但</text>
-        <text x="10" y="52" class="box-desc" fill="#b91c1c">经常因为等数据从显存搬来而饿着</text>
+        <text x="10" y="38" class="box-desc" fill="#14532d">算力充沛（数百 TFLOPs）</text>
+        <text x="10" y="52" class="box-desc" fill="#b91c1c">常因等待数据搬运而空转饥饿</text>
       </g>
 
       <g transform="translate(14, 122)">
@@ -78,7 +78,7 @@
         <text x="10" y="22" class="box-label" fill="#166534">最终单用户吐字极限：</text>
         <text x="10" y="44" class="mono" fill="#15803d">速率 = 1000ms ÷ 70ms</text>
         <text x="10" y="66" class="mono" font-weight="700" fill="#166534">≈ 14.3 Tokens / 秒</text>
-        <text x="10" y="86" class="box-desc" fill="#15803d">（这就是为什么吐字速度有物理上限）</text>
+        <text x="10" y="86" class="box-desc" fill="#15803d">（吐字速度存在物理上限）</text>
       </g>
     </g>
 

@@ -4,12 +4,9 @@
       text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
       .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
       .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
-      .col-title { font-size: 14px; font-weight: 700; }
-      .tag { font-size: 11px; font-weight: 600; }
       .cell-head { font-size: 12px; font-weight: 700; fill: #475569; }
-      .cell-text { font-size: 11.5px; font-weight: 500; fill: #334155; }
       .mono { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; }
-      .highlight { font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 700; fill: #2563eb; }
+      .highlight { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; fill: #2563eb; }
     </style>
   </defs>
 
@@ -27,20 +24,20 @@
     <!-- Table Header Row -->
     <rect x="0" y="0" width="888" height="42" rx="6" fill="#f1f5f9"/>
     <text x="80" y="26" text-anchor="middle" class="cell-head">模型规模</text>
-    <text x="240" y="26" text-anchor="middle" class="cell-head">FP32 (4 字节/单精度)</text>
-    <text x="420" y="26" text-anchor="middle" class="cell-head">FP16 / BF16 (2 字节/标准)</text>
-    <text x="600" y="26" text-anchor="middle" class="cell-head">INT8 (1 字节/量化)</text>
-    <text x="780" y="26" text-anchor="middle" class="cell-head">INT4 (0.5 字节/极限量化)</text>
+    <text x="245" y="26" text-anchor="middle" class="cell-head">FP32 (4 字节/单精度)</text>
+    <text x="430" y="26" text-anchor="middle" class="cell-head">FP16 / BF16 (2 字节/标准)</text>
+    <text x="615" y="26" text-anchor="middle" class="cell-head">INT8 (1 字节/量化)</text>
+    <text x="795" y="26" text-anchor="middle" class="cell-head">INT4 (0.5 字节/极限量化)</text>
     <line x1="0" y1="42" x2="888" y2="42" stroke="#cbd5e1" stroke-width="1"/>
 
     <!-- Row 1: 7B -->
     <g transform="translate(0, 42)">
       <rect width="888" height="46" fill="#ffffff"/>
       <text x="80" y="28" text-anchor="middle" class="mono" font-weight="700" fill="#0f172a">7B 模型</text>
-      <text x="240" y="28" text-anchor="middle" class="mono" fill="#64748b">28 GB</text>
-      <text x="420" y="28" text-anchor="middle" class="highlight">14 GB (主流标准)</text>
-      <text x="600" y="28" text-anchor="middle" class="mono" fill="#16a34a">7 GB</text>
-      <text x="780" y="28" text-anchor="middle" class="mono" fill="#16a34a">3.5 GB (手机可跑)</text>
+      <text x="245" y="28" text-anchor="middle" class="mono" fill="#64748b">28 GB</text>
+      <text x="430" y="28" text-anchor="middle" class="highlight">14 GB (主流标准)</text>
+      <text x="615" y="28" text-anchor="middle" class="mono" fill="#16a34a">7 GB</text>
+      <text x="795" y="28" text-anchor="middle" class="mono" fill="#16a34a">3.5 GB (手机可跑)</text>
       <line x1="0" y1="46" x2="888" y2="46" stroke="#e2e8f0"/>
     </g>
 
@@ -48,10 +45,10 @@
     <g transform="translate(0, 88)">
       <rect width="888" height="46" fill="#f8fafc"/>
       <text x="80" y="28" text-anchor="middle" class="mono" font-weight="700" fill="#0f172a">14B 模型</text>
-      <text x="240" y="28" text-anchor="middle" class="mono" fill="#64748b">56 GB</text>
-      <text x="420" y="28" text-anchor="middle" class="highlight">28 GB (需 32G 卡)</text>
-      <text x="600" y="28" text-anchor="middle" class="mono" fill="#16a34a">14 GB (4090 可跑)</text>
-      <text x="780" y="28" text-anchor="middle" class="mono" fill="#16a34a">7 GB</text>
+      <text x="245" y="28" text-anchor="middle" class="mono" fill="#64748b">56 GB</text>
+      <text x="430" y="28" text-anchor="middle" class="highlight">28 GB (需 32G 卡)</text>
+      <text x="615" y="28" text-anchor="middle" class="mono" fill="#16a34a">14 GB (4090 可跑)</text>
+      <text x="795" y="28" text-anchor="middle" class="mono" fill="#16a34a">7 GB</text>
       <line x1="0" y1="46" x2="888" y2="46" stroke="#e2e8f0"/>
     </g>
 
@@ -59,10 +56,10 @@
     <g transform="translate(0, 134)">
       <rect width="888" height="46" fill="#ffffff"/>
       <text x="80" y="28" text-anchor="middle" class="mono" font-weight="700" fill="#0f172a">70B 模型</text>
-      <text x="240" y="28" text-anchor="middle" class="mono" fill="#64748b">280 GB</text>
-      <text x="420" y="28" text-anchor="middle" class="highlight">140 GB (需 2×80G 卡)</text>
-      <text x="600" y="28" text-anchor="middle" class="mono" fill="#2563eb">70 GB (单卡 A100)</text>
-      <text x="780" y="28" text-anchor="middle" class="mono" fill="#16a34a">35 GB (双 4090)</text>
+      <text x="245" y="28" text-anchor="middle" class="mono" fill="#64748b">280 GB</text>
+      <text x="430" y="28" text-anchor="middle" class="highlight">140 GB (需 2×80G 卡)</text>
+      <text x="615" y="28" text-anchor="middle" class="mono" fill="#2563eb">70 GB (单卡 A100)</text>
+      <text x="795" y="28" text-anchor="middle" class="mono" fill="#16a34a">35 GB (双 4090)</text>
       <line x1="0" y1="46" x2="888" y2="46" stroke="#e2e8f0"/>
     </g>
 
@@ -70,10 +67,10 @@
     <g transform="translate(0, 180)">
       <rect width="888" height="56" rx="6" fill="#f8fafc"/>
       <text x="80" y="32" text-anchor="middle" class="mono" font-weight="700" fill="#0f172a">671B (MoE)</text>
-      <text x="240" y="32" text-anchor="middle" class="mono" fill="#64748b">2684 GB</text>
-      <text x="420" y="32" text-anchor="middle" class="mono" fill="#64748b">1342 GB</text>
-      <text x="600" y="32" text-anchor="middle" class="highlight">671 GB (FP8 工业标准)</text>
-      <text x="780" y="32" text-anchor="middle" class="mono" fill="#16a34a">335 GB</text>
+      <text x="245" y="32" text-anchor="middle" class="mono" fill="#64748b">2684 GB</text>
+      <text x="430" y="32" text-anchor="middle" class="mono" fill="#64748b">1342 GB</text>
+      <text x="615" y="32" text-anchor="middle" class="highlight">671 GB (FP8 工业标准)</text>
+      <text x="795" y="32" text-anchor="middle" class="mono" fill="#16a34a">335 GB</text>
     </g>
   </g>
 </svg>

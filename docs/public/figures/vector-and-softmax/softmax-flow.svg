@@ -68,8 +68,8 @@
       <g transform="translate(14, 138)">
         <rect width="232" height="80" rx="4" fill="#dbeafe"/>
         <text x="10" y="22" class="box-label" fill="#1e40af">双重数学红利：</text>
-        <text x="10" y="42" class="box-desc" fill="#1e3a8a">1. 负数全部变成正数（0.37 &gt; 0）</text>
-        <text x="10" y="60" class="box-desc" fill="#1e3a8a">2. 高分差距被大幅拉大</text>
+        <text x="10" y="42" class="box-desc" fill="#1e3a8a">1. 负数全转正数（0.37 &gt; 0）</text>
+        <text x="10" y="60" class="box-desc" fill="#1e3a8a">2. 高分差距被指数级拉大</text>
       </g>
     </g>
 
@@ -94,7 +94,7 @@
         <rect width="232" height="80" rx="4" fill="#dcfce7"/>
         <text x="10" y="22" class="box-label" fill="#166534">终态：标准概率分布</text>
         <text x="10" y="42" class="mono" fill="#14532d">总和 Σ P_i = 100.0%</text>
-        <text x="10" y="60" class="box-desc" fill="#14532d">直接输入概率转盘进行采样预测！</text>
+        <text x="10" y="60" class="box-desc" fill="#14532d">直接输入概率转盘采样！</text>
       </g>
     </g>
 

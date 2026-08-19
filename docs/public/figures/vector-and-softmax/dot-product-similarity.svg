@@ -6,10 +6,9 @@
       .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
       .col-title { font-size: 14.5px; font-weight: 700; }
       .tag { font-size: 11px; font-weight: 600; }
-      .box-label { font-size: 12.5px; font-weight: 700; }
       .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
       .mono { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; }
-      .mono-large { font-family: "IBM Plex Mono", monospace; font-size: 13.5px; font-weight: 700; }
+      .mono-large { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 700; }
     </style>
     <marker id="arrow" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
       <polygon points="0 0, 7 2.5, 0 5" fill="#0284c7"/>
@@ -45,9 +44,10 @@
 
       <g transform="translate(14, 134)">
         <rect width="256" height="88" rx="4" fill="#dcfce7"/>
-        <text x="10" y="22" class="mono-large" fill="#15803d">a · b &gt; 0 (正向高分)</text>
-        <text x="10" y="44" class="box-desc" fill="#14532d">点积结果非常大，说明二者语义高度重合（如“小猫”与“猫粮”）。</text>
-        <text x="10" y="68" class="box-desc" font-weight="700" fill="#166534">👉 自注意力中 Q 与 K 的高分来源！</text>
+        <text x="10" y="20" class="mono-large" fill="#15803d">a · b &gt; 0 (正向高分)</text>
+        <text x="10" y="38" class="box-desc" fill="#14532d">两向量方向接近，说明语义高度</text>
+        <text x="10" y="52" class="box-desc" fill="#14532d">重合（如“小猫”与“猫粮”）。</text>
+        <text x="10" y="72" class="box-desc" font-weight="700" fill="#166534">👉 自注意力 Q 与 K 高分来源！</text>
       </g>
     </g>
 
@@ -70,9 +70,10 @@
 
       <g transform="translate(14, 134)">
         <rect width="256" height="88" rx="4" fill="#f1f5f9"/>
-        <text x="10" y="22" class="mono-large" fill="#334155">a · b = 0 (零分，无投影)</text>
-        <text x="10" y="44" class="box-desc" fill="#475569">两个概念在特征维度上完全独立、毫无交集（如“小猫”与“量子比特”）。</text>
-        <text x="10" y="68" class="box-desc" fill="#64748b">👉 注意力权重为 0，互不干扰。</text>
+        <text x="10" y="20" class="mono-large" fill="#334155">a · b = 0 (零分，无投影)</text>
+        <text x="10" y="38" class="box-desc" fill="#475569">两概念维度正交，毫无语义交集</text>
+        <text x="10" y="52" class="box-desc" fill="#475569">（如“小猫”与“量子比特”）。</text>
+        <text x="10" y="72" class="box-desc" fill="#64748b">👉 注意力权重为 0，互不干扰。</text>
       </g>
     </g>
 
@@ -95,9 +96,10 @@
 
       <g transform="translate(14, 134)">
         <rect width="256" height="88" rx="4" fill="#ffedd5"/>
-        <text x="10" y="22" class="mono-large" fill="#c2410c">a · b &lt; 0 (负分，互斥)</text>
-        <text x="10" y="44" class="box-desc" fill="#7c2d12">方向相反，意味着语义特征产生排斥（如“炎热”与“结冰”）。</text>
-        <text x="10" y="68" class="box-desc" fill="#9a3412">👉 后续通过 Softmax 将负分压制为 ~0%。</text>
+        <text x="10" y="20" class="mono-large" fill="#c2410c">a · b &lt; 0 (负分，互斥)</text>
+        <text x="10" y="38" class="box-desc" fill="#7c2d12">方向相反，意味着语义特征排斥</text>
+        <text x="10" y="52" class="box-desc" fill="#7c2d12">（如“炎热”与“结冰”）。</text>
+        <text x="10" y="72" class="box-desc" fill="#9a3412">👉 后续 Softmax 压制为 ~0%。</text>
       </g>
     </g>
 
