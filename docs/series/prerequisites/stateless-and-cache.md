@@ -3,7 +3,7 @@ title: "无状态与缓存机制"
 description: "无状态 HTTP 请求的现实意义、空间换时间的缓存哲学，以及前缀树匹配。"
 series: prerequisites
 chapter: foundations
-order: 3
+order: 6
 type: concept
 articleStatus: draft
 prerequisites: []

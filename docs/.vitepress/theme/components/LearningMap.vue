@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import { withBase } from "vitepress";
 import {
   articleHref,
@@ -14,9 +15,19 @@ const props = defineProps<{
 
 const isSingleSeries = Boolean(props.seriesId);
 
-const visibleSeries: Series[] = props.seriesId
-  ? seriesList.filter((item) => item.id === props.seriesId)
-  : seriesList;
+const singleSeriesList = computed(() =>
+  props.seriesId
+    ? seriesList.filter((item) => item.id === props.seriesId)
+    : []
+);
+
+const topicSeries = computed(() =>
+  seriesList.filter((item) => item.season > 0)
+);
+
+const basicSeries = computed(() =>
+  seriesList.filter((item) => item.season === 0)
+);
 
 function pad(n: number): string {
   return String(n).padStart(2, "0");
@@ -25,52 +36,152 @@ function pad(n: number): string {
 
 <template>
   <div class="learning-map">
-    <section
-      v-for="series in visibleSeries"
-      :key="series.id"
-      class="season-block"
-    >
-      <!-- Season Header (Home View) -->
-      <header v-if="!isSingleSeries" class="season-header">
-        <div class="season-meta">
-          <span class="season-tag">第{{ seasonLabel(series.season) }}季</span>
-          <span class="season-badge">{{ series.badge }}</span>
-        </div>
-        <h2 class="season-title">
-          <a :href="withBase(seriesHref(series.id))">{{ series.title }}</a>
-        </h2>
-        <p class="season-subtitle">{{ series.subtitle }}</p>
-      </header>
+    <!-- 1. 单专栏展示视图（专栏内页） -->
+    <template v-if="isSingleSeries">
+      <section
+        v-for="series in singleSeriesList"
+        :key="series.id"
+        class="season-block"
+      >
+        <div class="chapters-wrapper">
+          <div
+            v-for="chapter in series.chapters"
+            :key="chapter.id"
+            class="chapter-card"
+          >
+            <div class="chapter-head">
+              <h3 class="chapter-title">{{ chapter.title }}</h3>
+            </div>
 
-      <!-- Chapters List -->
-      <div class="chapters-wrapper">
-        <div
-          v-for="chapter in series.chapters"
-          :key="chapter.id"
-          class="chapter-card"
-        >
-          <div class="chapter-head">
-            <h3 class="chapter-title">{{ chapter.title }}</h3>
-          </div>
-
-          <ul class="article-list">
-            <li
-              v-for="article in chapter.articles"
-              :key="article.id"
-              class="article-item"
-            >
-              <span class="article-index">{{ pad(article.order) }}</span>
-              <a
-                :href="withBase(articleHref(series.id, article.id))"
-                class="article-link"
+            <ul class="article-list">
+              <li
+                v-for="article in chapter.articles"
+                :key="article.id"
+                class="article-item"
               >
-                {{ article.title }}
-              </a>
-            </li>
-          </ul>
+                <span class="article-index">{{ pad(article.order) }}</span>
+                <a
+                  :href="withBase(articleHref(series.id, article.id))"
+                  class="article-link"
+                >
+                  {{ article.title }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </template>
+
+    <!-- 2. 首页全景视图：拆分为【专题】与【基础知识】两大区块 -->
+    <template v-else>
+      <!-- 区块一：专题（第 1~5 季） -->
+      <div class="map-section">
+        <div class="map-group-header">
+          <span class="group-badge">主线脉络</span>
+          <h2 class="group-title">专题</h2>
+          <p class="group-desc">
+            从底层结构、模型训练、工具扩展到智能体与物理极限，按 5 季因果链循序渐进。
+          </p>
+        </div>
+
+        <div class="series-stack">
+          <section
+            v-for="series in topicSeries"
+            :key="series.id"
+            class="season-block"
+          >
+            <header class="season-header">
+              <div class="season-meta">
+                <span class="season-tag">第{{ seasonLabel(series.season) }}季</span>
+                <span class="season-badge">{{ series.badge }}</span>
+              </div>
+              <h3 class="season-title">
+                <a :href="withBase(seriesHref(series.id))">{{ series.title }}</a>
+              </h3>
+              <p class="season-subtitle">{{ series.subtitle }}</p>
+            </header>
+
+            <div class="chapters-wrapper">
+              <div
+                v-for="chapter in series.chapters"
+                :key="chapter.id"
+                class="chapter-card"
+              >
+                <div class="chapter-head">
+                  <h4 class="chapter-title">{{ chapter.title }}</h4>
+                </div>
+
+                <ul class="article-list">
+                  <li
+                    v-for="article in chapter.articles"
+                    :key="article.id"
+                    class="article-item"
+                  >
+                    <span class="article-index">{{ pad(article.order) }}</span>
+                    <a
+                      :href="withBase(articleHref(series.id, article.id))"
+                      class="article-link"
+                    >
+                      {{ article.title }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
-    </section>
+
+      <!-- 分隔装饰 -->
+      <div class="section-divider"></div>
+
+      <!-- 区块二：基础知识（随时按需查阅） -->
+      <div class="map-section basics-section">
+        <div class="map-group-header">
+          <span class="group-badge badge-basics">选读工具箱</span>
+          <h2 class="group-title">基础知识</h2>
+          <p class="group-desc">
+            显存带宽、向量几何、矩阵算子、梯度下降与缓存机制，随查随用的底层物理与数学工具。
+          </p>
+        </div>
+
+        <div class="series-stack">
+          <section
+            v-for="series in basicSeries"
+            :key="series.id"
+            class="season-block basics-block"
+          >
+            <div class="chapters-wrapper">
+              <div
+                v-for="chapter in series.chapters"
+                :key="chapter.id"
+                class="chapter-card"
+              >
+                <ul class="article-list basics-grid">
+                  <li
+                    v-for="article in chapter.articles"
+                    :key="article.id"
+                    class="article-item basics-item"
+                  >
+                    <span class="article-index">{{ pad(article.order) }}</span>
+                    <div class="basics-info">
+                      <a
+                        :href="withBase(articleHref(series.id, article.id))"
+                        class="article-link"
+                      >
+                        {{ article.title }}
+                      </a>
+                      <p class="basics-desc">{{ article.description }}</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -78,18 +189,77 @@ function pad(n: number): string {
 .learning-map {
   display: flex;
   flex-direction: column;
-  gap: 56px;
+  gap: 48px;
+}
+
+.map-section {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* 分组大标题 */
+.map-group-header {
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+}
+
+.group-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--brand);
+  padding: 2px 8px;
+  background: var(--warm-sand);
+  border-radius: 4px;
+  margin-bottom: 8px;
+  letter-spacing: 0.04em;
+}
+
+.group-badge.badge-basics {
+  color: var(--olive);
+  background: var(--warm-sand);
+}
+
+.group-title {
+  margin: 0 0 6px;
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--near-black);
+  letter-spacing: 0.02em;
+}
+
+.group-desc {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--stone);
+}
+
+/* 分隔线 */
+.section-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 12px 0;
+}
+
+/* 列表容器 */
+.series-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
 }
 
 .season-block {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 /* Season Header */
 .season-header {
-  padding-bottom: 16px;
+  padding-bottom: 14px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -146,7 +316,7 @@ function pad(n: number): string {
 .chapters-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 24px;
 }
 
 .chapter-card {
@@ -164,7 +334,7 @@ function pad(n: number): string {
 .chapter-title {
   margin: 0;
   font-family: var(--font-serif);
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 400;
   color: var(--near-black);
   letter-spacing: 0.02em;
@@ -216,15 +386,52 @@ function pad(n: number): string {
   text-underline-offset: 3px;
 }
 
+/* 基础知识网格增强 */
+.basics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.basics-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  background: var(--card-bg, #fcfbf9);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.basics-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.basics-desc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--stone);
+}
+
 @media (max-width: 640px) {
   .learning-map {
-    gap: 44px;
+    gap: 36px;
+  }
+  .group-title {
+    font-size: 22px;
   }
   .season-title {
     font-size: 20px;
   }
   .article-item {
     padding: 6px 4px;
+  }
+  .basics-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 }
 </style>

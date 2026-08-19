@@ -39,19 +39,19 @@ export const seriesList: Series[] = [
   {
     id: "prerequisites",
     season: 0,
-    title: "前置基石",
-    subtitle: "读懂 AI 的物理与数学底座",
+    title: "基础知识",
+    subtitle: "大模型的底层物理与数学工具箱",
     description:
-      "在进入大模型世界前，先掌握硬件账本、向量几何与无状态数据结构这三大底层工具箱。",
+      "在进入大模型世界前，先掌握硬件账本、向量几何、矩阵算子、梯度学习与无状态缓存这六大基础工具。",
     promise:
-      "掌握显存换算、向量点积、Softmax 归一化与无状态缓存的底层原理，读懂大模型不再有数学与硬件门槛。",
+      "掌握显存换算、向量点积、矩阵投影、梯度下降与无状态缓存的底层原理，读懂大模型不再有数学与硬件门槛。",
     badge: "选读预备",
     chapters: [
       {
         id: "foundations",
         title: "核心工具箱",
         description:
-          "从显存带宽计算、高维向量空间到无状态与前缀树，亲手演算一遍 AI 最底层的物理与数学机制。",
+          "从显存带宽计算、高维向量空间到矩阵投影、梯度下降与前缀树，亲手演算一遍 AI 最底层的物理与数学机制。",
         articles: [
           {
             id: "hardware-foundations",
@@ -86,6 +86,54 @@ export const seriesList: Series[] = [
             videoSource: "vector-and-softmax",
           },
           {
+            id: "matrix-and-projection",
+            title: "矩阵变换与线性投影",
+            description:
+              "矩阵乘法的几何直觉、空间旋转与升降维投影，以及权重如何充当语义滤镜。",
+            points: [
+              "矩阵乘法本质是高维向量空间的位置变换（拉伸与旋转）",
+              "线性投影（Linear Projection）：用权重矩阵切换观察视角",
+              "升维寻找线性可分特征，降维压缩信息瓶颈",
+              "为什么 Transformer 的 Q、K、V 本质是三个投影矩阵",
+            ],
+            order: 3,
+            prerequisites: ["vector-and-softmax"],
+            articleStatus: "outline",
+            videoSource: "matrix-and-projection",
+          },
+          {
+            id: "neural-network-and-fitting",
+            title: "神经网络与数据拟合",
+            description:
+              "从写死规则到权重拟合，以及非线性激活函数如何赋予网络折叠弯曲空间的能力。",
+            points: [
+              "传统编程与机器学习：写死规则 vs 拟合参数",
+              "人工神经元：线性加权求和与偏置（y = Wx + b）",
+              "为什么必须有非线性激活函数（ReLU / GELU）：赋予空间折叠能力",
+              "多层感知机（MLP）为什么能逼近任意复杂的现实规律",
+            ],
+            order: 4,
+            prerequisites: ["matrix-and-projection"],
+            articleStatus: "outline",
+            videoSource: "neural-network-and-fitting",
+          },
+          {
+            id: "loss-and-gradient",
+            title: "损失函数与梯度下降",
+            description:
+              "量化预测差距的度量衡、盲人下山的梯度直觉，以及千亿参数如何协同微调。",
+            points: [
+              "损失函数（Loss）：用一把尺子精准量化模型预测与真实答案的差距",
+              "梯度（Gradient）：在千亿维度空间里指出最快下山的方向",
+              "学习率（Learning Rate）与反向传播（Backprop）链式法则直觉",
+              "模型从随机噪音蜕变为连贯语言的物理过程",
+            ],
+            order: 5,
+            prerequisites: ["neural-network-and-fitting"],
+            articleStatus: "outline",
+            videoSource: "loss-and-gradient",
+          },
+          {
             id: "stateless-and-cache",
             title: "无状态与缓存机制",
             description:
@@ -96,7 +144,7 @@ export const seriesList: Series[] = [
               "缓存（Cache）的物理哲学：只要算过且复用就绝不重算",
               "前缀树（Trie / Radix Tree）如何高效共享公共前缀",
             ],
-            order: 3,
+            order: 6,
             prerequisites: [],
             articleStatus: "draft",
             videoSource: "stateless-and-cache",
@@ -869,16 +917,17 @@ export function seriesProgress(series: Series): { ready: number; total: number }
 }
 
 export function buildNav() {
+  const topics = seriesList.filter((s) => s.season > 0);
   return [
     { text: "学习地图", link: "/" },
     {
       text: "专题",
-      items: seriesList.map((series) => ({
+      items: topics.map((series) => ({
         text: `第${seasonLabel(series.season)}季 · ${series.title}`,
         link: seriesHref(series.id),
       })),
     },
-    { text: "怎么读", link: "/start" },
+    { text: "基础知识", link: seriesHref("prerequisites") },
   ];
 }
 
@@ -891,10 +940,16 @@ export function buildSidebar() {
 }
 
 function sidebarForSeries(series: Series) {
+  const sectionTitle =
+    series.season === 0
+      ? "基础知识"
+      : `第${seasonLabel(series.season)}季 · ${series.title}`;
+  const overviewText = series.season === 0 ? "基础知识概览" : "本季概览";
+
   return [
     {
-      text: `第${seasonLabel(series.season)}季 · ${series.title}`,
-      items: [{ text: "本季概览", link: seriesHref(series.id) }],
+      text: sectionTitle,
+      items: [{ text: overviewText, link: seriesHref(series.id) }],
     },
     ...series.chapters.map((chapter) => ({
       text: chapter.title,
