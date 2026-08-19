@@ -181,6 +181,40 @@ for (const series of seriesList) {
       });
     }
   }
+
+  // 检查专栏首页 docs/series/${series.id}/index.md
+  const seriesIndexPath = path.join(docsDir, "series", series.id, "index.md");
+  if (fs.existsSync(seriesIndexPath)) {
+    const sIndexContent = fs.readFileSync(seriesIndexPath, "utf-8");
+    const sFmMatch = sIndexContent.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+    if (sFmMatch) {
+      const fmDescMatch = sFmMatch[1].match(/description:\s*"([^"]+)"/);
+      if (fmDescMatch) {
+        const desc = fmDescMatch[1].trim();
+        const sIndexErrors: string[] = [];
+        const sIndexWarnings: string[] = [];
+        if (desc.length > 35) {
+          sIndexWarnings.push(`专栏 index.md description 过长 (${desc.length} 字): "${desc.slice(0, 20)}..."`);
+        }
+        const antiPatterns = ["带你看懂", "在进入", "究竟是怎么", "以及为什么", "深入浅出", "从……讲到", "拆解"];
+        for (const pattern of antiPatterns) {
+          if (desc.includes(pattern) || sIndexContent.includes(pattern)) {
+            sIndexWarnings.push(`专栏 index.md 包含冗余套话: "${pattern}"`);
+          }
+        }
+        if (sIndexWarnings.length > 0) {
+          results.push({
+            file: `series/${series.id}/index.md`,
+            title: `${series.title} 概览页`,
+            status: "overview",
+            passed: sIndexErrors.length === 0,
+            errors: sIndexErrors,
+            warnings: sIndexWarnings,
+          });
+        }
+      }
+    }
+  }
 }
 
 // 打印自检结果看板

@@ -81,7 +81,7 @@ function pad(n: number): string {
           <span class="group-badge">主线脉络</span>
           <h2 class="group-title">专题</h2>
           <p class="group-desc">
-            从底层结构、模型训练、工具扩展到智能体与物理极限，按 5 季因果链循序渐进。
+            底层结构、模型训练、工具协议、智能体系统与物理边界主线脉络。
           </p>
         </div>
 
@@ -142,7 +142,7 @@ function pad(n: number): string {
           <span class="group-badge badge-basics">选读工具箱</span>
           <h2 class="group-title">基础知识</h2>
           <p class="group-desc">
-            显存带宽、向量几何、矩阵算子、梯度下降与缓存机制，随查随用的底层物理与数学工具。
+            显存算力、高维向量、矩阵投影、梯度下降与缓存机制底层工具箱。
           </p>
         </div>
 
