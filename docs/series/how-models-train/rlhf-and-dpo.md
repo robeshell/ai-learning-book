@@ -1,6 +1,6 @@
 ---
 title: "RLHF 与 DPO 偏好对齐"
-description: "奖励模型、人类偏好，以及 DPO 如何绕开显式奖励模型直接对齐。"
+description: "奖励模型、人类偏好对齐与 DPO 隐式策略优化。"
 series: how-models-train
 chapter: alignment
 order: 4

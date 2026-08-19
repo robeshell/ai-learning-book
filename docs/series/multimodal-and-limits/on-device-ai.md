@@ -1,6 +1,6 @@
 ---
 title: "端侧模型与本地离线计算"
-description: "量化、NPU 和本地运行时，如何在断网时也能完成低延迟推理。"
+description: "端侧模型量化、NPU 离线计算与隐私算力折中。"
 series: multimodal-and-limits
 chapter: edge
 order: 3

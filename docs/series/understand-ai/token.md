@@ -1,6 +1,6 @@
 ---
 title: "Token：文字的度量衡"
-description: "文本如何被切成数字编号，以及计费和容量为什么都按 Token 算。"
+description: "BPE 词表切分、中英文切分差异与计费度量衡。"
 series: understand-ai
 chapter: foundation
 order: 3

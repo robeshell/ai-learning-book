@@ -1,18 +1,17 @@
 ---
-title: "提示词注入与安全防御"
-description: "直接和间接注入如何把工具权利用来执行攻击者的指令。"
+title: "提示词注入与越狱攻防"
+description: "提示词注入攻击、越狱绕过与系统安全防御。"
 series: agent-systems
-chapter: safety
+chapter: scale-security
 order: 7
 type: concept
 articleStatus: stub
 prerequisites:
   - "prompt"
-  - "agent-loop"
 videoSource: prompt-injection
 ---
 
-# 提示词注入与安全防御
+# 提示词注入与越狱攻防
 
 直接和间接注入如何把工具权利用来执行攻击者的指令。
 

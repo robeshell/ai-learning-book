@@ -1,6 +1,6 @@
 ---
 title: "Skill 专业技能包"
-description: "把提示词、脚本和规范打成可复用的专业工作法，而不是一段咒语。"
+description: "打包作业规程、提示词模板与脚本资源标准化。"
 series: models-at-work
 chapter: protocols
 order: 7

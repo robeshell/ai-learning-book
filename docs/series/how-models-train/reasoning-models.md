@@ -1,6 +1,6 @@
 ---
 title: "深度推理与慢思考模型"
-description: "思维链、可验证奖励（RLVR），以及 o1 / R1 一类慢思考在优化什么。"
+description: "思维链（CoT）、可验证规则强化（RLVR）与慢思考。"
 series: how-models-train
 chapter: deep-thinking
 order: 5

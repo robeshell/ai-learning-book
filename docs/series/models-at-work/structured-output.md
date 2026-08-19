@@ -1,6 +1,6 @@
 ---
 title: "严格结构化输出"
-description: "用 JSON Schema 约束输出，让程序拿到合法数据而不是聊天废话。"
+description: "JSON Schema 约束、Grammar 语法树引导与确定性输出。"
 series: models-at-work
 chapter: action
 order: 5

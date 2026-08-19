@@ -1,6 +1,6 @@
 ---
 title: "任务规划与自我反思"
-description: "任务分解、执行失败后的自检重试，以及自愈的工程边界。"
+description: "任务拆解、执行反馈自检与自愈重试工程边界。"
 series: agent-systems
 chapter: loop
 order: 4

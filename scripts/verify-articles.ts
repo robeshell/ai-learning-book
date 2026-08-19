@@ -63,6 +63,32 @@ for (const series of seriesList) {
         if (!fm.includes(`order: ${article.order}`)) {
           errors.push(`Frontmatter order 错误，期望: ${article.order}`);
         }
+
+        // 1.5 description 极简短语检查（<= 35 字，拒绝套话模板）
+        const fmDescMatch = fm.match(/description:\s*"([^"]+)"/);
+        if (fmDescMatch) {
+          const desc = fmDescMatch[1].trim();
+          if (desc.length > 35) {
+            warnings.push(`Frontmatter description 过长 (${desc.length} 字): "${desc.slice(0, 20)}..."`);
+          }
+          const antiPatterns = ["带你看懂", "在进入", "究竟是怎么", "以及为什么", "深入浅出"];
+          for (const pattern of antiPatterns) {
+            if (desc.includes(pattern)) {
+              warnings.push(`Frontmatter description 包含冗余套话: "${pattern}"`);
+            }
+          }
+        }
+      }
+
+      // 1.6 series.ts description 极简短语检查
+      if (article.description.length > 35) {
+        warnings.push(`series.ts article.description 过长 (${article.description.length} 字): "${article.description.slice(0, 20)}..."`);
+      }
+      const antiPatterns = ["带你看懂", "在进入", "究竟是怎么", "以及为什么", "深入浅出"];
+      for (const pattern of antiPatterns) {
+        if (article.description.includes(pattern)) {
+          warnings.push(`series.ts article.description 包含冗余套话: "${pattern}"`);
+        }
       }
 
       // 2. 一级标题 H1 检查

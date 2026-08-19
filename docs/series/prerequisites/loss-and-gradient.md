@@ -1,6 +1,6 @@
 ---
 title: "损失函数与梯度下降"
-description: "量化预测差距的度量衡、盲人下山的梯度直觉，以及千亿参数如何协同微调。"
+description: "Cross-Entropy 误差度量、梯度下山与千亿参数微调。"
 series: prerequisites
 chapter: foundations
 order: 5

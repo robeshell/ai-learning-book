@@ -1,6 +1,6 @@
 ---
 title: "大模型的物理极限"
-description: "高质量人类数据枯竭、幻觉不可完全消除，以及为何价值判断不能外包给模型。"
+description: "高质量语料耗尽、统计模型不可消除误差与物理上限。"
 series: multimodal-and-limits
 chapter: boundaries
 order: 5

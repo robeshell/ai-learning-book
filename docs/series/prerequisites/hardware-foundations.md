@@ -1,6 +1,6 @@
 ---
 title: "显存与计算带宽"
-description: "参数量与显存换算、显存带宽瓶颈，以及为什么每吐一个字都要搬运整套模型。"
+description: "参数显存占用换算、HBM 带宽瓶颈与单字生成延迟下限。"
 series: prerequisites
 chapter: foundations
 order: 1

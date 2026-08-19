@@ -1,6 +1,6 @@
 ---
 title: "MCP 统一接入协议"
-description: "把 Tools、Resources、Prompts 收成一套可插拔的上下文协议标准。"
+description: "Model Context Protocol 统一工具接口与服务通信标准。"
 series: models-at-work
 chapter: protocols
 order: 6

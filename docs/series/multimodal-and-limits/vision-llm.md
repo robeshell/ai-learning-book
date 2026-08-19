@@ -1,6 +1,6 @@
 ---
 title: "视觉大模型与多模态"
-description: "图片如何被切成视觉 Token，再和对齐后的语言空间一起计算。"
+description: "Patch 图像切片、视觉 Token 编码与跨模态对齐。"
 series: multimodal-and-limits
 chapter: senses
 order: 1

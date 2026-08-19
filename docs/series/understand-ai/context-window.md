@@ -1,6 +1,6 @@
 ---
 title: "上下文窗口与视野极限"
-description: "单次推理能看见多远，以及窗口为什么不是长期记忆。"
+description: "注意力覆盖上限、窗口溢出截断与工作记忆本质。"
 series: understand-ai
 chapter: runtime
 order: 4

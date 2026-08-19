@@ -1,6 +1,6 @@
 ---
 title: "推理加速与推测采样"
-description: "PagedAttention 与推测采样如何让模型吐字越来越快。"
+description: "PagedAttention 显存分页、推测采样与吞吐延迟权衡。"
 series: understand-ai
 chapter: runtime
 order: 6

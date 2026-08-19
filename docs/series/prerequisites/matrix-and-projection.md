@@ -1,6 +1,6 @@
 ---
 title: "矩阵变换与线性投影"
-description: "矩阵乘法的几何直觉、空间旋转与升降维投影，以及权重如何充当语义滤镜。"
+description: "空间旋转拉伸、升降维投影与权重矩阵的语义滤镜本质。"
 series: prerequisites
 chapter: foundations
 order: 3

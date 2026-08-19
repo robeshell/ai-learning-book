@@ -1,6 +1,6 @@
 ---
 title: "RAG 检索增强生成"
-description: "切块、召回、塞进窗口：不重训也能让模型回答私有知识。"
+description: "外挂检索召回、知识注入与幻觉抑制基础闭环。"
 series: models-at-work
 chapter: retrieve
 order: 1

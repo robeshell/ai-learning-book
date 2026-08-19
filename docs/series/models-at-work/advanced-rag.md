@@ -1,6 +1,6 @@
 ---
 title: "高阶 RAG 与图谱检索"
-description: "朴素切块的盲区、GraphRAG 知识图谱，以及多轮 Agentic 深入检索。"
+description: "分块优化、多路召回、重排序（Rerank）与上下文压缩。"
 series: models-at-work
 chapter: retrieve
 order: 3

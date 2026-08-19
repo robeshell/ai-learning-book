@@ -1,6 +1,6 @@
 ---
 title: "长文本退化与注意力衰减"
-description: "大海捞针、迷失在中间（Lost in the Middle），以及注意力随长度的衰减。"
+description: "长文本注意力衰减、迷失在中间与召回劣化。"
 series: multimodal-and-limits
 chapter: boundaries
 order: 4

@@ -1,6 +1,6 @@
 ---
 title: "AI Agent 自主闭环"
-description: "Thought-Action-Observation 闭环，以及它和聊天机器人的本质差别。"
+description: "Thought-Action-Observation 闭环与自主执行循环。"
 series: agent-systems
 chapter: loop
 order: 1

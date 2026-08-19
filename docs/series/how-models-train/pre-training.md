@@ -1,6 +1,6 @@
 ---
 title: "预训练与基座模型"
-description: "自监督接龙、Scaling Law，以及 Base 为什么还不是聊天助手。"
+description: "无标注自监督接龙、Scaling Law 经验定律与 Base 模型。"
 series: how-models-train
 chapter: raw-model
 order: 1

@@ -1,6 +1,6 @@
 ---
 title: "SFT 指令微调"
-description: "用高质量问答对把接龙机教会听指令、守格式并扮演角色。"
+description: "监督指令微调、问答格式对齐与模型角色扮演。"
 series: how-models-train
 chapter: alignment
 order: 3

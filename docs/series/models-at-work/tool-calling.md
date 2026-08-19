@@ -1,6 +1,6 @@
 ---
 title: "工具调用与动作执行"
-description: "模型不亲手调接口，而是生成参数包，由系统执行后再回填。"
+description: "函数声明注入、模型结构化决策与外部 API 触发。"
 series: models-at-work
 chapter: action
 order: 4

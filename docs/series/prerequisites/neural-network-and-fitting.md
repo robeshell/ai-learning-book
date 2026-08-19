@@ -1,6 +1,6 @@
 ---
 title: "神经网络与数据拟合"
-description: "从写死规则到权重拟合，以及非线性激活函数如何赋予网络折叠弯曲空间的能力。"
+description: "权重拟合逻辑、人工神经元与非线性激活（ReLU）空间折叠。"
 series: prerequisites
 chapter: foundations
 order: 4

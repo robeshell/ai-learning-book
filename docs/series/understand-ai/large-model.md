@@ -1,6 +1,6 @@
 ---
 title: "大模型究竟是什么"
-description: "参数与结构、预训练与自回归、规模效应，以及产品和模型为什么不是一层。"
+description: "参数规模、自回归概率拟合与大模型的物理分层。"
 series: understand-ai
 chapter: foundation
 order: 1

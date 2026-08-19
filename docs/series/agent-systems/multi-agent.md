@@ -1,8 +1,8 @@
 ---
-title: "多智能体分工协同"
-description: "主从编排、专职子 Agent，以及 Agent 之间如何严密交接。"
+title: "多智能体协同与分工"
+description: "多智能体角色分工、总线通信与协作拓扑模式。"
 series: agent-systems
-chapter: collaboration
+chapter: scale-security
 order: 5
 type: concept
 articleStatus: stub
@@ -11,7 +11,7 @@ prerequisites:
 videoSource: multi-agent
 ---
 
-# 多智能体分工协同
+# 多智能体协同与分工
 
 主从编排、专职子 Agent，以及 Agent 之间如何严密交接。
 

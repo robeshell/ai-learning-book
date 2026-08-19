@@ -1,6 +1,6 @@
 ---
 title: "为什么大模型会幻觉"
-description: "概率拟合不是客观真实，流畅的句子可以完全没有事实依据。"
+description: "统计概率拟合与事实脱钩、Grounding 锚定必要性。"
 series: understand-ai
 chapter: limits
 order: 10

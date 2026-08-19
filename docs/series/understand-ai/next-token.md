@@ -1,6 +1,6 @@
 ---
 title: "Next-Token 概率预测"
-description: "Logits、温度、Top-P，以及上下文学习究竟在改什么。"
+description: "Logits、采样温度/Top-P 与上下文学习。"
 series: understand-ai
 chapter: generation
 order: 7

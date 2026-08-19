@@ -1,6 +1,6 @@
 ---
 title: "智能体的三层记忆"
-description: "工作记忆、会话状态和长期记忆如何分工，以及压缩如何发生。"
+description: "工作记忆、短期会话状态与长期向量检索分工。"
 series: agent-systems
 chapter: loop
 order: 3

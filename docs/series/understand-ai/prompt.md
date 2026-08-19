@@ -1,6 +1,6 @@
 ---
 title: "提示词在做什么"
-description: "提示词是进入窗口的 Token 序列，不是神秘咒语。"
+description: "输入 Token 序列注意力引导与概率生成轨道收拢。"
 series: understand-ai
 chapter: generation
 order: 8

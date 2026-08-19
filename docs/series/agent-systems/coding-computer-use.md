@@ -1,17 +1,17 @@
 ---
-title: "代码智能体与电脑操作"
-description: "改代码的 Agent 和看屏幕点鼠标的 Agent，能力边界差在哪。"
+title: "Coding 与 Computer Use"
+description: "代码生成执行、GUI 屏幕坐标点击与环境交互。"
 series: agent-systems
-chapter: collaboration
+chapter: scale-security
 order: 6
 type: concept
 articleStatus: stub
 prerequisites:
-  - "agent-loop"
+  - "tool-calling"
 videoSource: coding-computer-use
 ---
 
-# 代码智能体与电脑操作
+# Coding 与 Computer Use
 
 改代码的 Agent 和看屏幕点鼠标的 Agent，能力边界差在哪。
 

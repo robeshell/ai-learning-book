@@ -1,6 +1,6 @@
 ---
 title: "向量空间与概率计算"
-description: "词如何变成高维坐标、点积为什么能度量语义关联，以及分数如何转为概率。"
+description: "高维语义坐标、点积余弦相似度与 Softmax 概率归一化。"
 series: prerequisites
 chapter: foundations
 order: 2

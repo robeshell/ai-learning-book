@@ -1,6 +1,6 @@
 ---
 title: "MoE 混合专家模型"
-description: "稀疏激活和门控路由，为什么总参数很大、一次只用一部分。"
+description: "稀疏门控路由、条件激活与大参数低显存权衡。"
 series: understand-ai
 chapter: generation
 order: 9

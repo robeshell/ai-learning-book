@@ -1,6 +1,6 @@
 ---
 title: "模型蒸馏与量化压缩"
-description: "大模型当老师、权重降精度，以及 LoRA 一类低成本参数适配。"
+description: "教师模型蒸馏、INT8/INT4 低比特量化与 LoRA 微调。"
 series: how-models-train
 chapter: deep-thinking
 order: 6

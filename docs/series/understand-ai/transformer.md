@@ -1,6 +1,6 @@
 ---
 title: "Transformer 与自注意力"
-description: "自注意力如何并行计算词汇关联，以及 QKV 的直观物理意义。"
+description: "自注意力机制、QKV 物理投影与全词并发计算。"
 series: understand-ai
 chapter: foundation
 order: 2

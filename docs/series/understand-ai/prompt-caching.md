@@ -1,6 +1,6 @@
 ---
 title: "Prompt Caching 前缀缓存"
-description: "KV Cache 和前缀缓存如何降低首字延迟和重复计算成本。"
+description: "KV Cache 显存开销、前缀缓存命中与首字延迟优化。"
 series: understand-ai
 chapter: runtime
 order: 5

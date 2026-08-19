@@ -1,6 +1,6 @@
 ---
 title: "Harness 智能体底盘"
-description: "模型只是发动机，宿主操作系统底盘才管理状态、权限和崩溃恢复。"
+description: "宿主底盘生命周期管理、权限沙箱与崩溃恢复。"
 series: agent-systems
 chapter: loop
 order: 2

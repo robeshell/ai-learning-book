@@ -1,6 +1,6 @@
 ---
 title: "Embedding 向量嵌入"
-description: "文字变成高维坐标之后，为什么能按意思而不是按关键词查找。"
+description: "高维向量语义编码、距离度量与文本表征模型。"
 series: models-at-work
 chapter: retrieve
 order: 2
