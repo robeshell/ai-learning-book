@@ -1,7 +1,2 @@
-@font-face {
-  font-family: "TsangerJinKai02";
-  src: url("/fonts/TsangerJinKai02.woff2") format("woff2");
-  font-weight: 400 500;
-  font-style: normal;
-  font-display: block;
-}
+/* 标题字体采用开源全量霞鹜文楷（LXGW WenKai），通过 Webfont 按需加载 */
+

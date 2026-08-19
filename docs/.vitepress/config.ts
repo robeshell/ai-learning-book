@@ -11,11 +11,8 @@ export default defineConfig({
     [
       "link",
       {
-        rel: "preload",
-        href: "/fonts/TsangerJinKai02.woff2",
-        as: "font",
-        type: "font/woff2",
-        crossorigin: "",
+        rel: "stylesheet",
+        href: "https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css",
       },
     ],
     ["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],

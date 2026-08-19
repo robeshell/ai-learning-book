@@ -42,4 +42,4 @@ docs/
 3. 正文写 1500–3000 字概念长文，配图放 `docs/public/figures/<id>/`。
 4. 同步 frontmatter 与目录里的 `articleStatus`。
 
-标题字体是仓耳今楷 02，按个人非商用使用。以后若接广告、卖内容或给公司用，需要向 [仓耳](https://tsanger.cn) 购买商用授权。
+标题字体采用开源免费可商用的霞鹜文楷（LXGW WenKai Screen），正文字体采用思源黑体（Noto Sans SC），等宽字体采用 IBM Plex Mono。

@@ -15,7 +15,8 @@
   --breaking-bg: #f0e0d8;
   --breaking-fg: #8b4513;
 
-  --font-serif: "TsangerJinKai02", "Songti SC", STSong, serif;
+  --font-serif: "LXGW WenKai Screen", "LXGW WenKai", "Songti SC", STSong,
+    serif;
   --font-sans: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB",
     "Microsoft YaHei", sans-serif;
   --font-mono: "IBM Plex Mono", "SF Mono", "Fira Code", ui-monospace, monospace;
