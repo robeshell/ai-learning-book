@@ -38,22 +38,22 @@
     </style>
   </defs>
   <rect data-graph-role="background" width="960.0" height="420.0" fill="#ffffff"/>
-  <text x="48.0" y="48" text-anchor="start" class="title">循环网络为什么会被换掉</text>
-  <text x="48.0" y="72" text-anchor="start" class="subtitle">比的是顺序步数和最远路径，不是神秘智能</text>
+  <text x="48.0" y="48" text-anchor="start" class="title">循环网络与自注意力的计算拓扑对比</text>
+  <text x="48.0" y="72" text-anchor="start" class="subtitle">从串行等候到常数步直连，释放硬件并行算力</text>
   <line x1="48" y1="100" x2="912.0" y2="100" stroke="#e5e7eb" stroke-width="1"/>
-  <g id="node-rnn" data-graph-role="node" data-node-id="rnn" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="64,148,312,268">
-  <rect x="64.0" y="148.0" width="248.0" height="120.0" rx="4.0" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.8"/>
-  <text x="188.0" y="208.0" text-anchor="middle" class="node-title" font-size="18.0">循环网络</text>
-  <text x="188.0" y="230.0" text-anchor="middle" class="node-sub">后一个必须等前一个</text>
+  <g id="node-rnn" data-graph-role="node" data-node-id="rnn" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="48,148,304,278">
+  <rect x="48.0" y="148.0" width="256.0" height="130.0" rx="4.0" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.8"/>
+  <text x="176.0" y="213.0" text-anchor="middle" class="node-title" font-size="18.0">循环网络（RNN）</text>
+  <text x="176.0" y="235.0" text-anchor="middle" class="node-sub">逐步串行依赖，顺序步数 O(n)</text>
   </g>
-  <g id="node-attn" data-graph-role="node" data-node-id="attn" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="356,148,604,268">
-  <rect x="356.0" y="148.0" width="248.0" height="120.0" rx="4.0" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.8"/>
-  <text x="480.0" y="208.0" text-anchor="middle" class="node-title" font-size="18.0">自注意力</text>
-  <text x="480.0" y="230.0" text-anchor="middle" class="node-sub">任意两位置一步相连</text>
+  <g id="node-attn" data-graph-role="node" data-node-id="attn" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="352,148,608,278">
+  <rect x="352.0" y="148.0" width="256.0" height="130.0" rx="4.0" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.8"/>
+  <text x="480.0" y="213.0" text-anchor="middle" class="node-title" font-size="18.0">自注意力（Attention）</text>
+  <text x="480.0" y="235.0" text-anchor="middle" class="node-sub">全位置单步直连，顺序步数 O(1)</text>
   </g>
-  <g id="node-path" data-graph-role="node" data-node-id="path" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="648,148,896,268">
-  <rect x="648.0" y="148.0" width="248.0" height="120.0" rx="4.0" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.8"/>
-  <text x="772.0" y="208.0" text-anchor="middle" class="node-title" font-size="18.0">最远路径</text>
-  <text x="772.0" y="230.0" text-anchor="middle" class="node-sub">注意力是常数步，循环随长度涨</text>
+  <g id="node-path" data-graph-role="node" data-node-id="path" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="656,148,912,278">
+  <rect x="656.0" y="148.0" width="256.0" height="130.0" rx="4.0" fill="#f9fafb" stroke="#3b82f6" stroke-width="1.8"/>
+  <text x="784.0" y="213.0" text-anchor="middle" class="node-title" font-size="18.0">硬件并行效率</text>
+  <text x="784.0" y="235.0" text-anchor="middle" class="node-sub">矩阵并发计算，释放 GPU 算力</text>
   </g>
 </svg>

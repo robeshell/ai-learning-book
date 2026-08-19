@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" width="960" height="360" data-generator="fireworks-tech-graph" data-schema-version="1" data-text-metrics="heuristic-v1" data-style-id="4" data-visual-theme="Notion Clean" data-diagram-type="flowchart" data-motion-scene="" data-semantic-profile="generic" data-semantic-valid="true" data-quality-profile="showcase" data-max-bends-per-edge="2" data-max-total-bends="8" data-max-route-stretch="1.35" data-max-bridged-crossings="0" data-min-node-gap="40.0" data-min-container-gutter="20.0" data-min-label-clearance="4.0" data-min-segment-length="16.0">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420" data-generator="fireworks-tech-graph" data-schema-version="1" data-text-metrics="heuristic-v1" data-style-id="4" data-visual-theme="Notion Clean" data-diagram-type="flowchart" data-motion-scene="" data-semantic-profile="generic" data-semantic-valid="true" data-quality-profile="showcase" data-max-bends-per-edge="2" data-max-total-bends="8" data-max-route-stretch="1.35" data-max-bridged-crossings="0" data-min-node-gap="40.0" data-min-container-gutter="20.0" data-min-label-clearance="4.0" data-min-segment-length="16.0">
   <defs>
     <marker id="arrowA" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
       <polygon points="0 0, 8 3, 0 6" fill="#3b82f6"/>
@@ -37,33 +37,33 @@
     .metric-value { font-size: 9.5px; font-weight: 700; fill: #111827; }
     </style>
   </defs>
-  <rect data-graph-role="background" width="960.0" height="360.0" fill="#ffffff"/>
-  <text x="48.0" y="48" text-anchor="start" class="title">自注意力在算什么</text>
-  <text x="48.0" y="72" text-anchor="start" class="subtitle">每个位置对同一序列里的所有位置打分，再按分数混合</text>
+  <rect data-graph-role="background" width="960.0" height="420.0" fill="#ffffff"/>
+  <text x="48.0" y="48" text-anchor="start" class="title">自注意力的全句关联计算流</text>
+  <text x="48.0" y="72" text-anchor="start" class="subtitle">每个位置与全序列同时交互，动态加权聚合上下文</text>
   <line x1="48" y1="100" x2="912.0" y2="100" stroke="#e5e7eb" stroke-width="1"/>
-  <path id="to-score" data-graph-role="edge" data-edge-id="to-score" data-source="here" data-target="score" data-edge-kind="flow" data-topic-id="" data-flow="control" data-motion-role="" data-motion-stage="" data-motion-order="" data-protocol="" data-via="" data-critical-path-id="" data-critical-hop="" data-critical-hops="" data-critical="false" data-bends="0" data-route-stretch="1.0" data-bridges="" d="M 268,184 L 370,184" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowA)"/>
-  <path id="to-mix" data-graph-role="edge" data-edge-id="to-mix" data-source="score" data-target="mix" data-edge-kind="flow" data-topic-id="" data-flow="control" data-motion-role="" data-motion-stage="" data-motion-order="" data-protocol="" data-via="" data-critical-path-id="" data-critical-hop="" data-critical-hops="" data-critical="false" data-bends="0" data-route-stretch="1.0" data-bridges="" d="M 590,184 L 692,184" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowA)"/>
-  <g id="node-here" data-graph-role="node" data-node-id="here" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="48,140,268,228">
-  <rect x="48.0" y="140.0" width="220.0" height="88.0" rx="4.0" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.8"/>
-  <text x="158.0" y="184.0" text-anchor="middle" class="node-title" font-size="18.0">这个位置</text>
-  <text x="158.0" y="206.0" text-anchor="middle" class="node-sub">要更新的表示</text>
+  <path id="to-score" data-graph-role="edge" data-edge-id="to-score" data-source="here" data-target="score" data-edge-kind="flow" data-topic-id="" data-flow="control" data-motion-role="" data-motion-stage="" data-motion-order="" data-protocol="" data-via="" data-critical-path-id="" data-critical-hop="" data-critical-hops="" data-critical="false" data-bends="0" data-route-stretch="1.0" data-bridges="" d="M 268,192 L 370,192" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowA)"/>
+  <path id="to-mix" data-graph-role="edge" data-edge-id="to-mix" data-source="score" data-target="mix" data-edge-kind="flow" data-topic-id="" data-flow="control" data-motion-role="" data-motion-stage="" data-motion-order="" data-protocol="" data-via="" data-critical-path-id="" data-critical-hop="" data-critical-hops="" data-critical="false" data-bends="0" data-route-stretch="1.0" data-bridges="" d="M 590,192 L 692,192" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowA)"/>
+  <g id="node-here" data-graph-role="node" data-node-id="here" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="48,144,268,240">
+  <rect x="48.0" y="144.0" width="220.0" height="96.0" rx="4.0" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.8"/>
+  <text x="158.0" y="192.0" text-anchor="middle" class="node-title" font-size="18.0">输入词向量</text>
+  <text x="158.0" y="214.0" text-anchor="middle" class="node-sub">当前词的原始向量表示</text>
   </g>
-  <g id="node-score" data-graph-role="node" data-node-id="score" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="370,132,590,236">
-  <rect x="370.0" y="132.0" width="220.0" height="104.0" rx="4.0" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.8"/>
-  <text x="480.0" y="184.0" text-anchor="middle" class="node-title" font-size="18.0">对全句打分</text>
-  <text x="480.0" y="206.0" text-anchor="middle" class="node-sub">一步算完所有配对</text>
+  <g id="node-score" data-graph-role="node" data-node-id="score" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="370,136,590,248">
+  <rect x="370.0" y="136.0" width="220.0" height="112.0" rx="4.0" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.8"/>
+  <text x="480.0" y="192.0" text-anchor="middle" class="node-title" font-size="18.0">点积与 Softmax</text>
+  <text x="480.0" y="214.0" text-anchor="middle" class="node-sub">计算全序列注意力权重分布</text>
   </g>
-  <g id="node-mix" data-graph-role="node" data-node-id="mix" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="692,140,912,228">
-  <rect x="692.0" y="140.0" width="220.0" height="88.0" rx="4.0" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.8"/>
-  <text x="802.0" y="184.0" text-anchor="middle" class="node-title" font-size="18.0">按分数混合</text>
-  <text x="802.0" y="206.0" text-anchor="middle" class="node-sub">得到新的向量</text>
+  <g id="node-mix" data-graph-role="node" data-node-id="mix" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="692,144,912,240">
+  <rect x="692.0" y="144.0" width="220.0" height="96.0" rx="4.0" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.8"/>
+  <text x="802.0" y="192.0" text-anchor="middle" class="node-title" font-size="18.0">加权汇聚 Value</text>
+  <text x="802.0" y="214.0" text-anchor="middle" class="node-sub">生成包含上下文的新表示</text>
   </g>
-  <g id="to-score-label" data-graph-role="label" data-owner="to-score" data-graph-bounds="300,153,338,173">
-  <rect x="300.0" y="153.0" width="38.0" height="20" rx="6" fill="#ffffff" opacity="0.96"/>
-  <text x="319.0" y="167.0" text-anchor="middle" class="arrow-label">查询</text>
+  <g id="to-score-label" data-graph-role="label" data-owner="to-score" data-graph-bounds="276.72,161,361.28,181">
+  <rect x="276.72" y="161.0" width="84.56" height="20" rx="6" fill="#ffffff" opacity="0.96"/>
+  <text x="319.0" y="175.0" text-anchor="middle" class="arrow-label">生成 QK 匹配</text>
   </g>
-  <g id="to-mix-label" data-graph-role="label" data-owner="to-mix" data-graph-bounds="622,153,660,173">
-  <rect x="622.0" y="153.0" width="38.0" height="20" rx="6" fill="#ffffff" opacity="0.96"/>
-  <text x="641.0" y="167.0" text-anchor="middle" class="arrow-label">加权</text>
+  <g id="to-mix-label" data-graph-role="label" data-owner="to-mix" data-graph-bounds="604.36,161,677.64,181">
+  <rect x="604.36" y="161.0" width="73.28" height="20" rx="6" fill="#ffffff" opacity="0.96"/>
+  <text x="641.0" y="175.0" text-anchor="middle" class="arrow-label">加权求和 V</text>
   </g>
 </svg>

@@ -38,17 +38,17 @@
     </style>
   </defs>
   <rect data-graph-role="background" width="960.0" height="420.0" fill="#ffffff"/>
-  <text x="48.0" y="48" text-anchor="start" class="title">多头与平方代价</text>
-  <text x="48.0" y="72" text-anchor="start" class="subtitle">头数解决子空间，长度平方决定算力</text>
+  <text x="48.0" y="48" text-anchor="start" class="title">多头注意力与计算复杂度</text>
+  <text x="48.0" y="72" text-anchor="start" class="subtitle">多子空间并行捕捉关联，两两点积带来 O(n²) 代价</text>
   <line x1="48" y1="100" x2="912.0" y2="100" stroke="#e5e7eb" stroke-width="1"/>
-  <g id="node-heads" data-graph-role="node" data-node-id="heads" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="80,148,440,268">
-  <rect x="80.0" y="148.0" width="360.0" height="120.0" rx="4.0" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.8"/>
-  <text x="260.0" y="208.0" text-anchor="middle" class="node-title" font-size="18.0">多头</text>
-  <text x="260.0" y="230.0" text-anchor="middle" class="node-sub">原论文 8 个头并行，再拼接</text>
+  <g id="node-multi-head" data-graph-role="node" data-node-id="multi-head" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="58,148,438,278">
+  <rect x="58.0" y="148.0" width="380.0" height="130.0" rx="4.0" fill="#f9fafb" stroke="#3b82f6" stroke-width="1.8"/>
+  <text x="248.0" y="213.0" text-anchor="middle" class="node-title" font-size="18.0">多头并行机制（Multi-Head）</text>
+  <text x="248.0" y="235.0" text-anchor="middle" class="node-sub">同时捕捉语法依赖、指代消解与语义关联</text>
   </g>
-  <g id="node-cost" data-graph-role="node" data-node-id="cost" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="520,148,880,268">
-  <rect x="520.0" y="148.0" width="360.0" height="120.0" rx="4.0" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.8"/>
-  <text x="700.0" y="208.0" text-anchor="middle" class="node-title" font-size="18.0">平方代价</text>
-  <text x="700.0" y="230.0" text-anchor="middle" class="node-sub">n 个位置要算 n×n 个分数</text>
+  <g id="node-cost" data-graph-role="node" data-node-id="cost" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="522,148,902,278">
+  <rect x="522.0" y="148.0" width="380.0" height="130.0" rx="4.0" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.8"/>
+  <text x="712.0" y="213.0" text-anchor="middle" class="node-title" font-size="18.0">二次方开销（O(n²) Complexity）</text>
+  <text x="712.0" y="235.0" text-anchor="middle" class="node-sub">两两点积使得长序列计算与显存呈二次方暴涨</text>
   </g>
 </svg>

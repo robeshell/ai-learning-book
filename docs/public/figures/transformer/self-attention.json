@@ -5,19 +5,19 @@
   "style": 4,
   "quality_profile": "showcase",
   "width": 960,
-  "height": 360,
-  "title": "自注意力在算什么",
-  "subtitle": "每个位置对同一序列里的所有位置打分，再按分数混合",
+  "height": 420,
+  "title": "自注意力的全句关联计算流",
+  "subtitle": "每个位置与全序列同时交互，动态加权聚合上下文",
   "nodes": [
     {
       "id": "here",
       "kind": "rect",
       "x": 48,
-      "y": 140,
+      "y": 144,
       "width": 220,
-      "height": 88,
-      "label": "这个位置",
-      "sublabel": "要更新的表示",
+      "height": 96,
+      "label": "输入词向量",
+      "sublabel": "当前词的原始向量表示",
       "fill": "#f9fafb",
       "stroke": "#e5e7eb",
       "flat": true
@@ -26,11 +26,11 @@
       "id": "score",
       "kind": "rect",
       "x": 370,
-      "y": 132,
+      "y": 136,
       "width": 220,
-      "height": 104,
-      "label": "对全句打分",
-      "sublabel": "一步算完所有配对",
+      "height": 112,
+      "label": "点积与 Softmax",
+      "sublabel": "计算全序列注意力权重分布",
       "fill": "#eff6ff",
       "stroke": "#3b82f6",
       "flat": true
@@ -39,11 +39,11 @@
       "id": "mix",
       "kind": "rect",
       "x": 692,
-      "y": 140,
+      "y": 144,
       "width": 220,
-      "height": 88,
-      "label": "按分数混合",
-      "sublabel": "得到新的向量",
+      "height": 96,
+      "label": "加权汇聚 Value",
+      "sublabel": "生成包含上下文的新表示",
       "fill": "#f9fafb",
       "stroke": "#e5e7eb",
       "flat": true
@@ -57,7 +57,7 @@
       "source_port": "right",
       "target_port": "left",
       "flow": "control",
-      "label": "查询"
+      "label": "生成 QK 匹配"
     },
     {
       "id": "to-mix",
@@ -66,7 +66,7 @@
       "source_port": "right",
       "target_port": "left",
       "flow": "control",
-      "label": "加权"
+      "label": "加权求和 V"
     }
   ]
 }

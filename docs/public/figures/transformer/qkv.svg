@@ -38,22 +38,22 @@
     </style>
   </defs>
   <rect data-graph-role="background" width="960.0" height="420.0" fill="#ffffff"/>
-  <text x="48.0" y="48" text-anchor="start" class="title">Q、K、V 是三种投影</text>
-  <text x="48.0" y="72" text-anchor="start" class="subtitle">同一组输入，三种用法，不是三座数据库</text>
+  <text x="48.0" y="48" text-anchor="start" class="title">Q、K、V 的三种角色分工</text>
+  <text x="48.0" y="72" text-anchor="start" class="subtitle">同一输入向量的三种线性投影，不是三个独立数据库</text>
   <line x1="48" y1="100" x2="912.0" y2="100" stroke="#e5e7eb" stroke-width="1"/>
-  <g id="node-q" data-graph-role="node" data-node-id="q" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="64,148,312,268">
-  <rect x="64.0" y="148.0" width="248.0" height="120.0" rx="4.0" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.8"/>
-  <text x="188.0" y="208.0" text-anchor="middle" class="node-title" font-size="18.0">Query</text>
-  <text x="188.0" y="230.0" text-anchor="middle" class="node-sub">这个位置在找什么</text>
+  <g id="node-q" data-graph-role="node" data-node-id="q" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="48,148,304,278">
+  <rect x="48.0" y="148.0" width="256.0" height="130.0" rx="4.0" fill="#f9fafb" stroke="#3b82f6" stroke-width="1.8"/>
+  <text x="176.0" y="213.0" text-anchor="middle" class="node-title" font-size="18.0">Query（查询向量）</text>
+  <text x="176.0" y="235.0" text-anchor="middle" class="node-sub">当前词在寻找什么上下文</text>
   </g>
-  <g id="node-k" data-graph-role="node" data-node-id="k" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="356,148,604,268">
-  <rect x="356.0" y="148.0" width="248.0" height="120.0" rx="4.0" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.8"/>
-  <text x="480.0" y="208.0" text-anchor="middle" class="node-title" font-size="18.0">Key</text>
-  <text x="480.0" y="230.0" text-anchor="middle" class="node-sub">那个位置如何被对上</text>
+  <g id="node-k" data-graph-role="node" data-node-id="k" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="352,148,608,278">
+  <rect x="352.0" y="148.0" width="256.0" height="130.0" rx="4.0" fill="#f9fafb" stroke="#3b82f6" stroke-width="1.8"/>
+  <text x="480.0" y="213.0" text-anchor="middle" class="node-title" font-size="18.0">Key（键向量）</text>
+  <text x="480.0" y="235.0" text-anchor="middle" class="node-sub">当前词具备什么特征供匹配</text>
   </g>
-  <g id="node-v" data-graph-role="node" data-node-id="v" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="648,148,896,268">
-  <rect x="648.0" y="148.0" width="248.0" height="120.0" rx="4.0" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.8"/>
-  <text x="772.0" y="208.0" text-anchor="middle" class="node-title" font-size="18.0">Value</text>
-  <text x="772.0" y="230.0" text-anchor="middle" class="node-sub">对上之后拿出什么</text>
+  <g id="node-v" data-graph-role="node" data-node-id="v" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="656,148,912,278">
+  <rect x="656.0" y="148.0" width="256.0" height="130.0" rx="4.0" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.8"/>
+  <text x="784.0" y="213.0" text-anchor="middle" class="node-title" font-size="18.0">Value（值向量）</text>
+  <text x="784.0" y="235.0" text-anchor="middle" class="node-sub">匹配成功后实际输出的内容</text>
   </g>
 </svg>
