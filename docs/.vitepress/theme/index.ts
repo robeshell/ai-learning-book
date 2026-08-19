@@ -4,6 +4,7 @@ import { h } from "vue";
 import ArticleHeader from "./components/ArticleHeader.vue";
 import LearningMap from "./components/LearningMap.vue";
 import TitlePage from "./components/TitlePage.vue";
+import "lxgw-wenkai-screen-webfont/style.css";
 import "./fonts.css";
 import "./tokens.css";
 import "./custom.css";

@@ -8,13 +8,6 @@ export default defineConfig({
   cleanUrls: true,
   lastUpdated: true,
   head: [
-    [
-      "link",
-      {
-        rel: "stylesheet",
-        href: "https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css",
-      },
-    ],
     ["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],
     [
       "link",
