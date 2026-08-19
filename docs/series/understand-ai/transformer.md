@@ -90,6 +90,24 @@ Vaswani 等人将这套计算形式命名为**缩放点积注意力**（Scaled D
 
 $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
 
+对应到 PyTorch 核心实现，代码只需要不到 10 行：
+
+```python
+import torch
+import torch.nn.functional as F
+
+def scaled_dot_product_attention(Q, K, V, mask=None):
+    d_k = Q.size(-1)
+    # 1. 计算 Q 与 K 的点积打分，并除以 sqrt(d_k) 做数值缩放
+    scores = torch.matmul(Q, K.transpose(-2, -1)) / (d_k ** 0.5)
+    # 2. 因果遮蔽（Causal Mask）：将未来位置的分数压为负无穷
+    if mask is not None:
+        scores = scores.masked_fill(mask == 0, -1e9)
+    # 3. Softmax 归一化为概率权重，并对 V 做加权求和
+    attn_weights = F.softmax(scores, dim=-1)
+    return torch.matmul(attn_weights, V), attn_weights
+```
+
 你不需要在此刻死记矩阵推导，只需要记住这条因果链：**Query 与 Key 负责计算谁和谁相关，计算出的分数决定从 Value 里拿走多少信息。**
 
 ## 多头机制与二次方开销
@@ -103,6 +121,13 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)
 在原论文中，模型设置了 8 个注意力头（$h=8$），总向量维度为 512，每个头的子空间维度为 64。
 
 这种设计的精妙之处在于分工：有些头专注于捕捉相邻词之间的句法搭配，有些头专注于捕捉远距离的代词指代，还有些头专注于捕捉逻辑因果。多头机制确保了丰富语义在不同子空间里能够被同时捕捉，而不会互相干扰。
+
+一个经典的代词指代（Winograd Schema）案例最能说明这种上下文捕捉能力：
+
+- 句 A：*The animal didn't cross the street because **it** was too tired.*（动物没穿过马路，因为**它**太累了）
+- 句 B：*The animal didn't cross the street because **it** was too wide.*（动物没穿过马路，因为**它**太宽了）
+
+两句话仅差最后一个形容词。在句 A 中，专门负责指代消解的注意力头在计算代词 ***it*** 的 Q-K 匹配时，会将主要权重投向 ***animal***（疲劳与生物实体相关）；而在句 B 中，同一个头在单步矩阵运算中能立刻把 ***it*** 的注意力重心切换到 ***street***（宽阔与道路属性相关）。模型并不需要预先植入语法词典，全靠多头注意力在训练中沉淀的统计关联。
 
 然而，全连接的注意力机制带来并行优势的同时，也背上了一项沉重的工程代价——二次方计算复杂度（$O(n^2)$ Complexity）。
 
