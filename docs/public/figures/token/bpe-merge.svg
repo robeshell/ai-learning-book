@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400">
+  <defs>
+    <marker id="arrowBPE" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1b365d"/>
+    </marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .phase-title { font-size: 14px; font-weight: 700; fill: #1e293b; }
+      .phase-desc { font-size: 12px; font-weight: 400; fill: #64748b; }
+      .token-box { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 500; }
+      .rule-text { font-family: "IBM Plex Mono", monospace; font-size: 12px; fill: #0f172a; }
+    </style>
+  </defs>
+
+  <rect width="960" height="400" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">BPE（Byte Pair Encoding）子词合并演进过程</text>
+  <text x="36" y="68" class="subtitle">从单字符/单字节出发，通过统计最高频相邻对，迭代构建紧凑且无未登录词（OOV）死角的词表</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Step 1 -->
+  <g transform="translate(36, 116)">
+    <rect width="260" height="240" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="16" y="28" class="phase-title">1. 初始状态：单字符</text>
+    <text x="16" y="48" class="phase-desc">所有词汇均拆解为最小单位</text>
+
+    <!-- Tokens -->
+    <g transform="translate(16, 70)">
+      <rect width="228" height="36" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="14" y="23" class="token-box" fill="#475569">"l", "o", "w", "e", "s", "t"</text>
+    </g>
+    <g transform="translate(16, 114)">
+      <rect width="228" height="36" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="14" y="23" class="token-box" fill="#475569">"n", "e", "w", "e", "s", "t"</text>
+    </g>
+
+    <rect x="16" y="166" width="228" height="54" rx="4" fill="#f1f5f9"/>
+    <text x="14" y="188" font-size="11.5px" fill="#475569">词表极小（基础字母/字节）</text>
+    <text x="14" y="206" font-size="11.5px" fill="#dc2626">缺点：序列过长，浪费显存</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 304 236 L 336 236" fill="none" stroke="#1b365d" stroke-width="1.8" marker-end="url(#arrowBPE)"/>
+
+  <!-- Step 2 -->
+  <g transform="translate(344, 116)">
+    <rect width="260" height="240" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+    <text x="16" y="28" class="phase-title" fill="#1e40af">2. 统计高频对并合并</text>
+    <text x="16" y="48" class="phase-desc">统计发现 ("e", "s") 频次最高</text>
+
+    <!-- Merged Tokens -->
+    <g transform="translate(16, 70)">
+      <rect width="228" height="36" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+      <text x="14" y="23" class="token-box" fill="#1e40af">"l", "o", "w", <tspan font-weight="700" fill="#2563eb">"es"</tspan>, "t"</text>
+    </g>
+    <g transform="translate(16, 114)">
+      <rect width="228" height="36" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+      <text x="14" y="23" class="token-box" fill="#1e40af">"n", "e", "w", <tspan font-weight="700" fill="#2563eb">"es"</tspan>, "t"</text>
+    </g>
+
+    <rect x="16" y="166" width="228" height="54" rx="4" fill="#dbeafe"/>
+    <text x="14" y="188" class="rule-text" font-weight="600">Merge Rule #1:</text>
+    <text x="14" y="206" class="rule-text">('e', 's') → 'es' (入表)</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 612 236 L 644 236" fill="none" stroke="#1b365d" stroke-width="1.8" marker-end="url(#arrowBPE)"/>
+
+  <!-- Step 3 -->
+  <g transform="translate(652, 116)">
+    <rect width="272" height="240" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="16" y="28" class="phase-title">3. 持续迭代：形成子词</text>
+    <text x="16" y="48" class="phase-desc">("es", "t") 进一步合并为 "est"</text>
+
+    <!-- Final Tokens -->
+    <g transform="translate(16, 70)">
+      <rect width="240" height="36" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="14" y="23" class="token-box" fill="#0f172a">"low", <tspan font-weight="700" fill="#15803d">"est"</tspan></text>
+    </g>
+    <g transform="translate(16, 114)">
+      <rect width="240" height="36" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="14" y="23" class="token-box" fill="#0f172a">"new", <tspan font-weight="700" fill="#15803d">"est"</tspan></text>
+    </g>
+
+    <rect x="16" y="166" width="240" height="54" rx="4" fill="#f0fdf4" stroke="#bbf7d0"/>
+    <text x="14" y="188" font-size="11.5px" fill="#166534" font-weight="600">✓ 高频词聚合为单 Token</text>
+    <text x="14" y="206" font-size="11.5px" fill="#166534">✓ 罕见词拆为子词，避免 OOV</text>
+  </g>
+</svg>

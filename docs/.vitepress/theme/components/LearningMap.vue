@@ -2,19 +2,11 @@
 import { withBase } from "vitepress";
 import {
   articleHref,
+  seasonLabel,
   seriesHref,
   seriesList,
-  seriesProgress,
-  type ArticleStatus,
   type Series,
 } from "../../series";
-
-const statusLabel: Record<ArticleStatus, string> = {
-  stub: "占位",
-  outline: "提纲",
-  draft: "草稿",
-  published: "已发布",
-};
 
 const props = defineProps<{
   seriesId?: string;
@@ -32,162 +24,207 @@ function pad(n: number): string {
 </script>
 
 <template>
-  <div class="map">
-    <section v-for="series in visibleSeries" :key="series.id" class="season">
-      <header v-if="!isSingleSeries" class="season-head">
-        <p class="index">{{ pad(series.season) }}</p>
-        <div>
-          <p class="badge">
-            {{ series.badge }} · {{ seriesProgress(series).ready }}/{{
-              seriesProgress(series).total
-            }}
-          </p>
-          <h2>
-            <a :href="withBase(seriesHref(series.id))">{{ series.title }}</a>
-          </h2>
-          <p class="sub">{{ series.subtitle }}</p>
+  <div class="learning-map">
+    <section
+      v-for="series in visibleSeries"
+      :key="series.id"
+      class="season-block"
+    >
+      <!-- Season Header (Home View) -->
+      <header v-if="!isSingleSeries" class="season-header">
+        <div class="season-meta">
+          <span class="season-tag">第{{ seasonLabel(series.season) }}季</span>
+          <span class="season-badge">{{ series.badge }}</span>
         </div>
+        <h2 class="season-title">
+          <a :href="withBase(seriesHref(series.id))">{{ series.title }}</a>
+        </h2>
+        <p class="season-subtitle">{{ series.subtitle }}</p>
       </header>
 
-      <div v-for="chapter in series.chapters" :key="chapter.id" class="chapter">
-        <h3>{{ chapter.title }}</h3>
-        <ol>
-          <li v-for="article in chapter.articles" :key="article.id">
-            <span class="num">{{ pad(article.order) }}</span>
-            <a :href="withBase(articleHref(series.id, article.id))">{{
-              article.title
-            }}</a>
-            <span class="mark" :data-status="article.articleStatus">
-              {{ statusLabel[article.articleStatus] }}
-            </span>
-          </li>
-        </ol>
+      <!-- Chapters List -->
+      <div class="chapters-wrapper">
+        <div
+          v-for="chapter in series.chapters"
+          :key="chapter.id"
+          class="chapter-card"
+        >
+          <div class="chapter-head">
+            <h3 class="chapter-title">{{ chapter.title }}</h3>
+          </div>
+
+          <ul class="article-list">
+            <li
+              v-for="article in chapter.articles"
+              :key="article.id"
+              class="article-item"
+            >
+              <span class="article-index">{{ pad(article.order) }}</span>
+              <a
+                :href="withBase(articleHref(series.id, article.id))"
+                class="article-link"
+              >
+                {{ article.title }}
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
   </div>
 </template>
 
 <style scoped>
-.map {
+.learning-map {
   display: flex;
   flex-direction: column;
   gap: 56px;
 }
 
-.season-head {
-  display: grid;
-  grid-template-columns: 48px minmax(0, 1fr);
-  gap: 16px;
-  align-items: start;
+.season-block {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Season Header */
+.season-header {
   padding-bottom: 16px;
   border-bottom: 1px solid var(--border);
 }
 
-.index {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-size: 28px;
-  font-weight: 400;
-  font-synthesis: none;
-  line-height: 1;
-  color: var(--brand);
-  font-variant-numeric: tabular-nums;
-  -webkit-font-smoothing: auto;
+.season-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
 }
 
-.badge {
-  margin: 0;
+.season-tag {
+  font-family: var(--font-serif);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  color: var(--brand);
+  letter-spacing: 0.04em;
+}
+
+.season-badge {
   font-size: var(--text-label);
   font-weight: 500;
-  letter-spacing: 0.1em;
   color: var(--stone);
+  padding: 1px 6px;
+  background: var(--warm-sand);
+  border-radius: 3px;
 }
 
-.season-head h2 {
-  margin: 4px 0 6px;
+.season-title {
+  margin: 0 0 6px;
   font-family: var(--font-serif);
   font-size: var(--text-h2);
   font-weight: 400;
-  font-synthesis: none;
-  line-height: 1.25;
-  -webkit-font-smoothing: auto;
+  line-height: 1.3;
 }
 
-.season-head h2 a {
+.season-title a {
   color: var(--near-black);
   text-decoration: none;
+  transition: color 0.15s ease;
 }
 
-.season-head h2 a:hover {
+.season-title a:hover {
   color: var(--brand);
 }
 
-.sub {
+.season-subtitle {
   margin: 0;
-  color: var(--olive);
+  font-size: 15px;
   line-height: 1.55;
+  color: var(--olive);
 }
 
-.chapter {
-  margin-top: 24px;
+/* Chapters Grid / List */
+.chapters-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
-.chapter h3 {
-  margin: 0 0 10px;
+.chapter-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chapter-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.chapter-title {
+  margin: 0;
   font-family: var(--font-serif);
   font-size: 18px;
   font-weight: 400;
-  font-synthesis: none;
   color: var(--near-black);
-  -webkit-font-smoothing: auto;
+  letter-spacing: 0.02em;
 }
 
-ol {
+/* Articles */
+.article-list {
   margin: 0;
   padding: 0;
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-li {
-  display: grid;
-  grid-template-columns: 32px minmax(0, 1fr) auto;
-  gap: 8px;
+.article-item {
+  display: flex;
   align-items: baseline;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--border-soft);
+  gap: 14px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  transition: background 0.15s ease;
 }
 
-.num {
+.article-item:hover {
+  background: var(--warm-sand);
+}
+
+.article-index {
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--stone);
+  flex-shrink: 0;
+  width: 22px;
 }
 
-li a {
+.article-link {
+  font-size: var(--text-body);
+  line-height: 1.6;
   color: var(--near-black);
   text-decoration: none;
+  transition: color 0.15s ease;
 }
 
-li a:hover {
+.article-item:hover .article-link {
   color: var(--brand);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
-.mark {
-  font-size: var(--text-label);
-  color: var(--stone);
-}
-
-.mark[data-status="outline"],
-.mark[data-status="draft"],
-.mark[data-status="published"] {
-  color: var(--brand);
-}
-
 @media (max-width: 640px) {
-  .season-head {
-    grid-template-columns: 40px minmax(0, 1fr);
+  .learning-map {
+    gap: 44px;
+  }
+  .season-title {
+    font-size: 20px;
+  }
+  .article-item {
+    padding: 6px 4px;
   }
 }
 </style>

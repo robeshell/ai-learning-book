@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12.5px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">无状态 HTTP 请求：多轮对话中的 Token「滚雪球」累积</text>
+  <text x="36" y="68" class="subtitle">大模型后端不保存会话记忆，客户端必须在每一次请求中完整重传历史，导致输入开销随轮次剧烈上升</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Main Comparison Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Left: Multi-turn Requests (Width: 560) -->
+    <g transform="translate(0, 0)">
+      <rect width="560" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <text x="20" y="30" class="col-title" fill="#0f172a">客户端发起的独立 HTTP POST 请求流水线</text>
+
+      <!-- Round 1 -->
+      <g transform="translate(20, 48)">
+        <rect width="520" height="48" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <rect x="10" y="10" width="70" height="28" rx="3" fill="#e2e8f0"/>
+        <text x="45" y="28" text-anchor="middle" class="tag" fill="#334155">第 1 轮</text>
+        <!-- Segments -->
+        <rect x="90" y="12" width="110" height="24" rx="3" fill="#dbeafe"/>
+        <text x="145" y="28" text-anchor="middle" class="mono" fill="#1e40af">System (100)</text>
+        <rect x="206" y="12" width="90" height="24" rx="3" fill="#dcfce7"/>
+        <text x="251" y="28" text-anchor="middle" class="mono" fill="#166534">User 1 (20)</text>
+        <text x="310" y="28" class="mono" fill="#64748b">➔ 吐出 Model 1 (80)</text>
+        <text x="455" y="28" class="mono-bold" fill="#0f172a">入: 120 / 出: 80</text>
+      </g>
+
+      <!-- Round 2 -->
+      <g transform="translate(20, 106)">
+        <rect width="520" height="48" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <rect x="10" y="10" width="70" height="28" rx="3" fill="#e2e8f0"/>
+        <text x="45" y="28" text-anchor="middle" class="tag" fill="#334155">第 2 轮</text>
+        <!-- Segments -->
+        <rect x="90" y="12" width="75" height="24" rx="3" fill="#dbeafe"/>
+        <text x="127" y="28" text-anchor="middle" class="mono" fill="#1e40af">Sys(100)</text>
+        <rect x="170" y="12" width="60" height="24" rx="3" fill="#dcfce7"/>
+        <text x="200" y="28" text-anchor="middle" class="mono" fill="#166534">U1(20)</text>
+        <rect x="235" y="12" width="65" height="24" rx="3" fill="#fef3c7"/>
+        <text x="267" y="28" text-anchor="middle" class="mono" fill="#92400e">M1(80)</text>
+        <rect x="305" y="12" width="65" height="24" rx="3" fill="#dcfce7"/>
+        <text x="337" y="28" text-anchor="middle" class="mono" fill="#166534">U2(30)</text>
+        <text x="455" y="28" class="mono-bold" fill="#d97706">入: 230 / 出: 90</text>
+      </g>
+
+      <!-- Round 3 -->
+      <g transform="translate(20, 164)">
+        <rect width="520" height="56" rx="4" fill="#ffffff" stroke="#fca5a5"/>
+        <rect x="10" y="14" width="70" height="28" rx="3" fill="#fee2e2"/>
+        <text x="45" y="32" text-anchor="middle" class="tag" fill="#dc2626">第 3 轮</text>
+        <!-- Segments -->
+        <rect x="90" y="16" width="260" height="24" rx="3" fill="#fee2e2" stroke="#f87171" stroke-dasharray="2 2"/>
+        <text x="220" y="32" text-anchor="middle" class="mono-bold" fill="#b91c1c">全量重传历史: Sys + U1 + M1 + U2 + M2 (320)</text>
+        <rect x="356" y="16" width="60" height="24" rx="3" fill="#dcfce7"/>
+        <text x="386" y="32" text-anchor="middle" class="mono" fill="#166534">U3(50)</text>
+        <text x="445" y="32" class="mono-bold" fill="#dc2626">入: 370 / 出: 100</text>
+      </g>
+    </g>
+
+    <!-- Right: Arithmetic Impact (Width: 308) -->
+    <g transform="translate(580, 0)">
+      <rect width="308" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="16" y="14" width="90" height="22" rx="4" fill="#dbeafe"/>
+      <text x="61" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">物理规律</text>
+      <text x="116" y="30" class="col-title" fill="#1e40af">无状态计算账本</text>
+
+      <g transform="translate(16, 50)">
+        <rect width="276" height="74" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="12" y="24" class="box-label" fill="#1e40af">输入 Token 呈等差级数激增：</text>
+        <text x="12" y="44" class="mono" fill="#0f172a">第 N 轮输入 = 前置所有轮次之和 + U_N</text>
+        <text x="12" y="64" class="mono" fill="#dc2626">3 轮累计消耗 Token = 200 + 320 + 470 = 990</text>
+      </g>
+
+      <g transform="translate(16, 136)">
+        <rect width="276" height="84" rx="4" fill="#dbeafe"/>
+        <text x="10" y="22" class="box-label" fill="#1e40af">核心痛点与结论：</text>
+        <text x="10" y="42" class="box-desc" fill="#1e3a8a">• 模型「记住」上下文纯靠每次重新传过去</text>
+        <text x="10" y="58" class="box-desc" fill="#1e3a8a">• 如果没有缓存，第 3 轮将重复计算前 320 字</text>
+        <text x="10" y="74" class="box-desc" fill="#1e3a8a">• 引出解决方案：空间换时间的 KV 缓存！</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

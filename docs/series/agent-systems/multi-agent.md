@@ -1,6 +1,6 @@
 ---
-title: "多智能体协作"
-description: "主从编排、专职子 Agent，以及 Agent 之间如何交接。"
+title: "多智能体分工协同"
+description: "主从编排、专职子 Agent，以及 Agent 之间如何严密交接。"
 series: agent-systems
 chapter: collaboration
 order: 5
@@ -11,9 +11,9 @@ prerequisites:
 videoSource: multi-agent
 ---
 
-# 多智能体协作
+# 多智能体分工协同
 
-主从编排、专职子 Agent，以及 Agent 之间如何交接。
+主从编排、专职子 Agent，以及 Agent 之间如何严密交接。
 
 ## 将要讲清
 

@@ -2,6 +2,7 @@ import { defineConfig } from "vitepress";
 import { buildNav, buildSidebar, site } from "./series";
 
 export default defineConfig({
+  base: process.env.BASE_PATH || (process.env.GITHUB_ACTIONS ? "/ai-learning-book/" : "/"),
   lang: "zh-CN",
   title: site.title,
   description: site.description,

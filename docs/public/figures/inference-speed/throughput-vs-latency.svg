@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14.5px; font-weight: 700; fill: #0f172a; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .row-title { font-size: 12px; font-weight: 600; }
+      .row-desc { font-size: 11px; font-weight: 400; fill: #64748b; }
+      .mono-val { font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">大模型推理两大核心优化维度：吞吐量 vs 单流延迟</text>
+  <text x="36" y="68" class="subtitle">优化高并发整体吞吐与优化单个用户的吐字等待，对应完全不同的系统架构取舍</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Left Column: 吞吐量优化 (Throughput) -->
+  <g transform="translate(36, 114)">
+    <rect width="430" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect x="16" y="16" width="112" height="24" rx="4" fill="#e2e8f0"/>
+    <text x="72" y="32" text-anchor="middle" class="tag" fill="#334155">系统总效能</text>
+    <text x="138" y="33" class="col-title">吞吐量优化（Throughput）</text>
+
+    <!-- Metrics -->
+    <g transform="translate(16, 54)">
+      <rect width="398" height="42" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="14" y="18" class="row-title" fill="#1e40af">核心度量指标：Tokens / s / GPU</text>
+      <text x="14" y="34" class="row-desc">衡量每张卡每秒总共能为多少用户吐出多少字</text>
+    </g>
+
+    <g transform="translate(16, 104)">
+      <rect width="398" height="42" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="14" y="18" class="row-title" fill="#334155">核心驱动技术：连续批处理 + PagedAttention</text>
+      <text x="14" y="34" class="row-desc">榨干 GPU 显存，把 Batch Size 尽可能拉到几十甚至上百</text>
+    </g>
+
+    <g transform="translate(16, 154)">
+      <rect width="398" height="42" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="14" y="18" class="row-title" fill="#334155">适用业务场景</text>
+      <text x="14" y="34" class="row-desc">公有云大并发 API 服务、离线数据蒸馏、夜间批量处理</text>
+    </g>
+
+    <g transform="translate(16, 204)">
+      <text x="0" y="14" font-size="11px" fill="#64748b">💡 吞吐量极高时，单个用户的排队延迟反而可能略有上升</text>
+    </g>
+  </g>
+
+  <!-- Right Column: 延迟优化 (Latency) -->
+  <g transform="translate(494, 114)">
+    <rect width="430" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+    <rect x="16" y="16" width="112" height="24" rx="4" fill="#dcfce7"/>
+    <text x="72" y="32" text-anchor="middle" class="tag" fill="#15803d">单用户体感</text>
+    <text x="138" y="33" class="col-title" fill="#166534">单流延迟优化（Latency）</text>
+
+    <!-- Metrics -->
+    <g transform="translate(16, 54)">
+      <rect width="398" height="42" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="14" y="18" class="row-title" fill="#15803d">核心度量指标：TPOT (Time Per Output Token)</text>
+      <text x="14" y="34" class="row-desc">衡量每个 Token 生成所需的毫秒数（如 15ms / Token）</text>
+    </g>
+
+    <g transform="translate(16, 104)">
+      <rect width="398" height="42" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="14" y="18" class="row-title" fill="#166534">核心驱动技术：推测采样（Speculative Decoding）</text>
+      <text x="14" y="34" class="row-desc">利用单次并行前向打破串行自回归的显存带宽瓶颈</text>
+    </g>
+
+    <g transform="translate(16, 154)">
+      <rect width="398" height="42" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="14" y="18" class="row-title" fill="#166534">适用业务场景</text>
+      <text x="14" y="34" class="row-desc">实时代码 Copilot 补全、语音交互 Agent、高交互性聊天</text>
+    </g>
+
+    <g transform="translate(16, 204)">
+      <text x="0" y="14" font-size="11px" fill="#15803d">💡 极致低延迟需要小模型协同，在单并发下体验收益最显著</text>
+    </g>
+  </g>
+</svg>

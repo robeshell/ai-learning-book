@@ -1,6 +1,6 @@
 ---
-title: "沙箱、人在回路与 Eval"
-description: "执行隔离、危险操作审批，以及把智能体质量测成可回归的指标。"
+title: "沙箱隔离与质量评测"
+description: "执行隔离、危险操作审批，以及把智能体质量测成可重复回归的指标。"
 series: agent-systems
 chapter: safety
 order: 8
@@ -11,9 +11,9 @@ prerequisites:
 videoSource: agent-eval-control
 ---
 
-# 沙箱、人在回路与 Eval
+# 沙箱隔离与质量评测
 
-执行隔离、危险操作审批，以及把智能体质量测成可回归的指标。
+执行隔离、危险操作审批，以及把智能体质量测成可重复回归的指标。
 
 ## 将要讲清
 

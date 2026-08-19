@@ -1,5 +1,5 @@
 ---
-title: "什么是 Skill"
+title: "Skill 专业技能包"
 description: "把提示词、脚本和规范打成可复用的专业工作法，而不是一段咒语。"
 series: models-at-work
 chapter: protocols
@@ -11,7 +11,7 @@ prerequisites:
 videoSource: skill
 ---
 
-# 什么是 Skill
+# Skill 专业技能包
 
 把提示词、脚本和规范打成可复用的专业工作法，而不是一段咒语。
 

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .node-title { font-size: 13px; font-weight: 700; }
+      .node-desc { font-size: 10.5px; font-weight: 400; }
+      .tag { font-size: 10px; font-weight: 600; }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3b82f6"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">前缀树（Radix Tree / Trie）在显存中的 KV Cache 共享结构</text>
+  <text x="36" y="68" class="subtitle">相同前缀的请求共享父节点显存块，分叉支路仅为差异部分分配计算与显存</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Tree Structure Diagram -->
+  <g transform="translate(36, 114)">
+    <!-- Root Node: System Prompt -->
+    <g transform="translate(20, 70)">
+      <rect width="180" height="84" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+      <rect x="12" y="10" width="70" height="18" rx="3" fill="#e2e8f0"/>
+      <text x="47" y="23" text-anchor="middle" class="tag" fill="#475569">公共根节点</text>
+      <text x="12" y="48" class="node-title" fill="#0f172a">System Prompt</text>
+      <text x="12" y="66" class="node-desc" fill="#64748b">全局角色与行为约束 (2k)</text>
+    </g>
+
+    <!-- Edge 1: Root -> Tools Schema -->
+    <path d="M 200 112 L 250 112" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+    <!-- Level 1 Node: Tool Schemas -->
+    <g transform="translate(258, 70)">
+      <rect width="180" height="84" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="12" y="10" width="70" height="18" rx="3" fill="#dbeafe"/>
+      <text x="47" y="23" text-anchor="middle" class="tag" fill="#1d4ed8">共享前缀</text>
+      <text x="12" y="48" class="node-title" fill="#1e40af">Tools Schema</text>
+      <text x="12" y="66" class="node-desc" fill="#3b82f6">8 个函数调用定义 (1.5k)</text>
+    </g>
+
+    <!-- Branching Edges -->
+    <path d="M 438 100 L 490 60" stroke="#3b82f6" stroke-width="1.8" marker-end="url(#arrowBlue)"/>
+    <path d="M 438 124 L 490 164" stroke="#3b82f6" stroke-width="1.8" marker-end="url(#arrowBlue)"/>
+
+    <!-- Branch A: Session 1 -->
+    <g transform="translate(498, 16)">
+      <rect width="180" height="84" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="12" y="10" width="60" height="18" rx="3" fill="#dcfce7"/>
+      <text x="42" y="23" text-anchor="middle" class="tag" fill="#15803d">会话 A 历史</text>
+      <text x="12" y="48" class="node-title" fill="#166534">文档分析问答</text>
+      <text x="12" y="66" class="node-desc" fill="#16a34a">已完成 4 轮历史对话 (4k)</text>
+    </g>
+
+    <!-- Branch B: Session 2 -->
+    <g transform="translate(498, 126)">
+      <rect width="180" height="84" rx="6" fill="#fefce8" stroke="#fde047" stroke-width="1.5"/>
+      <rect x="12" y="10" width="60" height="18" rx="3" fill="#fef9c3"/>
+      <text x="42" y="23" text-anchor="middle" class="tag" fill="#a16207">会话 B 历史</text>
+      <text x="12" y="48" class="node-title" fill="#854d0e">代码审计任务</text>
+      <text x="12" y="66" class="node-desc" fill="#ca8a04">上传的源文件切片 (8k)</text>
+    </g>
+
+    <!-- Branch A Sub-edges -->
+    <path d="M 678 58 L 728 58" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <!-- Branch B Sub-edges -->
+    <path d="M 678 168 L 728 168" stroke="#ca8a04" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <!-- Leaf A: User A New Message -->
+    <g transform="translate(736, 24)">
+      <rect width="140" height="68" rx="5" fill="#ffffff" stroke="#16a34a" stroke-dasharray="3,3"/>
+      <text x="12" y="28" class="node-title" fill="#15803d">最新提问 A</text>
+      <text x="12" y="48" class="node-desc" fill="#166534">仅计算新输入的</text>
+      <text x="12" y="60" class="node-desc" font-weight="700" fill="#15803d">40 Tokens (新算)</text>
+    </g>
+
+    <!-- Leaf B: User B New Message -->
+    <g transform="translate(736, 134)">
+      <rect width="140" height="68" rx="5" fill="#ffffff" stroke="#ca8a04" stroke-dasharray="3,3"/>
+      <text x="12" y="28" class="node-title" fill="#854d0e">最新提问 B</text>
+      <text x="12" y="48" class="node-desc" fill="#a16207">仅计算新输入的</text>
+      <text x="12" y="60" class="node-desc" font-weight="700" fill="#854d0e">65 Tokens (新算)</text>
+    </g>
+  </g>
+
+  <!-- Bottom Tip Banner -->
+  <g transform="translate(36, 326)">
+    <rect width="888" height="36" rx="4" fill="#f8fafc" stroke="#e2e8f0"/>
+    <text x="16" y="23" font-size="11.5px" fill="#475569">💡 显存驻留逻辑：当多个并发用户共享同一套 System Prompt 与 Tool 定义时，前 3,500 Tokens 的 KV 显存仅在显卡中分配一次。</text>
+  </g>
+</svg>

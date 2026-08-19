@@ -1,6 +1,6 @@
 ---
-title: "什么是实时语音大模型"
-description: "Speech-to-Speech 如何避免“先转写再合成”的拼接卡顿。"
+title: "实时语音与全双工"
+description: "Speech-to-Speech 如何避免“先转写再合成”的拼接卡顿与情绪丢失。"
 series: multimodal-and-limits
 chapter: senses
 order: 2
@@ -11,9 +11,9 @@ prerequisites:
 videoSource: audio-llm
 ---
 
-# 什么是实时语音大模型
+# 实时语音与全双工
 
-Speech-to-Speech 如何避免“先转写再合成”的拼接卡顿。
+Speech-to-Speech 如何避免“先转写再合成”的拼接卡顿与情绪丢失。
 
 ## 将要讲清
 

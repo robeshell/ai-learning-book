@@ -1,6 +1,6 @@
 ---
-title: "什么是 Transformer"
-description: "自注意力如何并行计算词汇关联，以及 QKV 的直观意义。"
+title: "Transformer 与自注意力"
+description: "自注意力如何并行计算词汇关联，以及 QKV 的直观物理意义。"
 series: understand-ai
 chapter: foundation
 order: 2
@@ -11,7 +11,7 @@ prerequisites:
 videoSource: transformer
 ---
 
-# 什么是 Transformer
+# Transformer 与自注意力
 
 我们在上一篇确立了大模型的物理底座：它是一套以 Transformer 为主干架构、通过自监督预测下一个词训练出来的深度神经网络。
 
@@ -34,8 +34,8 @@ videoSource: transformer
 自注意力机制从拓扑上彻底重构了这种连接方式：它直接在任意两个位置之间架起直连通道。
 
 <figure>
-  <img src="/figures/transformer/serial-vs-parallel.svg" alt="循环网络与自注意力的计算拓扑对比，展示串行依赖与常数步直连的差异。" />
-  <figcaption>换掉循环网络，核心收益在于把串行等候变成了单步全连接，使长序列能够完全摊平在 GPU 上并发计算。</figcaption>
+  <img src="/figures/transformer/serial-vs-parallel.svg" alt="循环网络与自注意力拓扑对比" />
+  <figcaption>循环网络（串行依赖）与自注意力（全连接并行）拓扑对比</figcaption>
 </figure>
 
 在自注意力层中，任意两个词产生交互的顺序操作步数降为常数 $O(1)$，信息跨越整段文本的最长路径同样缩短为 $O(1)$。整段文本的所有词向量可以打包成矩阵，一次性送进显卡并发完成运算。
@@ -51,8 +51,8 @@ Transformer 能够横扫自然语言处理，不是因为它突然拥有了神�
 它的核心目标非常直接：为序列中的每一个词，动态计算出它与句子中所有其他词的相关程度，并根据这个相关度把其他词的信息按比例加权吸收进来，从而生成一个融合了上下文语境的全新向量。
 
 <figure>
-  <img src="/figures/transformer/self-attention.svg" alt="自注意力的全句关联计算流：输入词向量经过点积与 Softmax，加权汇聚 Value 生成新表示。" />
-  <figcaption>每个位置并不是先读完再停下来思考。它是通过矩阵运算对全句打分，再按分数把相关信息加权汇聚。</figcaption>
+  <img src="/figures/transformer/self-attention.svg" alt="自注意力计算流程" />
+  <figcaption>自注意力全句关联与信息汇聚计算流</figcaption>
 </figure>
 
 在自回归大模型中，解码器还需要严格遵守我们在上一篇讲到的因果规律：生成当前词时，绝对不能提前看到未来的词。
@@ -74,8 +74,8 @@ Transformer 能够横扫自然语言处理，不是因为它突然拥有了神�
 3. **Value（值向量）**：代表当前词实际承载的语义实体——「如果其他词选中了我，我能给它提供什么实质信息？」
 
 <figure>
-  <img src="/figures/transformer/qkv.svg" alt="展示 Query、Key、Value 三种向量角色的分工。" />
-  <figcaption>Q、K、V 是同一组输入向量的三种线性投影。打分发生在 Q 和 K 之间，实际混合提取的是 V。</figcaption>
+  <img src="/figures/transformer/qkv.svg" alt="Query、Key、Value 角色分工" />
+  <figcaption>Query、Key、Value 三种向量角色的分工关系</figcaption>
 </figure>
 
 具体的数学计算分为清晰的三步：
@@ -130,15 +130,15 @@ def scaled_dot_product_attention(Q, K, V, mask=None):
 两句话仅差最后一个形容词。在句 A 中，专门负责指代消解的注意力头在计算代词 ***it*** 的 Q-K 匹配时，会将主要权重投向 ***animal***（疲劳与生物实体相关）；而在句 B 中，同一个头在单步矩阵运算中能立刻把 ***it*** 的注意力重心切换到 ***street***（宽阔与道路属性相关）。模型并不需要预先植入语法词典，全靠多头注意力在训练中沉淀的统计关联。
 
 <figure>
-  <img src="/figures/transformer/coreference.svg" alt="展示自注意力在代词指代消解中的动态权重分配对比，对比 tired 与 wide 两个句式。" />
-  <figcaption>代词指代消解。自注意力无需人工规则，仅凭 QK 点积即可在单步内敏锐完成语境消除歧义。</figcaption>
+  <img src="/figures/transformer/coreference.svg" alt="自注意力代词指代消解" />
+  <figcaption>自注意力在代词指代消解中的动态权重分配</figcaption>
 </figure>
 
 然而，全连接的注意力机制带来并行优势的同时，也背上了一项沉重的工程代价——二次方计算复杂度（$O(n^2)$ Complexity）。
 
 <figure>
-  <img src="/figures/transformer/heads-and-cost.svg" alt="展示多头并行的子空间捕捉机制与 O(n²) 二次方复杂度开销。" />
-  <figcaption>多头解决的是多维度特征捕捉，而两两计算点积的机制决定了计算与显存开销会随序列长度呈二次方暴涨。</figcaption>
+  <img src="/figures/transformer/heads-and-cost.svg" alt="多头子空间分工与复杂度开销" />
+  <figcaption>多头子空间分工与 $O(n^2)$ 复杂度开销</figcaption>
 </figure>
 
 由于序列中的每一个词都需要与全序列的所有词各算一次点积，长度为 $n$ 的文本在单层自注意力中需要生成一个 $n \times n$ 的注意力矩阵。

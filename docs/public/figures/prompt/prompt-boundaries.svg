@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14.5px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .row-title { font-size: 12px; font-weight: 600; }
+      .row-desc { font-size: 11px; font-weight: 400; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">提示词工程（Prompt Engineering）的真实能力边界</text>
+  <text x="36" y="68" class="subtitle">提示词是现有参数空间的定向牵引器，它既不是玄学咒语，也无法逾越物理规律</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Left Column: 提示词能做到的事 -->
+  <g transform="translate(36, 114)">
+    <rect width="430" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+    <rect x="16" y="16" width="112" height="24" rx="4" fill="#dcfce7"/>
+    <text x="72" y="32" text-anchor="middle" class="tag" fill="#15803d">力所能及</text>
+    <text x="138" y="33" class="col-title" fill="#166534">提示词的 3 大核心作用</text>
+
+    <!-- Point 1 -->
+    <g transform="translate(16, 54)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="14" y="20" class="row-title" fill="#15803d">1. 概率轨道收拢与格式锁定</text>
+      <text x="14" y="38" class="row-desc" fill="#166534">将生成锁定在 JSON、YAML、Markdown 等特定语法结构内</text>
+    </g>
+
+    <!-- Point 2 -->
+    <g transform="translate(16, 112)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="14" y="20" class="row-title" fill="#15803d">2. 激活既有参数回路（角色扮演）</text>
+      <text x="14" y="38" class="row-desc" fill="#166534">唤醒预训练中固化的高维特定风格与专业表达语调</text>
+    </g>
+
+    <!-- Point 3 -->
+    <g transform="translate(16, 170)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="14" y="20" class="row-title" fill="#15803d">3. 临时事实注入（In-Context Learning）</text>
+      <text x="14" y="38" class="row-desc" fill="#166534">将外部参考资料作为工作台线索，供当前单次前向推理使用</text>
+    </g>
+  </g>
+
+  <!-- Right Column: 提示词绝对做不到的事 -->
+  <g transform="translate(494, 114)">
+    <rect width="430" height="236" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+    <rect x="16" y="16" width="112" height="24" rx="4" fill="#ffedd5"/>
+    <text x="72" y="32" text-anchor="middle" class="tag" fill="#c2410c">不可逾越</text>
+    <text x="138" y="33" class="col-title" fill="#9a3412">提示词的 3 道物理硬墙</text>
+
+    <!-- Point 1 -->
+    <g transform="translate(16, 54)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="14" y="20" class="row-title" fill="#9a3412">1. 无法凭空创造未知新知识</text>
+      <text x="14" y="38" class="row-desc" fill="#7c2d12">未在参数中且未在 Prompt 里提供的未知物理事实无法生成</text>
+    </g>
+
+    <!-- Point 2 -->
+    <g transform="translate(16, 112)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="14" y="20" class="row-title" fill="#9a3412">2. 无法物理修改模型权重参数</text>
+      <text x="14" y="38" class="row-desc" fill="#7c2d12">前向推理只读不写 (ΔW = 0)，无法作为永久长期记忆存储</text>
+    </g>
+
+    <!-- Point 3 -->
+    <g transform="translate(16, 170)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="14" y="20" class="row-title" fill="#9a3412">3. 无法消除固有统计概率幻觉</text>
+      <text x="14" y="38" class="row-desc" fill="#7c2d12">催促「必须 100% 正确」无法改变底层统计拟合的缺陷</text>
+    </g>
+  </g>
+</svg>

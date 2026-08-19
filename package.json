@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",
-    "preview": "vitepress preview docs"
+    "preview": "vitepress preview docs",
+    "verify": "node scripts/verify-articles.ts"
   },
   "engines": {
     "node": ">=20"

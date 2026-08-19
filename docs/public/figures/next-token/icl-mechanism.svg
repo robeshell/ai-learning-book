@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14.5px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .row-title { font-size: 12px; font-weight: 600; }
+      .row-desc { font-size: 11px; font-weight: 400; }
+      .mono-code { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">模型微调（参数学习）vs 上下文学习（In-Context Learning）的物理本质</text>
+  <text x="36" y="68" class="subtitle">上下文学习不改变任何神经元权重，它通过注意力机制在前向传播中收拢概率轨道</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Left Column: 微调（参数学习） -->
+  <g transform="translate(36, 114)">
+    <rect width="430" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect x="16" y="16" width="112" height="24" rx="4" fill="#e2e8f0"/>
+    <text x="72" y="32" text-anchor="middle" class="tag" fill="#334155">参数修改路线</text>
+    <text x="138" y="33" class="col-title" fill="#0f172a">模型微调（Fine-Tuning）</text>
+
+    <!-- Point 1 -->
+    <g transform="translate(16, 54)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="14" y="20" class="row-title" fill="#334155">机制：反向传播与梯度更新 (ΔW ≠ 0)</text>
+      <text x="14" y="38" class="row-desc" fill="#64748b">根据标注样本计算损失 Loss，物理改写权重浮点数</text>
+    </g>
+
+    <!-- Point 2 -->
+    <g transform="translate(16, 112)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="14" y="20" class="row-title" fill="#334155">生命周期与作用域：永久固化、全局生效</text>
+      <text x="14" y="38" class="row-desc" fill="#64748b">权重落盘保存，影响该模型之后处理的所有请求</text>
+    </g>
+
+    <!-- Point 3 -->
+    <g transform="translate(16, 170)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="14" y="20" class="row-title" fill="#334155">硬件代价：需要完整 GPU 训练集群</text>
+      <text x="14" y="38" class="row-desc" fill="#64748b">需分配显存存激活值与梯度，耗时长、门槛高</text>
+    </g>
+  </g>
+
+  <!-- Right Column: 上下文学习（ICL） -->
+  <g transform="translate(494, 114)">
+    <rect width="430" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+    <rect x="16" y="16" width="124" height="24" rx="4" fill="#dcfce7"/>
+    <text x="78" y="32" text-anchor="middle" class="tag" fill="#15803d">前向激活路线</text>
+    <text x="150" y="33" class="col-title" fill="#166534">上下文学习（In-Context）</text>
+
+    <!-- Point 1 -->
+    <g transform="translate(16, 54)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="14" y="20" class="row-title" fill="#15803d">机制：自注意力条件约束 (ΔW = 0)</text>
+      <text x="14" y="38" class="row-desc" fill="#166534">仅在前向传播中计算 KV 矩阵，将概率质量导向目标词</text>
+    </g>
+
+    <!-- Point 2 -->
+    <g transform="translate(16, 112)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="14" y="20" class="row-title" fill="#15803d">生命周期与作用域：瞬时生效、单次隔离</text>
+      <text x="14" y="38" class="row-desc" fill="#166534">仅影响当前窗口内的生成，HTTP 请求结束即销毁</text>
+    </g>
+
+    <!-- Point 3 -->
+    <g transform="translate(16, 170)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="14" y="20" class="row-title" fill="#15803d">核心价值：零门槛零开销即时对齐</text>
+      <text x="14" y="38" class="row-desc" fill="#166534">在 Prompt 塞入 2 个示例即可迅速锁定输出格式</text>
+    </g>
+  </g>
+</svg>

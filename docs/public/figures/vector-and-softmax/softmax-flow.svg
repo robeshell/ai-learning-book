@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12.5px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; }
+      .mono-large { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 700; }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">Softmax 变换流水线：从任意打分到 100% 概率分布</text>
+  <text x="36" y="68" class="subtitle">公式：P_i = e^(z_i) / Σ e^(z_j) —— 消除负数、放大头部差距，并归一化为标准的概率分布</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 3-Step Flow -->
+  <g transform="translate(36, 114)">
+
+    <!-- Step 1: 原始打分 Logits -->
+    <g transform="translate(0, 0)">
+      <rect width="260" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#e2e8f0"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#475569">第 1 步</text>
+      <text x="104" y="30" class="col-title" fill="#0f172a">原始分数 (Logits)</text>
+
+      <g transform="translate(14, 52)">
+        <rect width="232" height="74" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="12" y="24" class="mono-large" fill="#0f172a">z₁ =  2.0 ("小猫")</text>
+        <text x="12" y="44" class="mono-large" fill="#0f172a">z₂ =  1.0 ("小狗")</text>
+        <text x="12" y="64" class="mono-large" fill="#dc2626">z₃ = -1.0 ("潜水艇")</text>
+      </g>
+
+      <g transform="translate(14, 138)">
+        <rect width="232" height="80" rx="4" fill="#f1f5f9"/>
+        <text x="10" y="22" class="box-label" fill="#334155">现状特征：</text>
+        <text x="10" y="42" class="box-desc" fill="#64748b">• 分数可正可负，无固定范围</text>
+        <text x="10" y="60" class="box-desc" fill="#64748b">• 无法直接作为转盘概率</text>
+      </g>
+    </g>
+
+    <!-- Arrow 1 -->
+    <line x1="268" y1="118" x2="306" y2="118" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+    <!-- Step 2: 自然指数 e^z -->
+    <g transform="translate(314, 0)">
+      <rect width="260" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#dbeafe"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">第 2 步</text>
+      <text x="104" y="30" class="col-title" fill="#1e40af">指数运算 (e^z)</text>
+
+      <g transform="translate(14, 52)">
+        <rect width="232" height="74" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="12" y="24" class="mono-large" fill="#1e40af">e^(2.0) ≈ 7.39</text>
+        <text x="12" y="44" class="mono-large" fill="#1e40af">e^(1.0) ≈ 2.72</text>
+        <text x="12" y="64" class="mono-large" fill="#1e40af">e^(-1.0) ≈ 0.37</text>
+      </g>
+
+      <g transform="translate(14, 138)">
+        <rect width="232" height="80" rx="4" fill="#dbeafe"/>
+        <text x="10" y="22" class="box-label" fill="#1e40af">双重数学红利：</text>
+        <text x="10" y="42" class="box-desc" fill="#1e3a8a">1. 负数全部变成正数（0.37 &gt; 0）</text>
+        <text x="10" y="60" class="box-desc" fill="#1e3a8a">2. 高分差距被大幅拉大</text>
+      </g>
+    </g>
+
+    <!-- Arrow 2 -->
+    <line x1="582" y1="118" x2="620" y2="118" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+    <!-- Step 3: 归一化百分比 -->
+    <g transform="translate(628, 0)">
+      <rect width="260" height="236" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#dcfce7"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#15803d">第 3 步</text>
+      <text x="104" y="30" class="col-title" fill="#166534">归一化 (÷ 总和)</text>
+
+      <g transform="translate(14, 52)">
+        <rect width="232" height="74" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="12" y="24" class="mono-large" fill="#15803d">P₁ = 70.5% (猫)</text>
+        <text x="12" y="44" class="mono-large" fill="#15803d">P₂ = 26.0% (狗)</text>
+        <text x="12" y="64" class="mono-large" fill="#64748b">P₃ =  3.5% (潜水艇)</text>
+      </g>
+
+      <g transform="translate(14, 138)">
+        <rect width="232" height="80" rx="4" fill="#dcfce7"/>
+        <text x="10" y="22" class="box-label" fill="#166534">终态：标准概率分布</text>
+        <text x="10" y="42" class="mono" fill="#14532d">总和 Σ P_i = 100.0%</text>
+        <text x="10" y="60" class="box-desc" fill="#14532d">直接输入概率转盘进行采样预测！</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

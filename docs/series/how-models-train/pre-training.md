@@ -1,5 +1,5 @@
 ---
-title: "什么是预训练与基座模型"
+title: "预训练与基座模型"
 description: "自监督接龙、Scaling Law，以及 Base 为什么还不是聊天助手。"
 series: how-models-train
 chapter: raw-model
@@ -11,7 +11,7 @@ prerequisites:
 videoSource: pre-training
 ---
 
-# 什么是预训练与基座模型
+# 预训练与基座模型
 
 自监督接龙、Scaling Law，以及 Base 为什么还不是聊天助手。
 

@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <marker id="arrowA" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1b365d"/>
+    </marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .card-title { font-size: 14px; font-weight: 700; fill: #0f172a; }
+      .card-sub { font-size: 12px; font-weight: 400; fill: #64748b; }
+      .code-pill { font-family: "IBM Plex Mono", "Menlo", monospace; font-size: 12px; fill: #1b365d; }
+      .arrow-text { font-size: 11px; font-weight: 600; fill: #1b365d; }
+      .tag { font-size: 10px; font-weight: 600; fill: #64748b; letter-spacing: 0.05em; text-transform: uppercase; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">文本如何转化为模型可计算的稠密向量</text>
+  <text x="36" y="68" class="subtitle">字符串经过分词器映射为整数 ID，再通过嵌入矩阵检索转化为高维连续向量</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Card 1: 原始文本 -->
+  <g transform="translate(36, 120)">
+    <rect width="190" height="200" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="16" y="30" class="tag">Step 1 · 输入</text>
+    <text x="16" y="58" class="card-title">原始文本</text>
+    <text x="16" y="80" class="card-sub">人类自然语言字符串</text>
+
+    <rect x="14" y="104" width="162" height="76" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="24" y="134" class="code-pill">"大模型"</text>
+    <text x="24" y="158" font-size="11px" fill="#94a3b8">String (UTF-8)</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 226 220 L 266 220" fill="none" stroke="#1b365d" stroke-width="1.8" marker-end="url(#arrowA)"/>
+  <text x="246" y="206" text-anchor="middle" class="arrow-text">分词</text>
+
+  <!-- Card 2: Tokenizer & Vocab -->
+  <g transform="translate(272, 120)">
+    <rect width="194" height="200" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+    <text x="16" y="30" class="tag" fill="#1e40af">Step 2 · 词表</text>
+    <text x="16" y="58" class="card-title">切分与 ID 编码</text>
+    <text x="16" y="80" class="card-sub">匹配词表转换为整数</text>
+
+    <rect x="14" y="104" width="166" height="76" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+    <text x="22" y="132" class="code-pill">Token: ["大模型"]</text>
+    <text x="22" y="156" class="code-pill" fill="#2563eb">Token ID: 10243</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 466 220 L 506 220" fill="none" stroke="#1b365d" stroke-width="1.8" marker-end="url(#arrowA)"/>
+  <text x="486" y="206" text-anchor="middle" class="arrow-text">查表</text>
+
+  <!-- Card 3: Embedding Lookup -->
+  <g transform="translate(512, 120)">
+    <rect width="190" height="200" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="16" y="30" class="tag">Step 3 · 嵌入层</text>
+    <text x="16" y="58" class="card-title">Embedding 查找</text>
+    <text x="16" y="80" class="card-sub">矩阵维度 [V, d_model]</text>
+
+    <rect x="14" y="104" width="162" height="76" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="22" y="132" class="code-pill">查找第 10243 行</text>
+    <text x="22" y="156" class="code-pill" fill="#15803d">提取对应权重行</text>
+  </g>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M 702 220 L 742 220" fill="none" stroke="#1b365d" stroke-width="1.8" marker-end="url(#arrowA)"/>
+  <text x="722" y="206" text-anchor="middle" class="arrow-text">输入</text>
+
+  <!-- Card 4: 稠密向量矩阵 -->
+  <g transform="translate(748, 120)">
+    <rect width="176" height="200" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="16" y="30" class="tag">Step 4 · 计算</text>
+    <text x="16" y="58" class="card-title">稠密连续向量</text>
+    <text x="16" y="80" class="card-sub">送入 Transformer</text>
+
+    <rect x="14" y="104" width="148" height="76" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="20" y="132" class="code-pill">[ 0.32, -1.50,</text>
+    <text x="20" y="156" class="code-pill">  0.88, ... ]</text>
+  </g>
+</svg>

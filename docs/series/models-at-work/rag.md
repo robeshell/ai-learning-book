@@ -1,6 +1,6 @@
 ---
-title: "什么是 RAG"
-description: "切块、召回、塞进窗口：不重训也能回答私有知识。"
+title: "RAG 检索增强生成"
+description: "切块、召回、塞进窗口：不重训也能让模型回答私有知识。"
 series: models-at-work
 chapter: retrieve
 order: 1
@@ -12,9 +12,9 @@ prerequisites:
 videoSource: rag
 ---
 
-# 什么是 RAG
+# RAG 检索增强生成
 
-切块、召回、塞进窗口：不重训也能回答私有知识。
+切块、召回、塞进窗口：不重训也能让模型回答私有知识。
 
 ## 将要讲清
 

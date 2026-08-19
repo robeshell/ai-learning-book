@@ -1,5 +1,5 @@
 ---
-title: "什么是合成数据"
+title: "合成数据与语料自造"
 description: "高质量人类语料不够时，模型如何自己造可验证的训练数据。"
 series: how-models-train
 chapter: raw-model
@@ -11,7 +11,7 @@ prerequisites:
 videoSource: synthetic-data
 ---
 
-# 什么是合成数据
+# 合成数据与语料自造
 
 高质量人类语料不够时，模型如何自己造可验证的训练数据。
 

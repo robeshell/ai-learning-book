@@ -1,5 +1,5 @@
 ---
-title: "什么是大模型"
+title: "大模型究竟是什么"
 description: "参数与结构、预训练与自回归、规模效应，以及产品和模型为什么不是一层。"
 series: understand-ai
 chapter: foundation
@@ -10,7 +10,7 @@ prerequisites: []
 videoSource: large-model
 ---
 
-# 什么是大模型
+# 大模型究竟是什么
 
 人们口中常说的大模型，通常指大语言模型（Large Language Model, LLM）。它是在海量文本上通过自监督学习预训练出来的深度神经网络，主流架构几乎全由 Transformer 构成。
 
@@ -27,8 +27,8 @@ videoSource: large-model
 大模型的「大」不是玄学概念，它明确对应三项可以度量的工程规模：参数量、训练数据量、消耗的计算量。少掉其中任何一项，所谓的大模型能力都无法成立。
 
 <figure>
-  <img src="/figures/large-model/scale.svg" alt="三张并列的卡片，分别展示参数规模、数据规模与算力规模。" />
-  <figcaption>大不是神秘智能。它是参数、数据和算力三项工程指标协同拉升的结果。</figcaption>
+  <img src="/figures/large-model/scale.svg" alt="大模型的三维物理尺度" />
+  <figcaption>大模型的三维物理尺度（参数、数据、算力）</figcaption>
 </figure>
 
 参数是神经网络里所有可学习的数值权重。训练结束后，这批浮点数会被固定在文件里。我们平时下载开源模型或者部署云端服务，核心承载物就是这份权重。参数越多，神经网络能容纳的表征空间和知识容量上限就越高。
@@ -48,8 +48,8 @@ videoSource: large-model
 大模型无论是在数月漫长的预训练阶段，还是在服务用户的几秒钟推理过程中，底层运转的都是同一种机制：自回归（Autoregression）。
 
 <figure>
-  <img src="/figures/large-model/next-token.svg" alt="当前上下文输入神经网络模型，模型预测输出下一个片段，并循环追加回输入端。" />
-  <figcaption>自回归机制。模型每次只预测并追加一个片段，整段回答是由局部概率选择一步步累加生成的。</figcaption>
+  <img src="/figures/large-model/next-token.svg" alt="自回归循环生成机制" />
+  <figcaption>自回归（Autoregression）循环生成机制</figcaption>
 </figure>
 
 自回归的运作方式是：模型接收当前已有的文本序列，计算出下一个最可能出现的词片段，把这个新片段拼接到原有文本末尾，然后再把更新后的长文本作为新的输入，重新送进模型计算。
@@ -82,8 +82,8 @@ def autoregressive_generate(model, prompt_tokens, max_new_tokens=50):
 模型根据采样策略选中「地上」后，输入立即被刷新为「床前的月光照在地上」，接着在下一轮循环中预测出逗号（`，`，91%），再下一轮预测出「静」（65%）……
 
 <figure>
-  <img src="/figures/large-model/sampling-flow.svg" alt="展示输入「床前的月光照在」到预测「地上」并刷新输入的自回归采样步骤。" />
-  <figcaption>逐词预测流程。模型每次只计算下一步概率，选出词后再将长句拼回输入端循环推进。</figcaption>
+  <img src="/figures/large-model/sampling-flow.svg" alt="逐步概率采样与上下文追加流水线" />
+  <figcaption>逐步概率采样与上下文追加流水线</figcaption>
 </figure>
 
 当你输入「人工智能的未来」，模型在预测第一个字时，脑子里并没有准备好第五百个字要写什么。它根据「人工智能的未来」，在词表上计算出「将」「在」「会」等候选词的概率分布。选出「将」之后，输入变成「人工智能的未来将」，再在此基础上预测下一个片段。
@@ -101,8 +101,8 @@ def autoregressive_generate(model, prompt_tokens, max_new_tokens=50):
 很多时候人们对大模型能力的困惑，来自没有把产品、对齐模型和预训练基座这三层结构区分开。
 
 <figure>
-  <img src="/figures/large-model/layers.svg" alt="展示工业 AI 系统的三层架构：顶层产品层、中层对齐模型、底层基座模型。" />
-  <figcaption>三层各自独立演进。产品层改动经常被误认为是底层模型变聪明或变笨。</figcaption>
+  <img src="/figures/large-model/layers.svg" alt="AI 系统三层架构" />
+  <figcaption>AI 系统三层架构（产品层、对齐模型、基座权重）</figcaption>
 </figure>
 
 最顶层是产品与应用层。以 2022 年 11 月上线的 [ChatGPT（OpenAI 官方公告）](https://openai.com/index/chatgpt/) 为例，它是一个完整的互联网应用。产品层负责处理用户账号、前端交互、历史会话持久化，在用户输入前悄悄拼接系统提示词（System Prompt），在输出端配置内容安全审查策略，并在需要时触发搜索引擎或代码执行沙箱。

@@ -1,6 +1,6 @@
 ---
-title: "什么是端侧大模型"
-description: "量化、NPU 和本地运行时，如何在没网时也能推理。"
+title: "端侧模型与本地离线计算"
+description: "量化、NPU 和本地运行时，如何在断网时也能完成低延迟推理。"
 series: multimodal-and-limits
 chapter: edge
 order: 3
@@ -11,9 +11,9 @@ prerequisites:
 videoSource: on-device-ai
 ---
 
-# 什么是端侧大模型
+# 端侧模型与本地离线计算
 
-量化、NPU 和本地运行时，如何在没网时也能推理。
+量化、NPU 和本地运行时，如何在断网时也能完成低延迟推理。
 
 ## 将要讲清
 

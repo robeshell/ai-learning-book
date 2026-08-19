@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14.5px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 600; }
+      .box-desc { font-size: 11px; font-weight: 400; }
+      .mono-val { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">传统连续显存分配 vs PagedAttention 虚拟分页机制</text>
+  <text x="36" y="68" class="subtitle">借鉴操作系统虚拟内存分页，消除 KV Cache 预分配带来的 60%~80% 显存碎片浪费</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Left Column: 传统连续分配 -->
+  <g transform="translate(36, 114)">
+    <rect width="430" height="236" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+    <rect x="16" y="16" width="105" height="24" rx="4" fill="#ffedd5"/>
+    <text x="68" y="32" text-anchor="middle" class="tag" fill="#c2410c">传统连续显存</text>
+    <text x="132" y="33" class="col-title" fill="#9a3412">静态预分配与碎片浪费</text>
+
+    <!-- Memory block visual -->
+    <g transform="translate(16, 54)">
+      <rect width="398" height="60" rx="4" fill="#ffffff" stroke="#fed7aa"/>
+      <rect x="8" y="8" width="90" height="44" rx="3" fill="#fed7aa"/>
+      <text x="53" y="34" text-anchor="middle" font-size="10.5px" font-weight="700" fill="#9a3412">实际生成 (200t)</text>
+
+      <rect x="106" y="8" width="284" height="44" rx="3" fill="#fee2e2" stroke="#fca5a5" stroke-dasharray="3,3"/>
+      <text x="248" y="28" text-anchor="middle" font-size="11px" font-weight="600" fill="#dc2626">静态预留未用显存 (内部碎片)</text>
+      <text x="248" y="44" text-anchor="middle" font-size="9.5px" fill="#ef4444">预分配 Max Seq (2048 Tokens)</text>
+    </g>
+
+    <!-- Bottleneck metrics -->
+    <g transform="translate(16, 126)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="14" y="22" class="box-label" fill="#9a3412">显存利用率瓶颈</text>
+      <text x="14" y="39" class="box-desc" fill="#7c2d12">有效利用率仅 20%~40%，极大限制了并发 Batch Size</text>
+    </g>
+
+    <!-- Result Banner -->
+    <g transform="translate(16, 186)">
+      <rect width="398" height="34" rx="4" fill="#fee2e2"/>
+      <text x="14" y="22" class="mono-val" fill="#b91c1c">显存浪费率: 60%~80% (严重挤占并发)</text>
+    </g>
+  </g>
+
+  <!-- Right Column: PagedAttention 分页分配 -->
+  <g transform="translate(494, 114)">
+    <rect width="430" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+    <rect x="16" y="16" width="116" height="24" rx="4" fill="#dcfce7"/>
+    <text x="74" y="32" text-anchor="middle" class="tag" fill="#15803d">PagedAttention</text>
+    <text x="142" y="33" class="col-title" fill="#166534">按需动态物理块映射</text>
+
+    <!-- Paging Visual -->
+    <g transform="translate(16, 54)">
+      <rect width="398" height="60" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <!-- Block Table mapping -->
+      <g transform="translate(10, 10)">
+        <rect x="0" y="0" width="85" height="40" rx="3" fill="#dcfce7"/>
+        <text x="42" y="18" text-anchor="middle" font-size="10px" font-weight="700" fill="#15803d">Block 0 (16t)</text>
+        <text x="42" y="32" text-anchor="middle" font-size="9px" fill="#16a34a">映射物理页 #4</text>
+
+        <rect x="95" y="0" width="85" height="40" rx="3" fill="#dcfce7"/>
+        <text x="137" y="18" text-anchor="middle" font-size="10px" font-weight="700" fill="#15803d">Block 1 (16t)</text>
+        <text x="137" y="32" text-anchor="middle" font-size="9px" fill="#16a34a">映射物理页 #9</text>
+
+        <rect x="190" y="0" width="85" height="40" rx="3" fill="#dcfce7"/>
+        <text x="232" y="18" text-anchor="middle" font-size="10px" font-weight="700" fill="#15803d">Block 2 (16t)</text>
+        <text x="232" y="32" text-anchor="middle" font-size="9px" fill="#16a34a">映射物理页 #1</text>
+
+        <rect x="285" y="0" width="90" height="40" rx="3" fill="#f0fdf4" stroke="#86efac" stroke-dasharray="2,2"/>
+        <text x="330" y="18" text-anchor="middle" font-size="10px" font-weight="600" fill="#15803d">+ 动态申请</text>
+        <text x="330" y="32" text-anchor="middle" font-size="9px" fill="#16a34a">写满再分配</text>
+      </g>
+    </g>
+
+    <!-- Benefits -->
+    <g transform="translate(16, 126)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="14" y="22" class="box-label" fill="#166534">按需分配与页表连续抽象</text>
+      <text x="14" y="39" class="box-desc" fill="#14532d">物理显存不连续也可逻辑打分，显存浪费压至极限</text>
+    </g>
+
+    <!-- Result Banner -->
+    <g transform="translate(16, 186)">
+      <rect width="398" height="34" rx="4" fill="#dcfce7"/>
+      <text x="14" y="22" class="mono-val" fill="#15803d">显存浪费率: &lt; 4%  |  并发吞吐: 提升 2~4x</text>
+    </g>
+  </g>
+</svg>

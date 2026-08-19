@@ -1,6 +1,6 @@
 ---
 title: "大模型的物理极限"
-description: "数据墙、幻觉不可完全根除，以及不能把价值判断外包给模型。"
+description: "高质量人类数据枯竭、幻觉不可完全消除，以及为何价值判断不能外包给模型。"
 series: multimodal-and-limits
 chapter: boundaries
 order: 5
@@ -14,7 +14,7 @@ videoSource: model-limits
 
 # 大模型的物理极限
 
-数据墙、幻觉不可完全根除，以及不能把价值判断外包给模型。
+高质量人类数据枯竭、幻觉不可完全消除，以及为何价值判断不能外包给模型。
 
 ## 将要讲清
 

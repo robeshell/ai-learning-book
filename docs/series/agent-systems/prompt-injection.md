@@ -1,5 +1,5 @@
 ---
-title: "什么是提示词注入"
+title: "提示词注入与安全防御"
 description: "直接和间接注入如何把工具权利用来执行攻击者的指令。"
 series: agent-systems
 chapter: safety
@@ -12,7 +12,7 @@ prerequisites:
 videoSource: prompt-injection
 ---
 
-# 什么是提示词注入
+# 提示词注入与安全防御
 
 直接和间接注入如何把工具权利用来执行攻击者的指令。
 

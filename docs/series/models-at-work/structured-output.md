@@ -1,6 +1,6 @@
 ---
-title: "什么是结构化输出"
-description: "用 Schema 约束输出，让程序拿到合法 JSON 而不是聊天废话。"
+title: "严格结构化输出"
+description: "用 JSON Schema 约束输出，让程序拿到合法数据而不是聊天废话。"
 series: models-at-work
 chapter: action
 order: 5
@@ -11,9 +11,9 @@ prerequisites:
 videoSource: structured-output
 ---
 
-# 什么是结构化输出
+# 严格结构化输出
 
-用 Schema 约束输出，让程序拿到合法 JSON 而不是聊天废话。
+用 JSON Schema 约束输出，让程序拿到合法数据而不是聊天废话。
 
 ## 将要讲清
 

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14.5px; font-weight: 700; fill: #0f172a; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .row-title { font-size: 12px; font-weight: 600; }
+      .row-desc { font-size: 11px; font-weight: 400; }
+      .mono-val { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 600; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">Temperature（温度）与 Top-P（核采样）的几何控盘机制</text>
+  <text x="36" y="68" class="subtitle">Temperature 调节概率平滑度与方差，Top-P 动态剔除尾部长尾不合理词汇</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Left Column: Temperature 调节 -->
+  <g transform="translate(36, 114)">
+    <rect width="430" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect x="16" y="16" width="105" height="24" rx="4" fill="#e2e8f0"/>
+    <text x="68" y="32" text-anchor="middle" class="tag" fill="#334155">平滑度调节</text>
+    <text x="132" y="33" class="col-title">Temperature (T) 形状控制</text>
+
+    <!-- Low T -->
+    <g transform="translate(16, 54)">
+      <rect width="398" height="48" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="14" y="20" class="row-title" fill="#1e40af">低温 (T = 0.2)：尖锐脉冲，确定性收拢</text>
+      <text x="14" y="36" class="row-desc" fill="#64748b">最高分词概率升至 95%+，用于代码、数学与提取事实</text>
+    </g>
+
+    <!-- Standard T -->
+    <g transform="translate(16, 110)">
+      <rect width="398" height="48" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="14" y="20" class="row-title" fill="#0f172a">标准 (T = 0.7)：平滑过渡，兼顾多样与通顺</text>
+      <text x="14" y="36" class="row-desc" fill="#64748b">大部分对话任务的默认参数，保证流畅的同时不复读</text>
+    </g>
+
+    <!-- High T -->
+    <g transform="translate(16, 166)">
+      <rect width="398" height="48" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="14" y="20" class="row-title" fill="#b45309">高温 (T = 1.5)：分布被压平，长尾被放大</text>
+      <text x="14" y="36" class="row-desc" fill="#64748b">长尾冷门词概率激增，用于头脑风暴，但易胡说八道</text>
+    </g>
+  </g>
+
+  <!-- Right Column: Top-P 核采样 -->
+  <g transform="translate(494, 114)">
+    <rect width="430" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+    <rect x="16" y="16" width="105" height="24" rx="4" fill="#dcfce7"/>
+    <text x="68" y="32" text-anchor="middle" class="tag" fill="#15803d">动态阈值截断</text>
+    <text x="132" y="33" class="col-title" fill="#166534">Top-P (Nucleus) 核采样</text>
+
+    <!-- Content 1 -->
+    <g transform="translate(16, 54)">
+      <rect width="398" height="48" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="14" y="20" class="row-title" fill="#15803d">核心逻辑：累积概率求和截断 (如 p=0.90)</text>
+      <text x="14" y="36" class="row-desc" fill="#166534">按概率降序排布，取累积和刚达到 90% 的最小子集</text>
+    </g>
+
+    <!-- Content 2: High Confidence Scenario -->
+    <g transform="translate(16, 110)">
+      <rect width="398" height="48" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="14" y="20" class="row-title" fill="#166534">场景 A：模型高度确定时（候选池自动收窄）</text>
+      <text x="14" y="36" class="row-desc" fill="#14532d">前 1 个词概率占 92% $\to$ 候选池自动缩为 1 个词，杜绝乱猜</text>
+    </g>
+
+    <!-- Content 3: Open-ended Scenario -->
+    <g transform="translate(16, 166)">
+      <rect width="398" height="48" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="14" y="20" class="row-title" fill="#166534">场景 B：开放创作场景（候选池自动放宽）</text>
+      <text x="14" y="36" class="row-desc" fill="#14532d">前 30 个词各占 3% $\to$ 候选池自动展开到 30 个词，保持灵动</text>
+    </g>
+  </g>
+</svg>

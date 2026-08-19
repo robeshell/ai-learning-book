@@ -1,6 +1,6 @@
 ---
-title: "什么是 MCP"
-description: "把 Tools、Resources、Prompts 收成一套可插拔的上下文协议。"
+title: "MCP 统一接入协议"
+description: "把 Tools、Resources、Prompts 收成一套可插拔的上下文协议标准。"
 series: models-at-work
 chapter: protocols
 order: 6
@@ -11,9 +11,9 @@ prerequisites:
 videoSource: mcp
 ---
 
-# 什么是 MCP
+# MCP 统一接入协议
 
-把 Tools、Resources、Prompts 收成一套可插拔的上下文协议。
+把 Tools、Resources、Prompts 收成一套可插拔的上下文协议标准。
 
 ## 将要讲清
 

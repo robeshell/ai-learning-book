@@ -1,6 +1,6 @@
 ---
-title: "什么是 SFT"
-description: "用高质量问答对把接龙机教会听指令、守格式。"
+title: "SFT 指令微调"
+description: "用高质量问答对把接龙机教会听指令、守格式并扮演角色。"
 series: how-models-train
 chapter: alignment
 order: 3
@@ -11,9 +11,9 @@ prerequisites:
 videoSource: sft
 ---
 
-# 什么是 SFT
+# SFT 指令微调
 
-用高质量问答对把接龙机教会听指令、守格式。
+用高质量问答对把接龙机教会听指令、守格式并扮演角色。
 
 ## 将要讲清
 

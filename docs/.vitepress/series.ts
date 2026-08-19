@@ -37,10 +37,79 @@ export const site = {
 
 export const seriesList: Series[] = [
   {
+    id: "prerequisites",
+    season: 0,
+    title: "前置基石",
+    subtitle: "读懂 AI 的物理与数学底座",
+    description:
+      "在进入大模型世界前，先掌握硬件账本、向量几何与无状态数据结构这三大底层工具箱。",
+    promise:
+      "掌握显存换算、向量点积、Softmax 归一化与无状态缓存的底层原理，读懂大模型不再有数学与硬件门槛。",
+    badge: "选读预备",
+    chapters: [
+      {
+        id: "foundations",
+        title: "核心工具箱",
+        description:
+          "从显存带宽计算、高维向量空间到无状态与前缀树，亲手演算一遍 AI 最底层的物理与数学机制。",
+        articles: [
+          {
+            id: "hardware-foundations",
+            title: "显存与计算带宽",
+            description:
+              "参数量与显存换算、显存带宽瓶颈，以及为什么每吐一个字都要搬运整套模型。",
+            points: [
+              "CPU 与 GPU 的本质区别：串行逻辑 vs 矩阵高并发",
+              "显存容量决定装不装得下，显存带宽决定吐字有多快",
+              "为什么半精度 FP16 模式下每个参数占 2 个字节",
+              "手算大模型单字生成延迟的物理下限",
+            ],
+            order: 1,
+            prerequisites: [],
+            articleStatus: "draft",
+            videoSource: "hardware-foundations",
+          },
+          {
+            id: "vector-and-softmax",
+            title: "向量空间与概率计算",
+            description:
+              "词如何变成高维坐标、点积为什么能度量语义关联，以及分数如何转为概率。",
+            points: [
+              "高维向量是计算机理解语义的几何坐标",
+              "点积（Dot Product）度量两个向量的方向一致性",
+              "Softmax 如何把任意实数平滑压缩为总和 100% 的概率分布",
+              "动手演算一次真实的向量相似度与 Softmax 归一化",
+            ],
+            order: 2,
+            prerequisites: [],
+            articleStatus: "draft",
+            videoSource: "vector-and-softmax",
+          },
+          {
+            id: "stateless-and-cache",
+            title: "无状态与缓存机制",
+            description:
+              "无状态 HTTP 请求的现实意义、空间换时间的缓存哲学，以及前缀树匹配。",
+            points: [
+              "大模型服务在物理上完全无状态（Stateless）",
+              "多轮对话由应用层全量重传，Token 呈现等差累积",
+              "缓存（Cache）的物理哲学：只要算过且复用就绝不重算",
+              "前缀树（Trie / Radix Tree）如何高效共享公共前缀",
+            ],
+            order: 3,
+            prerequisites: [],
+            articleStatus: "draft",
+            videoSource: "stateless-and-cache",
+          },
+        ],
+      },
+    ],
+  },
+  {
     id: "understand-ai",
     season: 1,
     title: "看懂大模型",
-    subtitle: "从底层结构、Token 到上下文",
+    subtitle: "从底层结构到概率预测",
     description:
       "从参数结构、Token 切分、上下文窗口讲到概率预测与幻觉本质，带你看懂大模型底层究竟是怎么运转的。",
     promise:
@@ -50,11 +119,11 @@ export const seriesList: Series[] = [
       {
         id: "foundation",
         title: "大模型的物理底座",
-        description: "拆解大模型究竟由什么构成，文字如何变成模型能算的数字编号。",
+        description: "拆解大模型究竟由什么构成，文字如何变成模型能算的数字编号与张量。",
         articles: [
           {
             id: "large-model",
-            title: "什么是大模型",
+            title: "大模型究竟是什么",
             description: "参数与结构、预训练与自回归、规模效应，以及产品和模型为什么不是一层。",
             points: [
               "大模型是在海量文本上预训练出的深度学习模型",
@@ -69,8 +138,8 @@ export const seriesList: Series[] = [
           },
           {
             id: "transformer",
-            title: "什么是 Transformer",
-            description: "自注意力如何并行计算词汇关联，以及 QKV 的直观意义。",
+            title: "Transformer 与自注意力",
+            description: "自注意力如何并行计算词汇关联，以及 QKV 的直观物理意义。",
             points: [
               "为什么注意力机制能取代传统循环网络",
               "Self-Attention 如何并行计算词语关联",
@@ -84,7 +153,7 @@ export const seriesList: Series[] = [
           },
           {
             id: "token",
-            title: "什么是 Token",
+            title: "Token：文字的度量衡",
             description: "文本如何被切成数字编号，以及计费和容量为什么都按 Token 算。",
             points: [
               "Token 是模型接收和吐出文本的基本单位",
@@ -94,19 +163,19 @@ export const seriesList: Series[] = [
             ],
             order: 3,
             prerequisites: ["large-model"],
-            articleStatus: "outline",
+            articleStatus: "draft",
             videoSource: "token",
           },
         ],
       },
       {
         id: "runtime",
-        title: "运行视野与显存加速",
-        description: "从单次运算的视野极限，到如何利用缓存省钱提速。",
+        title: "视野极限与计算加速",
+        description: "从单次运算的视野极限，到如何利用缓存与推测采样大幅降本提速。",
         articles: [
           {
             id: "context-window",
-            title: "什么是上下文窗口",
+            title: "上下文窗口与视野极限",
             description: "单次推理能看见多远，以及窗口为什么不是长期记忆。",
             points: [
               "窗口是单次推理注意力能覆盖的 Token 上限",
@@ -116,12 +185,12 @@ export const seriesList: Series[] = [
             ],
             order: 4,
             prerequisites: ["token"],
-            articleStatus: "outline",
+            articleStatus: "draft",
             videoSource: "context-window",
           },
           {
             id: "prompt-caching",
-            title: "什么是 Prompt Caching",
+            title: "Prompt Caching 前缀缓存",
             description: "KV Cache 和前缀缓存如何降低首字延迟和重复计算成本。",
             points: [
               "KV Cache 为何占用显存",
@@ -131,13 +200,13 @@ export const seriesList: Series[] = [
             ],
             order: 5,
             prerequisites: ["context-window"],
-            articleStatus: "stub",
+            articleStatus: "draft",
             videoSource: "prompt-caching",
           },
           {
             id: "inference-speed",
-            title: "为什么模型吐字越来越快",
-            description: "PagedAttention 与推测采样如何提高吞吐。",
+            title: "推理加速与推测采样",
+            description: "PagedAttention 与推测采样如何让模型吐字越来越快。",
             points: [
               "vLLM 一类系统如何对显存做分页",
               "小模型起草、大模型秒审的推测采样",
@@ -146,19 +215,19 @@ export const seriesList: Series[] = [
             ],
             order: 6,
             prerequisites: ["prompt-caching"],
-            articleStatus: "stub",
+            articleStatus: "draft",
             videoSource: "inference-speed",
           },
         ],
       },
       {
         id: "generation",
-        title: "概率预测与任务控制",
-        description: "大模型如何一步步预测文字，提示词如何收拢生成轨道。",
+        title: "概率生成与提示控制",
+        description: "大模型如何一步步预测文字，提示词如何通过注意力收拢生成轨道。",
         articles: [
           {
             id: "next-token",
-            title: "模型如何预测下一个词",
+            title: "Next-Token 概率预测",
             description: "Logits、温度、Top-P，以及上下文学习究竟在改什么。",
             points: [
               "下一步预测是词表上的概率分布，不是检索答案",
@@ -168,7 +237,7 @@ export const seriesList: Series[] = [
             ],
             order: 7,
             prerequisites: ["token"],
-            articleStatus: "stub",
+            articleStatus: "draft",
             videoSource: "next-token",
           },
           {
@@ -183,12 +252,12 @@ export const seriesList: Series[] = [
             ],
             order: 8,
             prerequisites: ["next-token"],
-            articleStatus: "outline",
+            articleStatus: "draft",
             videoSource: "prompt",
           },
           {
             id: "moe",
-            title: "什么是 MoE",
+            title: "MoE 混合专家模型",
             description: "稀疏激活和门控路由，为什么总参数很大、一次只用一部分。",
             points: [
               "混合专家是稀疏激活，不是每次叫醒全部参数",
@@ -198,20 +267,20 @@ export const seriesList: Series[] = [
             ],
             order: 9,
             prerequisites: ["transformer"],
-            articleStatus: "stub",
+            articleStatus: "draft",
             videoSource: "moe",
           },
         ],
       },
       {
         id: "limits",
-        title: "客观局限与幻觉本质",
-        description: "为什么大模型必然会产生幻觉，为什么不能让它独自拍板。",
+        title: "统计本质与幻觉必然性",
+        description: "为什么大模型必然会产生幻觉，为什么不能让统计预测模型独自拍板。",
         articles: [
           {
             id: "hallucination",
             title: "为什么大模型会幻觉",
-            description: "概率拟合不是客观真实，流畅的句子可以没有依据。",
+            description: "概率拟合不是客观真实，流畅的句子可以完全没有事实依据。",
             points: [
               "幻觉是高概率、语法通顺但事实不成立的生成",
               "模型优化的是统计相关性，不是真伪判断",
@@ -220,7 +289,7 @@ export const seriesList: Series[] = [
             ],
             order: 10,
             prerequisites: ["next-token", "prompt"],
-            articleStatus: "stub",
+            articleStatus: "draft",
             videoSource: "hallucination",
           },
         ],
@@ -231,21 +300,21 @@ export const seriesList: Series[] = [
     id: "how-models-train",
     season: 2,
     title: "大模型是怎么炼成的",
-    subtitle: "从海量语料、指令微调到深度思考",
+    subtitle: "从接龙到深度思考",
     description:
       "从预训练基座、合成数据、SFT、偏好对齐到推理模型与瘦身，拆解一个大模型诞生的工业工序。",
     promise:
-      "看完后能分清 Base、Chat/Instruct、RLHF/DPO 与慢思考推理模型的本质区别。",
+      "看完后能分清 Base、Chat/Instruct、RLHF/DPO 与慢思考推理模型的本质区别与工业工序。",
     badge: "AI 制造",
     chapters: [
       {
         id: "raw-model",
-        title: "从海量语料到基座毛坯房",
-        description: "数万亿文本如何变成只会接龙的基座模型，以及合成数据如何补语料。",
+        title: "基座预训练：从海量语料到语言模型",
+        description: "数万亿文本如何变成只会接龙的基座模型，以及合成数据如何补充高质量语料。",
         articles: [
           {
             id: "pre-training",
-            title: "什么是预训练与基座模型",
+            title: "预训练与基座模型",
             description: "自监督接龙、Scaling Law，以及 Base 为什么还不是聊天助手。",
             points: [
               "预训练用无标注文本做 next-token 学习",
@@ -260,7 +329,7 @@ export const seriesList: Series[] = [
           },
           {
             id: "synthetic-data",
-            title: "什么是合成数据",
+            title: "合成数据与语料自造",
             description: "高质量人类语料不够时，模型如何自己造可验证的训练数据。",
             points: [
               "公开高质量文本正在变稀缺",
@@ -277,13 +346,13 @@ export const seriesList: Series[] = [
       },
       {
         id: "alignment",
-        title: "精装修与人类偏好对齐",
-        description: "如何让只会接龙的基座学会听懂人话，并靠近人类偏好。",
+        title: "后训练对齐：从接龙机到听懂人话",
+        description: "如何让只会接龙的基座学会听懂指令，并依靠人类偏好排雷。",
         articles: [
           {
             id: "sft",
-            title: "什么是 SFT",
-            description: "用高质量问答对把接龙机教会听指令、守格式。",
+            title: "SFT 指令微调",
+            description: "用高质量问答对把接龙机教会听指令、守格式并扮演角色。",
             points: [
               "SFT 用指令-回答对做监督学习",
               "它教会角色、格式和“像在回答人”",
@@ -297,8 +366,8 @@ export const seriesList: Series[] = [
           },
           {
             id: "rlhf-and-dpo",
-            title: "什么是 RLHF 与 DPO",
-            description: "奖励模型、人类偏好，以及 DPO 如何绕开显式奖励模型。",
+            title: "RLHF 与 DPO 偏好对齐",
+            description: "奖励模型、人类偏好，以及 DPO 如何绕开显式奖励模型直接对齐。",
             points: [
               "RLHF 先学奖励模型，再优化生成策略",
               "DPO 用正负样本直接改策略",
@@ -314,13 +383,13 @@ export const seriesList: Series[] = [
       },
       {
         id: "deep-thinking",
-        title: "深度思考与模型瘦身",
-        description: "慢思考如何在内部试错，小模型如何继承大模型能力。",
+        title: "深度推理与模型轻量化",
+        description: "慢思考如何在内部试错，小模型如何通过蒸馏与量化继承大模型能力。",
         articles: [
           {
             id: "reasoning-models",
-            title: "什么是推理大模型",
-            description: "思维链、可验证奖励，以及 o1 / R1 一类慢思考在优化什么。",
+            title: "深度推理与慢思考模型",
+            description: "思维链、可验证奖励（RLVR），以及 o1 / R1 一类慢思考在优化什么。",
             points: [
               "CoT 把中间步骤写出来，给搜索和检查留空间",
               "RLVR 用可验证规则给奖励，而不是只听人打分",
@@ -334,8 +403,8 @@ export const seriesList: Series[] = [
           },
           {
             id: "distillation-quantization",
-            title: "蒸馏与量化",
-            description: "大模型当老师、权重降精度，以及 LoRA 一类低成本适配。",
+            title: "模型蒸馏与量化压缩",
+            description: "大模型当老师、权重降精度，以及 LoRA 一类低成本参数适配。",
             points: [
               "蒸馏是把大模型的轨迹教给小模型",
               "量化用更少比特存权重，换显存和速度",
@@ -355,22 +424,22 @@ export const seriesList: Series[] = [
     id: "models-at-work",
     season: 3,
     title: "给大模型装上手和脚",
-    subtitle: "从检索增强、工具调用到统一协议",
+    subtitle: "连接资料与外部世界",
     description:
-      "从 RAG、向量检索、工具调用、结构化输出到 MCP 与 Skill，看模型如何接上资料和外部动作。",
+      "从 RAG、向量检索、工具调用、结构化输出到 MCP 与 Skill，看模型如何接上私有资料和外部动作。",
     promise:
       "看完后能讲清 RAG 怎样补私有事实、Tool Calling 怎样触发外部动作，以及 MCP 和 Skill 怎样标准化能力。",
     badge: "外部连接",
     chapters: [
       {
         id: "retrieve",
-        title: "接上私有资料与向量搜索",
-        description: "把文档按语义召回，再动态塞进窗口，而不必重训模型。",
+        title: "外挂知识库：向量检索与语义召回",
+        description: "把文档按语义坐标召回，再动态塞进上下文窗口，而不必重训模型。",
         articles: [
           {
             id: "rag",
-            title: "什么是 RAG",
-            description: "切块、召回、塞进窗口：不重训也能回答私有知识。",
+            title: "RAG 检索增强生成",
+            description: "切块、召回、塞进窗口：不重训也能让模型回答私有知识。",
             points: [
               "RAG 把检索到的片段当作这一次的依据",
               "切块粒度会直接决定召回质量",
@@ -384,7 +453,7 @@ export const seriesList: Series[] = [
           },
           {
             id: "embeddings",
-            title: "什么是向量嵌入",
+            title: "Embedding 向量嵌入",
             description: "文字变成高维坐标之后，为什么能按意思而不是按关键词查找。",
             points: [
               "Embedding 把文本映射成向量",
@@ -399,8 +468,8 @@ export const seriesList: Series[] = [
           },
           {
             id: "advanced-rag",
-            title: "什么是高阶 RAG",
-            description: "朴素切块的盲区、图谱检索，以及多轮深入搜索。",
+            title: "高阶 RAG 与图谱检索",
+            description: "朴素切块的盲区、GraphRAG 知识图谱，以及多轮 Agentic 深入检索。",
             points: [
               "固定切块会切断关系和表格",
               "GraphRAG 一类方法在补实体关系",
@@ -416,12 +485,12 @@ export const seriesList: Series[] = [
       },
       {
         id: "action",
-        title: "发出动作与严格结构化输出",
-        description: "模型如何生成参数包触发外部系统，并保证格式可被程序消费。",
+        title: "跨出语言界限：动作触发与结构化输出",
+        description: "模型如何生成参数包触发外部系统，并保证格式严格可被下游程序消费。",
         articles: [
           {
             id: "tool-calling",
-            title: "什么是工具调用",
+            title: "工具调用与动作执行",
             description: "模型不亲手调接口，而是生成参数包，由系统执行后再回填。",
             points: [
               "Tool Calling 是生成结构化请求，不是模型直接联网",
@@ -436,8 +505,8 @@ export const seriesList: Series[] = [
           },
           {
             id: "structured-output",
-            title: "什么是结构化输出",
-            description: "用 Schema 约束输出，让程序拿到合法 JSON 而不是聊天废话。",
+            title: "严格结构化输出",
+            description: "用 JSON Schema 约束输出，让程序拿到合法数据而不是聊天废话。",
             points: [
               "聊天文本对程序不可靠",
               "JSON Schema / Strict Mode 把语法变成硬约束",
@@ -453,13 +522,13 @@ export const seriesList: Series[] = [
       },
       {
         id: "protocols",
-        title: "工业标准协议与专业工作法",
-        description: "MCP 如何成为统一接入总线，Skill 如何打包可复用工作法。",
+        title: "能力标准化：MCP 总线与专业 Skill",
+        description: "MCP 如何成为统一接入总线，Skill 如何打包可复用专业工作法。",
         articles: [
           {
             id: "mcp",
-            title: "什么是 MCP",
-            description: "把 Tools、Resources、Prompts 收成一套可插拔的上下文协议。",
+            title: "MCP 统一接入协议",
+            description: "把 Tools、Resources、Prompts 收成一套可插拔的上下文协议标准。",
             points: [
               "MCP 要解决的是客户端和工具各接各的",
               "Tools / Resources / Prompts 是三种能力面",
@@ -473,7 +542,7 @@ export const seriesList: Series[] = [
           },
           {
             id: "skill",
-            title: "什么是 Skill",
+            title: "Skill 专业技能包",
             description: "把提示词、脚本和规范打成可复用的专业工作法，而不是一段咒语。",
             points: [
               "Skill 是打包的作业规程，不是一句 prompt",
@@ -494,7 +563,7 @@ export const seriesList: Series[] = [
     id: "agent-systems",
     season: 4,
     title: "AI 智能体怎么替人干活",
-    subtitle: "从自主循环、Harness 到代码与电脑操作",
+    subtitle: "从问答走向自主行动",
     description:
       "从 ReAct 循环、宿主底盘、记忆、规划，到多智能体、电脑操作与安全评测，看智能体如何从问答变成干活。",
     promise:
@@ -503,13 +572,13 @@ export const seriesList: Series[] = [
     chapters: [
       {
         id: "loop",
-        title: "自主思考、底盘与记忆体系",
-        description: "智能体如何在闭环里决策，宿主如何管生命周期，三层记忆如何分工。",
+        title: "单体闭环：思考循环、底盘与记忆",
+        description: "智能体如何在闭环里自主决策，宿主底盘如何管生命周期，三层记忆如何分工。",
         articles: [
           {
             id: "agent-loop",
-            title: "什么是 AI Agent",
-            description: "Thought-Action-Observation 闭环，以及它和聊天机器人的差别。",
+            title: "AI Agent 自主闭环",
+            description: "Thought-Action-Observation 闭环，以及它和聊天机器人的本质差别。",
             points: [
               "Agent 是看目标、选动作、看反馈、再决策的循环",
               "Chatbot 默认停在一次回答，Agent 默认继续到停机条件",
@@ -523,8 +592,8 @@ export const seriesList: Series[] = [
           },
           {
             id: "agent-harness",
-            title: "什么是 Agent Harness",
-            description: "模型只是发动机，宿主操作系统才管理状态、权限和崩溃恢复。",
+            title: "Harness 智能体底盘",
+            description: "模型只是发动机，宿主操作系统底盘才管理状态、权限和崩溃恢复。",
             points: [
               "Harness 管生命周期，模型不管",
               "权限截获、超时、断点续传都在宿主",
@@ -553,8 +622,8 @@ export const seriesList: Series[] = [
           },
           {
             id: "planning-reflection",
-            title: "规划与自我反思",
-            description: "任务分解、执行失败后的自检重试，以及自愈的边界。",
+            title: "任务规划与自我反思",
+            description: "任务分解、执行失败后的自检重试，以及自愈的工程边界。",
             points: [
               "Plan-and-Solve 把大目标拆成可执行步骤",
               "反思是看反馈后改计划，不是突然有了良知",
@@ -570,13 +639,13 @@ export const seriesList: Series[] = [
       },
       {
         id: "collaboration",
-        title: "角色分工与杀手级落地形态",
-        description: "多智能体如何协同，代码智能体和 GUI 智能体如何操作真实环境。",
+        title: "形态演进：群体协同与软硬件操作",
+        description: "多智能体如何协同分工，代码智能体和 GUI 智能体如何操作真实环境。",
         articles: [
           {
             id: "multi-agent",
-            title: "多智能体协作",
-            description: "主从编排、专职子 Agent，以及 Agent 之间如何交接。",
+            title: "多智能体分工协同",
+            description: "主从编排、专职子 Agent，以及 Agent 之间如何严密交接。",
             points: [
               "多 Agent 首先是分工，不是人多力量大",
               "Supervisor 模式把路由和汇总放在一层",
@@ -590,7 +659,7 @@ export const seriesList: Series[] = [
           },
           {
             id: "coding-computer-use",
-            title: "代码智能体与 Computer Use",
+            title: "代码智能体与电脑操作",
             description: "改代码的 Agent 和看屏幕点鼠标的 Agent，能力边界差在哪。",
             points: [
               "Coding Agent 依赖仓库索引、测试和补丁循环",
@@ -607,12 +676,12 @@ export const seriesList: Series[] = [
       },
       {
         id: "safety",
-        title: "安全防线与质量可观测",
-        description: "提示词注入、沙箱、人在回路，以及评测支架。",
+        title: "工程落地：安全防线与质量评估",
+        description: "提示词注入防御、沙箱隔离、人在回路，以及回归评测支架。",
         articles: [
           {
             id: "prompt-injection",
-            title: "什么是提示词注入",
+            title: "提示词注入与安全防御",
             description: "直接和间接注入如何把工具权利用来执行攻击者的指令。",
             points: [
               "注入是把攻击指令混进模型正在读的文本",
@@ -627,8 +696,8 @@ export const seriesList: Series[] = [
           },
           {
             id: "agent-eval-control",
-            title: "沙箱、人在回路与 Eval",
-            description: "执行隔离、危险操作审批，以及把智能体质量测成可回归的指标。",
+            title: "沙箱隔离与质量评测",
+            description: "执行隔离、危险操作审批，以及把智能体质量测成可重复回归的指标。",
             points: [
               "沙箱限制文件系统、网络和副作用",
               "人在回路是高风险动作的闸门",
@@ -648,7 +717,7 @@ export const seriesList: Series[] = [
     id: "multimodal-and-limits",
     season: 5,
     title: "大模型的感官与物理极限",
-    subtitle: "从看图听音、本地离线到算力之墙",
+    subtitle: "多模态演进与物理极限",
     description:
       "从视觉与语音、端侧运行，到长文本退化和算力墙，看大模型的扩展形态与不可逾越边界。",
     promise:
@@ -657,13 +726,13 @@ export const seriesList: Series[] = [
     chapters: [
       {
         id: "senses",
-        title: "感官扩展与多模态直连",
-        description: "图像切片和音频波形如何进入同一套 Token 计算。",
+        title: "感官扩展：视觉与实时语音直连",
+        description: "图像切片和音频波形如何直接进入同一套 Token 统一计算。",
         articles: [
           {
             id: "vision-llm",
-            title: "什么是视觉大模型",
-            description: "图片如何被切成视觉 Token，再和对齐后的语言空间一起算。",
+            title: "视觉大模型与多模态",
+            description: "图片如何被切成视觉 Token，再和对齐后的语言空间一起计算。",
             points: [
               "图像被切成 Patch，再变成视觉 Token",
               "对齐层把视觉和语言接到可一起注意的空间",
@@ -677,8 +746,8 @@ export const seriesList: Series[] = [
           },
           {
             id: "audio-llm",
-            title: "什么是实时语音大模型",
-            description: "Speech-to-Speech 如何避免“先转写再合成”的拼接卡顿。",
+            title: "实时语音与全双工",
+            description: "Speech-to-Speech 如何避免“先转写再合成”的拼接卡顿与情绪丢失。",
             points: [
               "级联 ASR + LLM + TTS 会引入延迟和信息损失",
               "端到端语音模型在同一条链路里听和说",
@@ -694,13 +763,13 @@ export const seriesList: Series[] = [
       },
       {
         id: "edge",
-        title: "端侧部署与本地离线计算",
-        description: "在个人设备上离线运行，换来的是隐私和能力的折中。",
+        title: "端侧轻量化：本地离线与能耗折中",
+        description: "在个人设备上离线运行，换来的是隐私和能力的现实折中。",
         articles: [
           {
             id: "on-device-ai",
-            title: "什么是端侧大模型",
-            description: "量化、NPU 和本地运行时，如何在没网时也能推理。",
+            title: "端侧模型与本地离线计算",
+            description: "量化、NPU 和本地运行时，如何在断网时也能完成低延迟推理。",
             points: [
               "端侧首先受内存和功耗约束",
               "量化和蒸馏是能塞进设备的前提",
@@ -716,13 +785,13 @@ export const seriesList: Series[] = [
       },
       {
         id: "boundaries",
-        title: "长文本退化与物理之墙",
-        description: "窗口开很大仍然会丢中间，以及数据、幻觉和价值判断的硬边界。",
+        title: "终极边界：长文本衰减与客观物理墙",
+        description: "窗口开很大仍然会丢中间，以及数据、幻觉和价值判断的硬物理边界。",
         articles: [
           {
             id: "context-rot",
-            title: "什么是长文本退化",
-            description: "大海捞针、迷失在中间，以及注意力随长度衰减。",
+            title: "长文本退化与注意力衰减",
+            description: "大海捞针、迷失在中间（Lost in the Middle），以及注意力随长度的衰减。",
             points: [
               "标称窗口长度不等于有效工作记忆",
               "Lost in the Middle 说明位置会影响召回",
@@ -737,7 +806,7 @@ export const seriesList: Series[] = [
           {
             id: "model-limits",
             title: "大模型的物理极限",
-            description: "数据墙、幻觉不可完全根除，以及不能把价值判断外包给模型。",
+            description: "高质量人类数据枯竭、幻觉不可完全消除，以及为何价值判断不能外包给模型。",
             points: [
               "高质量人类语料正在变贵、变少",
               "幻觉可以压低，不能承诺为零",

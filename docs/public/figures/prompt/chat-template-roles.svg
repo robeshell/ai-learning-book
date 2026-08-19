@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .role-title { font-size: 13.5px; font-weight: 700; }
+      .role-desc { font-size: 11px; font-weight: 400; }
+      .special-token { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">Chat Template 角色特殊标记（Special Tokens）物理排布</text>
+  <text x="36" y="68" class="subtitle">模型通过特殊 Token 区分对话角色，System 享有全序列最高先验注意力权重</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Main Pipeline Structure -->
+  <g transform="translate(36, 114)">
+    <!-- Block 1: System Prompt -->
+    <g transform="translate(0, 0)">
+      <rect width="888" height="70" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+      <g transform="translate(16, 14)">
+        <rect x="0" y="0" width="160" height="22" rx="3" fill="#e2e8f0"/>
+        <text x="80" y="15" text-anchor="middle" class="special-token" fill="#334155">&lt;|im_start|&gt;system</text>
+
+        <text x="176" y="16" class="role-title" fill="#0f172a">系统角色与安全底仓（常驻最前端）</text>
+        <text x="176" y="38" class="role-desc" fill="#64748b">内容：「你是一个严谨的代码审计助手...」 + 工具定义 &lt;|im_end|&gt;</text>
+      </g>
+      <!-- Priority Badge -->
+      <rect x="748" y="24" width="124" height="22" rx="3" fill="#e2e8f0"/>
+      <text x="810" y="39" text-anchor="middle" font-size="10.5px" font-weight="600" fill="#334155">全局先验注意力</text>
+    </g>
+
+    <!-- Block 2: User Prompt -->
+    <g transform="translate(0, 82)">
+      <rect width="888" height="70" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <g transform="translate(16, 14)">
+        <rect x="0" y="0" width="140" height="22" rx="3" fill="#dbeafe"/>
+        <text x="70" y="15" text-anchor="middle" class="special-token" fill="#1e40af">&lt;|im_start|&gt;user</text>
+
+        <text x="156" y="16" class="role-title" fill="#1e40af">用户提问与即时指令（动态输入）</text>
+        <text x="156" y="38" class="role-desc" fill="#3b82f6">内容：「请帮我审查这段 Python 代码的安全性...」 &lt;|im_end|&gt;</text>
+      </g>
+      <!-- Priority Badge -->
+      <rect x="748" y="24" width="124" height="22" rx="3" fill="#dbeafe"/>
+      <text x="810" y="39" text-anchor="middle" font-size="10.5px" font-weight="600" fill="#1d4ed8">即时意图约束</text>
+    </g>
+
+    <!-- Block 3: Assistant Trigger -->
+    <g transform="translate(0, 164)">
+      <rect width="888" height="70" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <g transform="translate(16, 14)">
+        <rect x="0" y="0" width="170" height="22" rx="3" fill="#dcfce7"/>
+        <text x="85" y="15" text-anchor="middle" class="special-token" fill="#15803d">&lt;|im_start|&gt;assistant</text>
+
+        <text x="186" y="16" class="role-title" fill="#166534">助手生成起始标记（自回归触发器）</text>
+        <text x="186" y="38" class="role-desc" fill="#16a34a">模型在看到此标记后，正式在词表上预测第 1 个吐出词</text>
+      </g>
+      <!-- Priority Badge -->
+      <rect x="748" y="24" width="124" height="22" rx="3" fill="#dcfce7"/>
+      <text x="810" y="39" text-anchor="middle" font-size="10.5px" font-weight="600" fill="#15803d">生成起点标志</text>
+    </g>
+  </g>
+</svg>

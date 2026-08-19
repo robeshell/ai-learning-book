@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14.5px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12.5px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .axis-label { font-size: 11.5px; font-weight: 600; fill: #64748b; }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#16a34a"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="420" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">高维语义空间（Vector Space）与词向量的几何表示</text>
+  <text x="36" y="68" class="subtitle">计算机不认识文字，通过将每个概念映射为空间中的坐标箭头，用几何距离与方向表达语义关系</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Left: 2D/3D Coordinate Visual -->
+  <g transform="translate(36, 114)">
+    <rect width="450" height="280" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect x="16" y="16" width="105" height="24" rx="4" fill="#e2e8f0"/>
+    <text x="68" y="32" text-anchor="middle" class="tag" fill="#334155">几何坐标系</text>
+    <text x="132" y="33" class="col-title" fill="#0f172a">语义特征维度可视化</text>
+
+    <!-- Axes -->
+    <g transform="translate(40, 230)">
+      <line x1="0" y1="0" x2="360" y2="0" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <text x="365" y="4" class="axis-label">维度 1 (生物/动物属性)</text>
+      <line x1="0" y1="0" x2="0" y2="-170" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <text x="-5" y="-175" text-anchor="end" class="axis-label">维度 2 (尊贵/权力属性)</text>
+
+      <!-- Vector 1: 猫 [180, -40] -->
+      <line x1="0" y1="0" x2="180" y2="-35" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+      <circle cx="180" cy="-35" r="4" fill="#16a34a"/>
+      <text x="190" y="-32" font-size="12px" font-weight="700" fill="#166534">小猫 [2.0, 0.4]</text>
+
+      <!-- Vector 2: 狗 [200, -50] -->
+      <line x1="0" y1="0" x2="200" y2="-55" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+      <circle cx="200" cy="-55" r="4" fill="#16a34a"/>
+      <text x="210" y="-55" font-size="12px" font-weight="700" fill="#166534">小狗 [2.2, 0.6]</text>
+      <text x="195" y="-15" font-size="10px" fill="#15803d">(距离极近，方向几乎重合)</text>
+
+      <!-- Vector 3: 国王 [40, -140] -->
+      <line x1="0" y1="0" x2="60" y2="-140" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+      <circle cx="60" cy="-140" r="4" fill="#2563eb"/>
+      <text x="70" y="-138" font-size="12px" font-weight="700" fill="#1e40af">国王 [0.6, 1.8]</text>
+
+      <!-- Vector 4: 王后 [80, -150] -->
+      <line x1="0" y1="0" x2="85" y2="-148" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+      <circle cx="85" cy="-148" r="4" fill="#2563eb"/>
+      <text x="95" y="-152" font-size="12px" font-weight="700" fill="#1e40af">王后 [0.8, 1.9]</text>
+    </g>
+  </g>
+
+  <!-- Right: Properties and Word2Vec Rules -->
+  <g transform="translate(506, 114)">
+    <rect width="418" height="280" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+    <rect x="16" y="16" width="105" height="24" rx="4" fill="#dbeafe"/>
+    <text x="68" y="32" text-anchor="middle" class="tag" fill="#1d4ed8">空间运算规律</text>
+    <text x="132" y="33" class="col-title" fill="#1e40af">高维几何的核心魅力</text>
+
+    <!-- Point 1 -->
+    <g transform="translate(16, 54)">
+      <rect width="386" height="60" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+      <text x="12" y="20" class="box-label" fill="#1e40af">1. 距离反映相关度</text>
+      <text x="12" y="38" class="box-desc" fill="#1e3a8a">在 4096 维真实空间中，同类事物聚集在局域超球面上，</text>
+      <text x="12" y="52" class="box-desc" fill="#64748b">无关概念（如“小猫”与“潜水艇”）相互垂直正交。</text>
+    </g>
+
+    <!-- Point 2 -->
+    <g transform="translate(16, 124)">
+      <rect width="386" height="70" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+      <text x="12" y="20" class="box-label" fill="#1e40af">2. 经典的向量空间平移加减</text>
+      <text x="12" y="40" class="mono" fill="#2563eb">向量(国王) - 向量(男人) + 向量(女人) ≈ 向量(王后)</text>
+      <text x="12" y="58" class="box-desc" fill="#64748b">语义特征被解耦为空间中可加减的线性平移方向。</text>
+    </g>
+
+    <!-- Point 3 -->
+    <g transform="translate(16, 204)">
+      <rect width="386" height="60" rx="4" fill="#dbeafe"/>
+      <text x="12" y="22" class="box-label" fill="#1e40af">一句话结论：</text>
+      <text x="12" y="42" class="box-desc" font-weight="600" fill="#1e3a8a">词嵌入（Embedding）把抽象的文字变成了可以精确做加减乘除的物理坐标点。</text>
+    </g>
+  </g>
+</svg>

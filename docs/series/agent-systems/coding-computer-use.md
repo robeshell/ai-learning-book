@@ -1,5 +1,5 @@
 ---
-title: "代码智能体与 Computer Use"
+title: "代码智能体与电脑操作"
 description: "改代码的 Agent 和看屏幕点鼠标的 Agent，能力边界差在哪。"
 series: agent-systems
 chapter: collaboration
@@ -11,7 +11,7 @@ prerequisites:
 videoSource: coding-computer-use
 ---
 
-# 代码智能体与 Computer Use
+# 代码智能体与电脑操作
 
 改代码的 Agent 和看屏幕点鼠标的 Agent，能力边界差在哪。
 

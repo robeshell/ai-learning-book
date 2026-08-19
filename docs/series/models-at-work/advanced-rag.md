@@ -1,6 +1,6 @@
 ---
-title: "什么是高阶 RAG"
-description: "朴素切块的盲区、图谱检索，以及多轮深入搜索。"
+title: "高阶 RAG 与图谱检索"
+description: "朴素切块的盲区、GraphRAG 知识图谱，以及多轮 Agentic 深入检索。"
 series: models-at-work
 chapter: retrieve
 order: 3
@@ -12,9 +12,9 @@ prerequisites:
 videoSource: advanced-rag
 ---
 
-# 什么是高阶 RAG
+# 高阶 RAG 与图谱检索
 
-朴素切块的盲区、图谱检索，以及多轮深入搜索。
+朴素切块的盲区、GraphRAG 知识图谱，以及多轮 Agentic 深入检索。
 
 ## 将要讲清
 

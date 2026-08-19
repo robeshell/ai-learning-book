@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .stage-title { font-size: 13px; font-weight: 700; }
+      .stage-desc { font-size: 10.5px; font-weight: 400; fill: #64748b; }
+      .tag { font-size: 10px; font-weight: 600; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="420" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">Next-Token 概率预测与采样流水线（Forward to Sampling）</text>
+  <text x="36" y="68" class="subtitle">大模型从不直接检索固定答案，而是通过线性投影与概率采样逐字摇号输出</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Main Pipeline (5 Horizontal Stages) -->
+  <g transform="translate(36, 114)">
+    <!-- Stage 1: Hidden State -->
+    <g transform="translate(0, 0)">
+      <rect width="160" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="12" y="12" width="60" height="20" rx="3" fill="#e2e8f0"/>
+      <text x="42" y="26" text-anchor="middle" class="tag" fill="#475569">Step 1</text>
+      <text x="12" y="52" class="stage-title" fill="#0f172a">隐藏状态向量</text>
+      <text x="12" y="70" class="mono" fill="#2563eb">h ∈ ℝ^(4096)</text>
+      <line x1="12" y1="84" x2="148" y2="84" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="12" y="106" class="stage-desc">Transformer 顶层</text>
+      <text x="12" y="124" class="stage-desc">注意力汇聚后提取</text>
+      <text x="12" y="142" class="stage-desc">出的高维稠密特征</text>
+    </g>
+
+    <!-- Arrow 1 -> 2 -->
+    <path d="M 162 118 L 178 118" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrowBlue)"/>
+
+    <!-- Stage 2: LM Head -> Logits -->
+    <g transform="translate(182, 0)">
+      <rect width="160" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="60" height="20" rx="3" fill="#dbeafe"/>
+      <text x="42" y="26" text-anchor="middle" class="tag" fill="#1d4ed8">Step 2</text>
+      <text x="12" y="52" class="stage-title" fill="#1e40af">LM Head 投影</text>
+      <text x="12" y="70" class="mono" fill="#1e40af">z = h · W_lm^T</text>
+      <line x1="12" y1="84" x2="148" y2="84" stroke="#bfdbfe" stroke-width="1"/>
+      <text x="12" y="106" class="stage-desc" fill="#1e40af">线性映射到词表空间</text>
+      <text x="12" y="124" class="stage-desc" fill="#1e40af">输出 128k 维实数</text>
+      <text x="12" y="142" class="stage-desc" fill="#1e40af">Raw Logits（未归一化）</text>
+    </g>
+
+    <!-- Arrow 2 -> 3 -->
+    <path d="M 344 118 L 360 118" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrowBlue)"/>
+
+    <!-- Stage 3: Temperature Scaling & Softmax -->
+    <g transform="translate(364, 0)">
+      <rect width="166" height="236" rx="6" fill="#fefce8" stroke="#fde047" stroke-width="1.5"/>
+      <rect x="12" y="12" width="60" height="20" rx="3" fill="#fef9c3"/>
+      <text x="42" y="26" text-anchor="middle" class="tag" fill="#a16207">Step 3</text>
+      <text x="12" y="52" class="stage-title" fill="#854d0e">温度缩放 Softmax</text>
+      <text x="12" y="70" class="mono" fill="#854d0e">P_i = e^(z_i / T) / Σ</text>
+      <line x1="12" y1="84" x2="154" y2="84" stroke="#fde047" stroke-width="1"/>
+      <text x="12" y="106" class="stage-desc" fill="#854d0e">除以 Temperature (T)</text>
+      <text x="12" y="124" class="stage-desc" fill="#854d0e">转化为合法概率分布</text>
+      <text x="12" y="142" class="stage-desc" fill="#854d0e">所有词概率和严格为 1</text>
+    </g>
+
+    <!-- Arrow 3 -> 4 -->
+    <path d="M 532 118 L 548 118" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrowBlue)"/>
+
+    <!-- Stage 4: Top-P Dynamic Filtering -->
+    <g transform="translate(552, 0)">
+      <rect width="160" height="236" rx="6" fill="#fdf2f8" stroke="#fbcfe8" stroke-width="1.5"/>
+      <rect x="12" y="12" width="60" height="20" rx="3" fill="#fce7f3"/>
+      <text x="42" y="26" text-anchor="middle" class="tag" fill="#be185d">Step 4</text>
+      <text x="12" y="52" class="stage-title" fill="#9d174d">Top-P 核采样过滤</text>
+      <text x="12" y="70" class="mono" fill="#be185d">Σ P(w) ≥ 0.90</text>
+      <line x1="12" y1="84" x2="148" y2="84" stroke="#fbcfe8" stroke-width="1"/>
+      <text x="12" y="106" class="stage-desc" fill="#9d174d">截取累积概率达 90%</text>
+      <text x="12" y="124" class="stage-desc" fill="#9d174d">的最小候选词子集</text>
+      <text x="12" y="142" class="stage-desc" fill="#9d174d">剔除尾部长尾乱码词</text>
+    </g>
+
+    <!-- Arrow 4 -> 5 -->
+    <path d="M 714 118 L 730 118" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrowBlue)"/>
+
+    <!-- Stage 5: Multinomial Sampling Output -->
+    <g transform="translate(734, 0)">
+      <rect width="154" height="236" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="12" y="12" width="60" height="20" rx="3" fill="#dcfce7"/>
+      <text x="42" y="26" text-anchor="middle" class="tag" fill="#15803d">Step 5</text>
+      <text x="12" y="52" class="stage-title" fill="#166534">多项分布随机抽样</text>
+      <text x="12" y="70" class="mono" fill="#16a34a">ID: 4829 ("学习")</text>
+      <line x1="12" y1="84" x2="142" y2="84" stroke="#86efac" stroke-width="1"/>
+      <text x="12" y="106" class="stage-desc" fill="#14532d">按修正后概率轮盘</text>
+      <text x="12" y="124" class="stage-desc" fill="#14532d">随机掷骰子抽取 1 词</text>
+      <text x="12" y="142" class="stage-desc" fill="#14532d">作为当前步正式输出</text>
+    </g>
+  </g>
+
+  <!-- Bottom Tip Banner -->
+  <g transform="translate(36, 368)">
+    <rect width="888" height="32" rx="4" fill="#f8fafc" stroke="#e2e8f0"/>
+    <text x="16" y="21" font-size="11.5px" fill="#475569">💡 物理结论：大模型输出的内容在生成前只是一组概率分布，每次吐字都是一次符合统计权重的多项式随机抽样。</text>
+  </g>
+</svg>

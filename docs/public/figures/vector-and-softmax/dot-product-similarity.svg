@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14.5px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12.5px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; }
+      .mono-large { font-family: "IBM Plex Mono", monospace; font-size: 13.5px; font-weight: 700; }
+    </style>
+    <marker id="arrow" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#0284c7"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">点积（Dot Product）：高维空间里的「相似度探测器」</text>
+  <text x="36" y="68" class="subtitle">公式：a · b = Σ (a_i × b_i) = |a| |b| cos(θ) —— 两个向量方向越一致，点积得分越高</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 3 Cases Container -->
+  <g transform="translate(36, 114)">
+
+    <!-- Case 1: 锐角 (同向，高分) -->
+    <g transform="translate(0, 0)">
+      <rect width="284" height="236" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#dcfce7"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#15803d">高度相关</text>
+      <text x="104" y="30" class="col-title" fill="#166534">锐角（θ &lt; 90°）</text>
+
+      <!-- Graphic -->
+      <g transform="translate(14, 50)">
+        <rect width="256" height="74" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <line x1="20" y1="56" x2="110" y2="56" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arrow)"/>
+        <text x="116" y="60" class="mono" fill="#166534">向量 a</text>
+        <line x1="20" y1="56" x2="90" y2="20" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arrow)"/>
+        <text x="96" y="22" class="mono" fill="#166534">向量 b</text>
+        <text x="55" y="48" font-size="10px" fill="#15803d">θ=25°</text>
+      </g>
+
+      <g transform="translate(14, 134)">
+        <rect width="256" height="88" rx="4" fill="#dcfce7"/>
+        <text x="10" y="22" class="mono-large" fill="#15803d">a · b &gt; 0 (正向高分)</text>
+        <text x="10" y="44" class="box-desc" fill="#14532d">点积结果非常大，说明二者语义高度重合（如“小猫”与“猫粮”）。</text>
+        <text x="10" y="68" class="box-desc" font-weight="700" fill="#166534">👉 自注意力中 Q 与 K 的高分来源！</text>
+      </g>
+    </g>
+
+    <!-- Case 2: 直角 (正交，0分) -->
+    <g transform="translate(302, 0)">
+      <rect width="284" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#e2e8f0"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#475569">毫不相干</text>
+      <text x="104" y="30" class="col-title" fill="#0f172a">直角（θ = 90°）</text>
+
+      <!-- Graphic -->
+      <g transform="translate(14, 50)">
+        <rect width="256" height="74" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <line x1="20" y1="56" x2="110" y2="56" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)"/>
+        <text x="116" y="60" class="mono" fill="#334155">向量 a</text>
+        <line x1="20" y1="56" x2="20" y2="10" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)"/>
+        <text x="26" y="16" class="mono" fill="#334155">向量 b</text>
+        <text x="32" y="46" font-size="10px" fill="#64748b">θ=90°</text>
+      </g>
+
+      <g transform="translate(14, 134)">
+        <rect width="256" height="88" rx="4" fill="#f1f5f9"/>
+        <text x="10" y="22" class="mono-large" fill="#334155">a · b = 0 (零分，无投影)</text>
+        <text x="10" y="44" class="box-desc" fill="#475569">两个概念在特征维度上完全独立、毫无交集（如“小猫”与“量子比特”）。</text>
+        <text x="10" y="68" class="box-desc" fill="#64748b">👉 注意力权重为 0，互不干扰。</text>
+      </g>
+    </g>
+
+    <!-- Case 3: 钝角 (反向，负分) -->
+    <g transform="translate(604, 0)">
+      <rect width="284" height="236" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#ffedd5"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#c2410c">语义对立</text>
+      <text x="104" y="30" class="col-title" fill="#9a3412">钝角（θ &gt; 90°）</text>
+
+      <!-- Graphic -->
+      <g transform="translate(14, 50)">
+        <rect width="256" height="74" rx="4" fill="#ffffff" stroke="#fed7aa"/>
+        <line x1="80" y1="56" x2="160" y2="56" stroke="#c2410c" stroke-width="2.5" marker-end="url(#arrow)"/>
+        <text x="166" y="60" class="mono" fill="#9a3412">向量 a</text>
+        <line x1="80" y1="56" x2="15" y2="20" stroke="#c2410c" stroke-width="2.5" marker-end="url(#arrow)"/>
+        <text x="10" y="16" class="mono" fill="#9a3412">向量 b</text>
+        <text x="65" y="44" font-size="10px" fill="#c2410c">θ=150°</text>
+      </g>
+
+      <g transform="translate(14, 134)">
+        <rect width="256" height="88" rx="4" fill="#ffedd5"/>
+        <text x="10" y="22" class="mono-large" fill="#c2410c">a · b &lt; 0 (负分，互斥)</text>
+        <text x="10" y="44" class="box-desc" fill="#7c2d12">方向相反，意味着语义特征产生排斥（如“炎热”与“结冰”）。</text>
+        <text x="10" y="68" class="box-desc" fill="#9a3412">👉 后续通过 Softmax 将负分压制为 ~0%。</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

@@ -156,24 +156,23 @@ body {
 }
 
 .paper-home .title-page h1,
-.paper-home .season-head .index,
-.paper-home .season-head h2,
-.paper-home .chapter h3,
+.paper-home .season-title,
+.paper-home .chapter-title,
 .VPNavBarTitle .title,
 .vp-doc h1,
 .vp-doc h2,
 .vp-doc h3,
 .vp-doc h4,
 .pager-link .title {
-  font-family: "TsangerJinKai02", "Songti SC", STSong, serif !important;
+  font-family: var(--font-serif) !important;
   font-weight: 400 !important;
   font-synthesis: none !important;
   letter-spacing: 0 !important;
   -webkit-font-smoothing: auto;
 }
 
-.paper-home .season-head h2,
-.paper-home .chapter h3 {
+.paper-home .season-title,
+.paper-home .chapter-title {
   border: none !important;
   padding: 0 !important;
   margin-top: 0 !important;

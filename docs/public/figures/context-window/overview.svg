@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .block-title { font-size: 13px; font-weight: 700; }
+      .block-desc { font-size: 11px; font-weight: 400; }
+      .tag { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">上下文窗口的物理结构与预算切分</text>
+  <text x="36" y="68" class="subtitle">单次前向推理中，所有输入与预留输出必须同时塞入同一个有限的 Token 工作台</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Outer Context Window Container -->
+  <g transform="translate(36, 116)">
+    <!-- Container background -->
+    <rect width="888" height="236" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+    <!-- Title bar -->
+    <text x="20" y="28" font-size="12px" font-weight="700" fill="#475569">单次推理上下文总量上限（标称 Context Window，如 32k / 128k Tokens）</text>
+
+    <!-- Visual Segment Bar -->
+    <g transform="translate(20, 48)">
+      <!-- Segment 1: System Prompt (width 160) -->
+      <rect x="0" y="0" width="160" height="156" rx="5" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="12" y="12" width="68" height="20" rx="3" fill="#e2e8f0"/>
+      <text x="46" y="26" text-anchor="middle" class="tag" fill="#475569">底仓设定</text>
+      <text x="12" y="54" class="block-title" fill="#0f172a">系统提示词</text>
+      <text x="12" y="74" class="block-title" fill="#0f172a">&amp; 工具定义</text>
+      <text x="12" y="104" class="block-desc" fill="#64748b">角色身份、安全规范</text>
+      <text x="12" y="122" class="block-desc" fill="#64748b">与 Function Schema</text>
+      <text x="12" y="142" font-family="IBM Plex Mono" font-size="11px" font-weight="600" fill="#1b365d">常驻占用</text>
+
+      <!-- Segment 2: History (width 320) -->
+      <rect x="172" y="0" width="320" height="156" rx="5" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+      <rect x="184" y="12" width="80" height="20" rx="3" fill="#dbeafe"/>
+      <text x="224" y="26" text-anchor="middle" class="tag" fill="#1e40af">多轮累积</text>
+      <text x="184" y="54" class="block-title" fill="#1e3a8a">历史会话上下文</text>
+      <text x="184" y="74" class="block-title" fill="#1e3a8a">(User + Assistant 往返记录)</text>
+      <text x="184" y="104" class="block-desc" fill="#475569">随对话轮数增加呈等差级数迅速膨胀</text>
+      <text x="184" y="122" class="block-desc" fill="#475569">超限时最早轮次将被挤出或截断</text>
+      <text x="184" y="142" font-family="IBM Plex Mono" font-size="11px" font-weight="600" fill="#2563eb">动态增长区</text>
+
+      <!-- Segment 3: Current Input (width 170) -->
+      <rect x="504" y="0" width="170" height="156" rx="5" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="516" y="12" width="68" height="20" rx="3" fill="#dcfce7"/>
+      <text x="550" y="26" text-anchor="middle" class="tag" fill="#166534">当前请求</text>
+      <text x="516" y="54" class="block-title" fill="#14532d">最新用户输入</text>
+      <text x="516" y="74" class="block-title" fill="#14532d">&amp; 外部检索注入</text>
+      <text x="516" y="104" class="block-desc" fill="#475569">当前轮次的提问</text>
+      <text x="516" y="122" class="block-desc" fill="#475569">与 RAG 检索知识</text>
+      <text x="516" y="142" font-family="IBM Plex Mono" font-size="11px" font-weight="600" fill="#15803d">即时输入区</text>
+
+      <!-- Segment 4: Reserved Output (width 162) -->
+      <rect x="686" y="0" width="162" height="156" rx="5" fill="#fffbeb" stroke="#fde68a" stroke-width="1.5"/>
+      <rect x="698" y="12" width="76" height="20" rx="3" fill="#fef3c7"/>
+      <text x="736" y="26" text-anchor="middle" class="tag" fill="#b45309">输出预留</text>
+      <text x="698" y="54" class="block-title" fill="#78350f">生成预留空间</text>
+      <text x="698" y="74" class="block-title" fill="#78350f">(Max Tokens)</text>
+      <text x="698" y="104" class="block-desc" fill="#78350f">必须预留生成余量</text>
+      <text x="698" y="122" class="block-desc" fill="#78350f">否则回答将被迫截断</text>
+      <text x="698" y="142" font-family="IBM Plex Mono" font-size="11px" font-weight="600" fill="#b45309">输出缓冲区</text>
+    </g>
+  </g>
+</svg>

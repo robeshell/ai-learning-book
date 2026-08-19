@@ -1,5 +1,5 @@
 ---
-title: "什么是工具调用"
+title: "工具调用与动作执行"
 description: "模型不亲手调接口，而是生成参数包，由系统执行后再回填。"
 series: models-at-work
 chapter: action
@@ -11,7 +11,7 @@ prerequisites:
 videoSource: tool-calling
 ---
 
-# 什么是工具调用
+# 工具调用与动作执行
 
 模型不亲手调接口，而是生成参数包，由系统执行后再回填。
 

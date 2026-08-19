@@ -1,6 +1,6 @@
 ---
-title: "什么是视觉大模型"
-description: "图片如何被切成视觉 Token，再和对齐后的语言空间一起算。"
+title: "视觉大模型与多模态"
+description: "图片如何被切成视觉 Token，再和对齐后的语言空间一起计算。"
 series: multimodal-and-limits
 chapter: senses
 order: 1
@@ -12,9 +12,9 @@ prerequisites:
 videoSource: vision-llm
 ---
 
-# 什么是视觉大模型
+# 视觉大模型与多模态
 
-图片如何被切成视觉 Token，再和对齐后的语言空间一起算。
+图片如何被切成视觉 Token，再和对齐后的语言空间一起计算。
 
 ## 将要讲清
 

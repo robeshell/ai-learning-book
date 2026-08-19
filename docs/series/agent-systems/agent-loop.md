@@ -1,6 +1,6 @@
 ---
-title: "什么是 AI Agent"
-description: "Thought-Action-Observation 闭环，以及它和聊天机器人的差别。"
+title: "AI Agent 自主闭环"
+description: "Thought-Action-Observation 闭环，以及它和聊天机器人的本质差别。"
 series: agent-systems
 chapter: loop
 order: 1
@@ -11,9 +11,9 @@ prerequisites:
 videoSource: agent-loop
 ---
 
-# 什么是 AI Agent
+# AI Agent 自主闭环
 
-Thought-Action-Observation 闭环，以及它和聊天机器人的差别。
+Thought-Action-Observation 闭环，以及它和聊天机器人的本质差别。
 
 ## 将要讲清
 

@@ -1,6 +1,6 @@
 ---
-title: "什么是长文本退化"
-description: "大海捞针、迷失在中间，以及注意力随长度衰减。"
+title: "长文本退化与注意力衰减"
+description: "大海捞针、迷失在中间（Lost in the Middle），以及注意力随长度的衰减。"
 series: multimodal-and-limits
 chapter: boundaries
 order: 4
@@ -11,9 +11,9 @@ prerequisites:
 videoSource: context-rot
 ---
 
-# 什么是长文本退化
+# 长文本退化与注意力衰减
 
-大海捞针、迷失在中间，以及注意力随长度衰减。
+大海捞针、迷失在中间（Lost in the Middle），以及注意力随长度的衰减。
 
 ## 将要讲清
 

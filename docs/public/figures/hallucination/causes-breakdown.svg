@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13.5px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 600; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">大模型产生幻觉的三大底层物理与数学机理</text>
+  <text x="36" y="68" class="subtitle">幻觉不是模型的「疏忽 Bug」，而是自回归概率预测架构的数学必然性产物</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 3 Columns -->
+  <g transform="translate(36, 114)">
+
+    <!-- Column 1: 优化目标 -->
+    <g transform="translate(0, 0)">
+      <rect width="284" height="236" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#ffedd5"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#c2410c">根因一</text>
+      <text x="104" y="30" class="col-title" fill="#9a3412">极大似然目标 (MLE)</text>
+
+      <g transform="translate(14, 50)">
+        <rect width="256" height="52" rx="4" fill="#ffffff" stroke="#fed7aa"/>
+        <text x="10" y="18" class="box-label" fill="#9a3412">统计相关性 ≠ 事实因果</text>
+        <text x="10" y="36" class="box-desc" fill="#7c2d12">优化的是语料中词语共现概率，没有物理世界的验证反馈。</text>
+      </g>
+
+      <g transform="translate(14, 112)">
+        <rect width="256" height="106" rx="4" fill="#ffffff" stroke="#fed7aa"/>
+        <text x="10" y="18" class="box-label" fill="#9a3412">修辞惯性脑补</text>
+        <text x="10" y="36" class="box-desc" fill="#7c2d12">当遇到未知事实时，模型为维持语法自然，会优先补全最高概率的词法搭配。</text>
+        <text x="10" y="80" class="mono" fill="#c2410c">max Σ log P(w_t | w_&lt;t)</text>
+      </g>
+    </g>
+
+    <!-- Column 2: 概率采样与长尾 -->
+    <g transform="translate(302, 0)">
+      <rect width="284" height="236" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#fee2e2"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#dc2626">根因二</text>
+      <text x="104" y="30" class="col-title" fill="#991b1b">长尾分散与随机采样</text>
+
+      <g transform="translate(14, 50)">
+        <rect width="256" height="52" rx="4" fill="#ffffff" stroke="#fca5a5"/>
+        <text x="10" y="18" class="box-label" fill="#991b1b">低频事实参数记忆脆弱</text>
+        <text x="10" y="36" class="box-desc" fill="#7f1d1d">长尾生僻知识权重弱，Logits 分布极其平坦（高香农熵）。</text>
+      </g>
+
+      <g transform="translate(14, 112)">
+        <rect width="256" height="106" rx="4" fill="#ffffff" stroke="#fca5a5"/>
+        <text x="10" y="18" class="box-label" fill="#991b1b">温度采样导致路径偏航</text>
+        <text x="10" y="36" class="box-desc" fill="#7f1d1d">一旦中间某一步采样选中虚构 Token，后续所有 Token 将沿着错误前提继续一本正经推理。</text>
+        <text x="10" y="86" class="mono" fill="#b91c1c">P(w) = Softmax(z / T)</text>
+      </g>
+    </g>
+
+    <!-- Column 3: 逆转诅咒与因果不对称 -->
+    <g transform="translate(604, 0)">
+      <rect width="284" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#e2e8f0"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#475569">根因三</text>
+      <text x="104" y="30" class="col-title" fill="#0f172a">逆转诅咒与因果不对称</text>
+
+      <g transform="translate(14, 50)">
+        <rect width="256" height="52" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="10" y="18" class="box-label" fill="#0f172a">因果注意力的单向性</text>
+        <text x="10" y="36" class="box-desc" fill="#64748b">自回归模型仅学习从左到右的前缀条件概率，缺乏双向逻辑对齐。</text>
+      </g>
+
+      <g transform="translate(14, 112)">
+        <rect width="256" height="106" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="10" y="18" class="box-label" fill="#0f172a">经典逆转实验证据</text>
+        <text x="10" y="36" class="mono" fill="#334155">"A 的母亲是 B" ✅ 答对</text>
+        <text x="10" y="56" class="mono" fill="#dc2626">"B 的儿子是谁" ❌ 编造幻觉</text>
+        <text x="10" y="80" class="box-desc" fill="#64748b">知识无法在参数中自动双向泛化。</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

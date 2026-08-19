@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14.5px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12.5px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">从纯概率幻觉到落地锚定（Grounding）：技术演进全景</text>
+  <text x="36" y="68" class="subtitle">无法靠「加大模型」消除幻觉，必须引入外部可验证证据、确定性工具与闭环反馈</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Left: 孤立概率生成 (幻觉高发) -->
+  <g transform="translate(36, 114)">
+    <rect width="270" height="236" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+    <rect x="14" y="14" width="90" height="22" rx="4" fill="#fee2e2"/>
+    <text x="59" y="29" text-anchor="middle" class="tag" fill="#dc2626">单体裸奔</text>
+    <text x="114" y="30" class="col-title" fill="#991b1b">封闭参数生成</text>
+
+    <g transform="translate(14, 52)">
+      <rect width="242" height="60" rx="4" fill="#ffffff" stroke="#fca5a5"/>
+      <text x="10" y="20" class="box-label" fill="#991b1b">仅依赖静态记忆</text>
+      <text x="10" y="38" class="box-desc" fill="#7f1d1d">权重是冻结的参数压缩包，知识存在时效性与长尾遗忘。</text>
+    </g>
+
+    <g transform="translate(14, 122)">
+      <rect width="242" height="96" rx="4" fill="#fee2e2"/>
+      <text x="10" y="22" class="box-label" fill="#991b1b">致命风险：</text>
+      <text x="10" y="42" class="box-desc" fill="#7f1d1d">• 自信捏造不存在的事实</text>
+      <text x="10" y="62" class="box-desc" fill="#7f1d1d">• 数学与逻辑推理无验证</text>
+      <text x="10" y="82" class="box-desc" fill="#7f1d1d">• 严禁让其独自拍板商业决策</text>
+    </g>
+  </g>
+
+  <!-- Middle: 外部锚定支柱 (Grounding Pillars) -->
+  <g transform="translate(322, 114)">
+    <rect width="316" height="236" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+    <rect x="14" y="14" width="105" height="22" rx="4" fill="#dcfce7"/>
+    <text x="66" y="29" text-anchor="middle" class="tag" fill="#15803d">三大约束锚点</text>
+    <text x="129" y="30" class="col-title" fill="#166534">Grounding 落地工程</text>
+
+    <!-- Pillar 1: RAG -->
+    <g transform="translate(14, 48)">
+      <rect width="288" height="52" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="10" y="18" class="box-label" fill="#166534">1. 知识锚定 (RAG 检索增强)</text>
+      <text x="10" y="36" class="box-desc" fill="#15803d">将权威文档注入窗口，要求模型「据此回答」</text>
+    </g>
+
+    <!-- Pillar 2: Tool Calling & MCP -->
+    <g transform="translate(14, 108)">
+      <rect width="288" height="52" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="10" y="18" class="box-label" fill="#166534">2. 确定性计算 (Tool / MCP)</text>
+      <text x="10" y="36" class="box-desc" fill="#15803d">数学交由计算器，数据交由 SQL 引擎精确查询</text>
+    </g>
+
+    <!-- Pillar 3: Agent Feedback Loop -->
+    <g transform="translate(14, 168)">
+      <rect width="288" height="52" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="10" y="18" class="box-label" fill="#166534">3. 闭环反馈 (Agent Harness)</text>
+      <text x="10" y="36" class="box-desc" fill="#15803d">写代码后运行单元测试，根据环境报错纠偏</text>
+    </g>
+  </g>
+
+  <!-- Right: 全书后续路线映射 -->
+  <g transform="translate(654, 114)">
+    <rect width="270" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect x="14" y="14" width="90" height="22" rx="4" fill="#e2e8f0"/>
+    <text x="59" y="29" text-anchor="middle" class="tag" fill="#475569">全书演进</text>
+    <text x="114" y="30" class="col-title" fill="#0f172a">后续季数承接</text>
+
+    <g transform="translate(14, 52)">
+      <rect width="242" height="50" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="10" y="18" class="box-label" fill="#0f172a">第二季：模型如何炼成</text>
+      <text x="10" y="34" class="box-desc" fill="#64748b">预训练、SFT、RLHF/DPO 对齐</text>
+    </g>
+
+    <g transform="translate(14, 110)">
+      <rect width="242" height="50" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="10" y="18" class="box-label" fill="#0f172a">第三季：大模型进阶应用</text>
+      <text x="10" y="34" class="box-desc" fill="#64748b">Embedding、RAG、Tool、MCP 规范</text>
+    </g>
+
+    <g transform="translate(14, 168)">
+      <rect width="242" height="50" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="10" y="18" class="box-label" fill="#0f172a">第四季：智能体系统构建</text>
+      <text x="10" y="34" class="box-desc" fill="#64748b">Agent 循环、规划反思、多智能体</text>
+    </g>
+  </g>
+</svg>

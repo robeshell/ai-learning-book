@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14.5px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .row-title { font-size: 12px; font-weight: 600; }
+      .row-desc { font-size: 11px; font-weight: 400; }
+      .mono-val { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">MoE 硬件账本的不对称性：算力极度轻盈 vs 显存刚性占满</text>
+  <text x="36" y="68" class="subtitle">算力开销只取决于激活参数（Active FLOPs），但显存占用取决于物理总参数量</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Left Column: 算力开销 (Compute) -->
+  <g transform="translate(36, 114)">
+    <rect width="430" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+    <rect x="16" y="16" width="105" height="24" rx="4" fill="#dcfce7"/>
+    <text x="68" y="32" text-anchor="middle" class="tag" fill="#15803d">算力维度</text>
+    <text x="132" y="33" class="col-title" fill="#166534">激活算力（Active FLOPs）</text>
+
+    <!-- Point 1 -->
+    <g transform="translate(16, 54)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="14" y="20" class="row-title" fill="#15803d">单步计算量：仅 2 个专家参与矩阵乘法</text>
+      <text x="14" y="38" class="row-desc" fill="#166534">计算量等同于 13B 小模型，生成延迟极低</text>
+    </g>
+
+    <!-- Point 2 -->
+    <g transform="translate(16, 112)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="14" y="20" class="row-title" fill="#15803d">硬件体感：极速吐字（High Tokens/s）</text>
+      <text x="14" y="38" class="row-desc" fill="#166534">Tensor Core 负载极轻，单用户响应丝滑</text>
+    </g>
+
+    <!-- Result Banner -->
+    <g transform="translate(16, 172)">
+      <rect width="398" height="48" rx="4" fill="#dcfce7"/>
+      <text x="14" y="22" class="row-title" fill="#166534">以 Mixtral 8x7B 为例：</text>
+      <text x="14" y="40" class="mono-val" fill="#15803d">实际计算开销 ≈ 13B 模型（省算力 70%）</text>
+    </g>
+  </g>
+
+  <!-- Right Column: 显存开销 (VRAM) -->
+  <g transform="translate(494, 114)">
+    <rect width="430" height="236" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+    <rect x="16" y="16" width="105" height="24" rx="4" fill="#ffedd5"/>
+    <text x="68" y="32" text-anchor="middle" class="tag" fill="#c2410c">显存维度</text>
+    <text x="132" y="33" class="col-title" fill="#9a3412">物理显存驻留（VRAM Footprint）</text>
+
+    <!-- Point 1 -->
+    <g transform="translate(16, 54)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="14" y="20" class="row-title" fill="#9a3412">权重常驻：所有专家必须全部塞入显存</text>
+      <text x="14" y="38" class="row-desc" fill="#7c2d12">每个 Token 可能随机调用任意专家，显存绝不能卸载</text>
+    </g>
+
+    <!-- Point 2 -->
+    <g transform="translate(16, 112)">
+      <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="14" y="20" class="row-title" fill="#9a3412">硬件门槛：大显存刚性要求</text>
+      <text x="14" y="38" class="row-desc" fill="#7c2d12">消费级显卡（如 16GB/24GB）常因显存不足无法加载</text>
+    </g>
+
+    <!-- Result Banner -->
+    <g transform="translate(16, 172)">
+      <rect width="398" height="48" rx="4" fill="#fee2e2"/>
+      <text x="14" y="22" class="row-title" fill="#991b1b">以 Mixtral 8x7B 为例：</text>
+      <text x="14" y="40" class="mono-val" fill="#b91c1c">物理显存占用 ≈ 47B 全量权重 (需 90GB+ HBM)</text>
+    </g>
+  </g>
+</svg>

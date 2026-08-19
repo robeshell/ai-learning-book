@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14.5px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12.5px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; }
+    </style>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">显存容量（VRAM） vs 显存带宽（Bandwidth）：硬件的物理账本</text>
+  <text x="36" y="68" class="subtitle">容量决定模型装不装得下，带宽决定每次生成新 Token 搬运权重需要等多久</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Visual Flow Container -->
+  <g transform="translate(36, 114)">
+
+    <!-- Box 1: 仓库 (显存 HBM) -->
+    <g transform="translate(0, 0)">
+      <rect width="260" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="14" y="14" width="85" height="22" rx="4" fill="#dbeafe"/>
+      <text x="56" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">仓库面积</text>
+      <text x="108" y="30" class="col-title" fill="#1e40af">显存容量 (VRAM)</text>
+
+      <g transform="translate(14, 50)">
+        <rect width="232" height="60" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="10" y="20" class="box-label" fill="#1e40af">作用：存放模型权重文件</text>
+        <text x="10" y="38" class="box-desc" fill="#1e3a8a">如 70B 模型 FP16 模式占用 140 GB</text>
+        <text x="10" y="52" class="box-desc" fill="#64748b">容量不够直接触发 CUDA OOM 崩溃</text>
+      </g>
+
+      <g transform="translate(14, 122)">
+        <rect width="232" height="96" rx="4" fill="#dbeafe"/>
+        <text x="10" y="22" class="box-label" fill="#1e40af">主流硬件规格参考：</text>
+        <text x="10" y="42" class="mono" fill="#1e3a8a">• RTX 4090: 24 GB</text>
+        <text x="10" y="62" class="mono" fill="#1e3a8a">• A100 / H100: 80 GB</text>
+        <text x="10" y="82" class="mono" fill="#1e3a8a">• B200 / MI300X: 192 GB</text>
+      </g>
+    </g>
+
+    <!-- Arrow & Gate (大门吞吐) -->
+    <g transform="translate(276, 50)">
+      <rect width="320" height="136" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <text x="160" y="28" text-anchor="middle" class="box-label" fill="#0f172a">大门吞吐：显存总线带宽 (Bandwidth)</text>
+      <text x="160" y="48" text-anchor="middle" class="mono" fill="#2563eb">H100 理论带宽 ≈ 3.35 TB/s (3350 GB/s)</text>
+
+      <line x1="30" y1="70" x2="290" y2="70" stroke="#2563eb" stroke-width="3" marker-end="url(#arrowBlue)"/>
+      <text x="160" y="92" text-anchor="middle" font-size="11px" font-weight="700" fill="#1e40af">每吐 1 个词，整套 140 GB 权重搬运 1 次</text>
+      <text x="160" y="112" text-anchor="middle" class="mono" fill="#0284c7">延迟 = 140 GB ÷ 2000 GB/s = 70 ms</text>
+    </g>
+
+    <!-- Box 2: 车间 (计算核心 Tensor Core) -->
+    <g transform="translate(614, 0)">
+      <rect width="274" height="236" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="14" y="14" width="85" height="22" rx="4" fill="#dcfce7"/>
+      <text x="56" y="29" text-anchor="middle" class="tag" fill="#15803d">加工车间</text>
+      <text x="108" y="30" class="col-title" fill="#166534">计算核心 (FLOPs)</text>
+
+      <g transform="translate(14, 50)">
+        <rect width="246" height="60" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="10" y="20" class="box-label" fill="#166534">作用：执行具体矩阵点积</text>
+        <text x="10" y="38" class="box-desc" fill="#14532d">算力极其充沛（数百 TFLOPs），但</text>
+        <text x="10" y="52" class="box-desc" fill="#b91c1c">经常因为等数据从显存搬来而饿着</text>
+      </g>
+
+      <g transform="translate(14, 122)">
+        <rect width="246" height="96" rx="4" fill="#dcfce7"/>
+        <text x="10" y="22" class="box-label" fill="#166534">最终单用户吐字极限：</text>
+        <text x="10" y="44" class="mono" fill="#15803d">速率 = 1000ms ÷ 70ms</text>
+        <text x="10" y="66" class="mono" font-weight="700" fill="#166534">≈ 14.3 Tokens / 秒</text>
+        <text x="10" y="86" class="box-desc" fill="#15803d">（这就是为什么吐字速度有物理上限）</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

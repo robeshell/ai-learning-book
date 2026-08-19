@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <marker id="arrowRed" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#dc2626"/>
+    </marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .phase-title { font-size: 14px; font-weight: 700; fill: #0f172a; }
+      .box-title { font-size: 12.5px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; fill: #64748b; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 12px; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">上下文超限时的 FIFO 截断与信息遗忘机制</text>
+  <text x="36" y="68" class="subtitle">当多轮对话总量逼近窗口上限时，最早的历史记录将被强行剔除，导致模型失去早期设定</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Main Comparison Area -->
+  <g transform="translate(36, 116)">
+    <!-- Stage A: Early Stage (within budget) -->
+    <g transform="translate(0, 0)">
+      <rect width="888" height="106" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <text x="16" y="26" class="phase-title">初期对话（Token 总量 &lt; 窗口上限）</text>
+
+      <!-- Inside window boxes -->
+      <g transform="translate(16, 42)">
+        <rect x="0" y="0" width="130" height="48" rx="4" fill="#e2e8f0"/>
+        <text x="65" y="24" text-anchor="middle" class="box-title" fill="#334155">System Prompt</text>
+        <text x="65" y="38" text-anchor="middle" font-size="10px" fill="#64748b">系统底仓常驻</text>
+
+        <rect x="140" y="0" width="140" height="48" rx="4" fill="#eff6ff" stroke="#bfdbfe"/>
+        <text x="210" y="24" text-anchor="middle" class="box-title" fill="#1e40af">Round 1 (用户设定)</text>
+        <text x="210" y="38" text-anchor="middle" font-size="10px" fill="#3b82f6">「请扮演严谨的学者」</text>
+
+        <rect x="290" y="0" width="130" height="48" rx="4" fill="#eff6ff" stroke="#bfdbfe"/>
+        <text x="355" y="24" text-anchor="middle" class="box-title" fill="#1e40af">Round 2</text>
+        <text x="355" y="38" text-anchor="middle" font-size="10px" fill="#3b82f6">问答记录</text>
+
+        <rect x="430" y="0" width="130" height="48" rx="4" fill="#eff6ff" stroke="#bfdbfe"/>
+        <text x="495" y="24" text-anchor="middle" class="box-title" fill="#1e40af">Round 3</text>
+        <text x="495" y="38" text-anchor="middle" font-size="10px" fill="#3b82f6">问答记录</text>
+
+        <rect x="570" y="0" width="286" height="48" rx="4" fill="#f0fdf4" stroke="#86efac" stroke-dasharray="4,4"/>
+        <text x="713" y="28" text-anchor="middle" font-size="12px" font-weight="600" fill="#166534">剩余可用窗口空间（充裕）</text>
+      </g>
+    </g>
+
+    <!-- Stage B: Long Conversation (Overflowing) -->
+    <g transform="translate(0, 126)">
+      <rect width="888" height="110" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+      <text x="16" y="26" class="phase-title" fill="#9a3412">深度多轮（总 Token 超限，触发滚动截断）</text>
+
+      <g transform="translate(16, 42)">
+        <!-- Discarded Box (Outside window) -->
+        <rect x="0" y="0" width="150" height="52" rx="4" fill="#fee2e2" stroke="#fca5a5" stroke-dasharray="4,4"/>
+        <text x="75" y="24" text-anchor="middle" class="box-title" fill="#991b1b">Round 1~3 被挤出</text>
+        <text x="75" y="40" text-anchor="middle" font-size="10.5px" font-weight="600" fill="#dc2626">已丢失早期约束！</text>
+
+        <!-- Truncation Arrow -->
+        <path d="M 156 26 L 180 26" fill="none" stroke="#dc2626" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+        <!-- Active Context Boundary -->
+        <rect x="188" y="0" width="668" height="52" rx="4" fill="#ffffff" stroke="#ea580c" stroke-width="1.8"/>
+
+        <rect x="196" y="6" width="120" height="40" rx="3" fill="#e2e8f0"/>
+        <text x="256" y="26" text-anchor="middle" font-size="11.5px" font-weight="700" fill="#334155">System Prompt</text>
+        <text x="256" y="38" text-anchor="middle" font-size="9.5px" fill="#64748b">底仓强制保留</text>
+
+        <rect x="324" y="6" width="105" height="40" rx="3" fill="#eff6ff"/>
+        <text x="376" y="26" text-anchor="middle" font-size="11px" font-weight="600" fill="#1e40af">Round 12</text>
+        <text x="376" y="38" text-anchor="middle" font-size="9.5px" fill="#60a5fa">近期记录</text>
+
+        <rect x="436" y="6" width="105" height="40" rx="3" fill="#eff6ff"/>
+        <text x="488" y="26" text-anchor="middle" font-size="11px" font-weight="600" fill="#1e40af">Round 13</text>
+        <text x="488" y="38" text-anchor="middle" font-size="9.5px" fill="#60a5fa">近期记录</text>
+
+        <rect x="548" y="6" width="140" height="40" rx="3" fill="#f0fdf4" stroke="#86efac"/>
+        <text x="618" y="26" text-anchor="middle" font-size="11px" font-weight="700" fill="#15803d">Round 14 (当前)</text>
+        <text x="618" y="38" text-anchor="middle" font-size="9.5px" fill="#16a34a">最新提问</text>
+
+        <rect x="696" y="6" width="150" height="40" rx="3" fill="#fffbeb" stroke="#fde68a"/>
+        <text x="771" y="26" text-anchor="middle" font-size="11px" font-weight="700" fill="#b45309">预留输出区</text>
+        <text x="771" y="38" text-anchor="middle" font-size="9.5px" fill="#d97706">Max Tokens</text>
+      </g>
+    </g>
+  </g>
+</svg>

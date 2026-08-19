@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14.5px; font-weight: 700; fill: #0f172a; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .row-title { font-size: 12px; font-weight: 600; }
+      .row-desc { font-size: 11px; font-weight: 400; fill: #64748b; }
+      .bar-label { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 600; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">首字延迟（TTFT）与计费成本的物理变化</text>
+  <text x="36" y="68" class="subtitle">云厂商通过前缀缓存省下庞大 GPU 算力集群，将收益通过价格折扣与极速响应反哺开发者</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Left Column: TTFT 首字延迟对比 -->
+  <g transform="translate(36, 114)">
+    <rect width="430" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect x="16" y="16" width="100" height="24" rx="4" fill="#e2e8f0"/>
+    <text x="66" y="32" text-anchor="middle" class="tag" fill="#334155">物理时延指标</text>
+    <text x="126" y="33" class="col-title">首字延迟（TTFT）对比</text>
+
+    <!-- Bar 1: Cold Request (No Cache) -->
+    <g transform="translate(16, 56)">
+      <text x="0" y="14" class="row-title" fill="#b91c1c">冷启动 / 无缓存：全量重算 32k Tokens</text>
+      <rect x="0" y="24" width="398" height="28" rx="4" fill="#fee2e2" stroke="#fca5a5"/>
+      <text x="12" y="43" class="bar-label" fill="#dc2626">TTFT: ~3,200 ms (漫长的首字等待)</text>
+    </g>
+
+    <!-- Bar 2: Cache Hit -->
+    <g transform="translate(16, 126)">
+      <text x="0" y="14" class="row-title" fill="#15803d">前缀命中：复用 32k KV Cache</text>
+      <rect x="0" y="24" width="60" height="28" rx="4" fill="#dcfce7" stroke="#86efac"/>
+      <text x="70" y="43" class="bar-label" fill="#15803d">~180 ms (极速响应)</text>
+    </g>
+
+    <!-- Explanation -->
+    <g transform="translate(16, 190)">
+      <text x="0" y="14" class="row-desc">💡 首字延迟缩短高达 80%~95%，避免长文本交互的卡顿感</text>
+      <text x="0" y="32" class="row-desc">GPU 跳过 Prefill 矩阵乘法，直接进入 Decode 吐字阶段</text>
+    </g>
+  </g>
+
+  <!-- Right Column: API 计费成本对比 -->
+  <g transform="translate(494, 114)">
+    <rect width="430" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect x="16" y="16" width="100" height="24" rx="4" fill="#e2e8f0"/>
+    <text x="66" y="32" text-anchor="middle" class="tag" fill="#334155">商业计费模型</text>
+    <text x="126" y="33" class="col-title">Token 计费单价阶梯</text>
+
+    <!-- Pricing items -->
+    <g transform="translate(16, 56)">
+      <rect width="398" height="42" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="14" y="18" class="row-title" fill="#334155">标准输入 Token（未命中）</text>
+      <text x="14" y="34" class="bar-label" fill="#475569">基准单价: 100% (如 $3.00 / 1M)</text>
+    </g>
+
+    <g transform="translate(16, 106)">
+      <rect width="398" height="42" rx="4" fill="#eff6ff" stroke="#bfdbfe"/>
+      <text x="14" y="18" class="row-title" fill="#1e40af">首次写入缓存（Cache Write）</text>
+      <text x="14" y="34" class="bar-label" fill="#2563eb">溢价 25%: 125% (如 $3.75 / 1M，含 5min 显存租金)</text>
+    </g>
+
+    <g transform="translate(16, 156)">
+      <rect width="398" height="42" rx="4" fill="#f0fdf4" stroke="#86efac"/>
+      <text x="14" y="18" class="row-title" fill="#15803d">后续命中读取（Cache Read）</text>
+      <text x="14" y="34" class="bar-label" fill="#16a34a">立减 90%: 仅 10% (如 $0.30 / 1M，大幅降低长对话成本)</text>
+    </g>
+
+    <g transform="translate(16, 208)">
+      <text x="0" y="14" class="row-desc">💡 多轮对话中，越靠前的固定 System/RAG 文档，被复用收益越大</text>
+    </g>
+  </g>
+</svg>

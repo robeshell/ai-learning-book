@@ -1,5 +1,5 @@
 ---
-title: "什么是向量嵌入"
+title: "Embedding 向量嵌入"
 description: "文字变成高维坐标之后，为什么能按意思而不是按关键词查找。"
 series: models-at-work
 chapter: retrieve
@@ -11,7 +11,7 @@ prerequisites:
 videoSource: embeddings
 ---
 
-# 什么是向量嵌入
+# Embedding 向量嵌入
 
 文字变成高维坐标之后，为什么能按意思而不是按关键词查找。
 
