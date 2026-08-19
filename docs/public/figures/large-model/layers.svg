@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" data-generator="fireworks-tech-graph" data-schema-version="1" data-text-metrics="heuristic-v1" data-style-id="4" data-visual-theme="Notion Clean" data-diagram-type="architecture" data-motion-scene="" data-semantic-profile="generic" data-semantic-valid="true" data-quality-profile="showcase" data-max-bends-per-edge="2" data-max-total-bends="8" data-max-route-stretch="1.35" data-max-bridged-crossings="0" data-min-node-gap="40.0" data-min-container-gutter="20.0" data-min-label-clearance="4.0" data-min-segment-length="16.0">
+  <defs>
+    <marker id="arrowA" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3b82f6"/>
+    </marker>
+    <marker id="arrowB" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3b82f6"/>
+    </marker>
+    <marker id="arrowC" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3b82f6"/>
+    </marker>
+    <marker id="arrowE" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3b82f6"/>
+    </marker>
+    <marker id="arrowF" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#9ca3af"/>
+    </marker>
+    <marker id="arrowG" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#9ca3af"/>
+    </marker>
+    <marker id="arrowH" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#d1d5db"/>
+    </marker>
+    <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', 'Microsoft JhengHei', 'SimHei', sans-serif; }
+    .title { font-size: 18px; font-weight: 700; fill: #111827; }
+    .subtitle { font-size: 13px; font-weight: 500; fill: #9ca3af; }
+    .section { font-size: 13px; font-weight: 700; fill: #9ca3af; letter-spacing: 1.4px; }
+    .section-sub { font-size: 12px; font-weight: 500; fill: #d1d5db; }
+    .node-title { font-weight: 700; fill: #111827; }
+    .node-sub { font-size: 12px; font-weight: 500; fill: #374151; }
+    .node-type { font-size: 11px; font-weight: 700; fill: #9ca3af; letter-spacing: 0.08em; }
+    .arrow-label { font-size: 12px; font-weight: 600; fill: #6b7280; }
+    .legend { font-size: 12px; font-weight: 500; fill: #6b7280; }
+    .footnote { font-size: 12px; font-weight: 500; fill: #9ca3af; }
+    .metric-label { font-size: 8.5px; font-weight: 700; fill: #9ca3af; text-transform: uppercase; }
+    .metric-value { font-size: 9.5px; font-weight: 700; fill: #111827; }
+    </style>
+  </defs>
+  <rect data-graph-role="background" width="960.0" height="520.0" fill="#ffffff"/>
+  <text x="48.0" y="48" text-anchor="start" class="title">工业级 AI 系统的三层解耦</text>
+  <text x="48.0" y="72" text-anchor="start" class="subtitle">产品、对齐模型与基座模型是不同维度的对象</text>
+  <line x1="48" y1="100" x2="912.0" y2="100" stroke="#e5e7eb" stroke-width="1"/>
+  <path id="calls" data-graph-role="edge" data-edge-id="calls" data-source="product" data-target="chat-model" data-edge-kind="flow" data-topic-id="" data-flow="control" data-motion-role="" data-motion-stage="" data-motion-order="" data-protocol="" data-via="" data-critical-path-id="" data-critical-hop="" data-critical-hops="" data-critical="false" data-bends="0" data-route-stretch="1.0" data-bridges="" d="M 480,204 L 480,252" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowA)"/>
+  <path id="aligned-from" data-graph-role="edge" data-edge-id="aligned-from" data-source="chat-model" data-target="base" data-edge-kind="flow" data-topic-id="" data-flow="data" data-motion-role="" data-motion-stage="" data-motion-order="" data-protocol="" data-via="" data-critical-path-id="" data-critical-hop="" data-critical-hops="" data-critical="false" data-bends="0" data-route-stretch="1.0" data-bridges="" d="M 480,336 L 480,384" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowA)"/>
+  <g id="node-product" data-graph-role="node" data-node-id="product" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="80,120,880,204">
+  <rect x="80.0" y="120.0" width="800.0" height="84.0" rx="4.0" fill="#ffffff" stroke="#3b82f6" stroke-width="1.8"/>
+  <text x="480.0" y="162.0" text-anchor="middle" class="node-title" font-size="18.0">产品层（Product）</text>
+  <text x="480.0" y="184.0" text-anchor="middle" class="node-sub">网页界面 · 会话管理 · 系统提示词 · 安全风控 · 工具调用</text>
+  </g>
+  <g id="node-chat-model" data-graph-role="node" data-node-id="chat-model" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="80,252,880,336">
+  <rect x="80.0" y="252.0" width="800.0" height="84.0" rx="4.0" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.8"/>
+  <text x="480.0" y="294.0" text-anchor="middle" class="node-title" font-size="18.0">对齐模型（Instruct / Chat Model）</text>
+  <text x="480.0" y="316.0" text-anchor="middle" class="node-sub">SFT 指令微调与 RLHF/DPO 偏好对齐，具备助手角色与拒答边界</text>
+  </g>
+  <g id="node-base" data-graph-role="node" data-node-id="base" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="80,384,880,468">
+  <rect x="80.0" y="384.0" width="800.0" height="84.0" rx="4.0" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.8"/>
+  <text x="480.0" y="426.0" text-anchor="middle" class="node-title" font-size="18.0">基座模型（Base Model）</text>
+  <text x="480.0" y="448.0" text-anchor="middle" class="node-sub">海量语料自监督预训练的原始权重，只负责按概率接龙</text>
+  </g>
+  <g id="calls-label" data-graph-role="label" data-owner="calls" data-graph-bounds="403,214,477,234">
+  <rect x="403.0" y="214.0" width="74.0" height="20" rx="6" fill="#ffffff" opacity="0.96"/>
+  <text x="440.0" y="228.0" text-anchor="middle" class="arrow-label">封装与调用</text>
+  </g>
+  <g id="aligned-from-label" data-graph-role="label" data-owner="aligned-from" data-graph-bounds="379,346,477,366">
+  <rect x="379.0" y="346.0" width="98.0" height="20" rx="6" fill="#ffffff" opacity="0.96"/>
+  <text x="428.0" y="360.0" text-anchor="middle" class="arrow-label">对齐自基座权重</text>
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+---
+description: 写或改概念长文、事实笔记时，走本站写作 skill
+globs: docs/series/**/*.md,docs/_research/**/*.md,docs/public/figures/**/*.svg
+alwaysApply: false
+---
+
+# 概念长文文件
+
+编辑匹配文件时，先读并执行 `.agents/skills/concept-article/SKILL.md`（或 `.cursor/skills/concept-article/SKILL.md`）。
+
+目录仍以 `docs/.vitepress/series.ts` 为唯一数据源。改状态时 frontmatter 与 `series.ts` 一起改。

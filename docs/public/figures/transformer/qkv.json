@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "mode": "architecture",
+  "template_type": "architecture",
+  "style": 4,
+  "quality_profile": "showcase",
+  "width": 960,
+  "height": 420,
+  "title": "Q、K、V 是三种投影",
+  "subtitle": "同一组输入，三种用法，不是三座数据库",
+  "nodes": [
+    {
+      "id": "q",
+      "kind": "rect",
+      "x": 64,
+      "y": 148,
+      "width": 248,
+      "height": 120,
+      "label": "Query",
+      "sublabel": "这个位置在找什么",
+      "fill": "#f9fafb",
+      "stroke": "#e5e7eb",
+      "flat": true
+    },
+    {
+      "id": "k",
+      "kind": "rect",
+      "x": 356,
+      "y": 148,
+      "width": 248,
+      "height": 120,
+      "label": "Key",
+      "sublabel": "那个位置如何被对上",
+      "fill": "#f9fafb",
+      "stroke": "#e5e7eb",
+      "flat": true
+    },
+    {
+      "id": "v",
+      "kind": "rect",
+      "x": 648,
+      "y": 148,
+      "width": 248,
+      "height": 120,
+      "label": "Value",
+      "sublabel": "对上之后拿出什么",
+      "fill": "#eff6ff",
+      "stroke": "#3b82f6",
+      "flat": true
+    }
+  ],
+  "arrows": []
+}

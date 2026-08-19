@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "mode": "architecture",
+  "template_type": "architecture",
+  "style": 4,
+  "quality_profile": "showcase",
+  "width": 960,
+  "height": 420,
+  "title": "循环网络为什么会被换掉",
+  "subtitle": "比的是顺序步数和最远路径，不是神秘智能",
+  "nodes": [
+    {
+      "id": "rnn",
+      "kind": "rect",
+      "x": 64,
+      "y": 148,
+      "width": 248,
+      "height": 120,
+      "label": "循环网络",
+      "sublabel": "后一个必须等前一个",
+      "fill": "#f9fafb",
+      "stroke": "#e5e7eb",
+      "flat": true
+    },
+    {
+      "id": "attn",
+      "kind": "rect",
+      "x": 356,
+      "y": 148,
+      "width": 248,
+      "height": 120,
+      "label": "自注意力",
+      "sublabel": "任意两位置一步相连",
+      "fill": "#eff6ff",
+      "stroke": "#3b82f6",
+      "flat": true
+    },
+    {
+      "id": "path",
+      "kind": "rect",
+      "x": 648,
+      "y": 148,
+      "width": 248,
+      "height": 120,
+      "label": "最远路径",
+      "sublabel": "注意力是常数步，循环随长度涨",
+      "fill": "#f9fafb",
+      "stroke": "#e5e7eb",
+      "flat": true
+    }
+  ],
+  "arrows": []
+}

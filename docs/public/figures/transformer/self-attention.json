@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "mode": "flowchart",
+  "template_type": "flowchart",
+  "style": 4,
+  "quality_profile": "showcase",
+  "width": 960,
+  "height": 360,
+  "title": "自注意力在算什么",
+  "subtitle": "每个位置对同一序列里的所有位置打分，再按分数混合",
+  "nodes": [
+    {
+      "id": "here",
+      "kind": "rect",
+      "x": 48,
+      "y": 140,
+      "width": 220,
+      "height": 88,
+      "label": "这个位置",
+      "sublabel": "要更新的表示",
+      "fill": "#f9fafb",
+      "stroke": "#e5e7eb",
+      "flat": true
+    },
+    {
+      "id": "score",
+      "kind": "rect",
+      "x": 370,
+      "y": 132,
+      "width": 220,
+      "height": 104,
+      "label": "对全句打分",
+      "sublabel": "一步算完所有配对",
+      "fill": "#eff6ff",
+      "stroke": "#3b82f6",
+      "flat": true
+    },
+    {
+      "id": "mix",
+      "kind": "rect",
+      "x": 692,
+      "y": 140,
+      "width": 220,
+      "height": 88,
+      "label": "按分数混合",
+      "sublabel": "得到新的向量",
+      "fill": "#f9fafb",
+      "stroke": "#e5e7eb",
+      "flat": true
+    }
+  ],
+  "arrows": [
+    {
+      "id": "to-score",
+      "source": "here",
+      "target": "score",
+      "source_port": "right",
+      "target_port": "left",
+      "flow": "control",
+      "label": "查询"
+    },
+    {
+      "id": "to-mix",
+      "source": "score",
+      "target": "mix",
+      "source_port": "right",
+      "target_port": "left",
+      "flow": "control",
+      "label": "加权"
+    }
+  ]
+}

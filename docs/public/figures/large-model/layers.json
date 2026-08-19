@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "mode": "architecture",
+  "template_type": "architecture",
+  "style": 4,
+  "quality_profile": "showcase",
+  "width": 960,
+  "height": 520,
+  "title": "工业级 AI 系统的三层解耦",
+  "subtitle": "产品、对齐模型与基座模型是不同维度的对象",
+  "nodes": [
+    {
+      "id": "product",
+      "kind": "rect",
+      "x": 80,
+      "y": 120,
+      "width": 800,
+      "height": 84,
+      "label": "产品层（Product）",
+      "sublabel": "网页界面 · 会话管理 · 系统提示词 · 安全风控 · 工具调用",
+      "fill": "#ffffff",
+      "stroke": "#3b82f6",
+      "flat": true
+    },
+    {
+      "id": "chat-model",
+      "kind": "rect",
+      "x": 80,
+      "y": 252,
+      "width": 800,
+      "height": 84,
+      "label": "对齐模型（Instruct / Chat Model）",
+      "sublabel": "SFT 指令微调与 RLHF/DPO 偏好对齐，具备助手角色与拒答边界",
+      "fill": "#eff6ff",
+      "stroke": "#3b82f6",
+      "flat": true
+    },
+    {
+      "id": "base",
+      "kind": "rect",
+      "x": 80,
+      "y": 384,
+      "width": 800,
+      "height": 84,
+      "label": "基座模型（Base Model）",
+      "sublabel": "海量语料自监督预训练的原始权重，只负责按概率接龙",
+      "fill": "#f9fafb",
+      "stroke": "#e5e7eb",
+      "flat": true
+    }
+  ],
+  "arrows": [
+    {
+      "id": "calls",
+      "source": "product",
+      "target": "chat-model",
+      "source_port": "bottom",
+      "target_port": "top",
+      "flow": "control",
+      "label": "封装与调用"
+    },
+    {
+      "id": "aligned-from",
+      "source": "chat-model",
+      "target": "base",
+      "source_port": "bottom",
+      "target_port": "top",
+      "flow": "data",
+      "label": "对齐自基座权重"
+    }
+  ]
+}

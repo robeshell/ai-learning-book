@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "skills": {
+    "fireworks-tech-graph": {
+      "source": "yizhiyanhua-ai/fireworks-tech-graph",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "5d1c18e713ce90052591800533b74aa47936d3b1e461a7075ae9588bc8f759ac"
+    },
+    "humanizer-zh": {
+      "source": "op7418/Humanizer-zh",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "7bd195e3bcdcc24f078dfd4e3b3e37e8ac321c36f410a41241fc4175eab1825a"
+    },
+    "research": {
+      "source": "Weizhena/Deep-Research-skills",
+      "sourceType": "github",
+      "skillPath": "skills/research-codex-en/research/SKILL.md",
+      "computedHash": "5053139e96f5492fa6c1fd707415a66f8bf0b8835096d852ced1a8c7930a5856"
+    },
+    "research-add-fields": {
+      "source": "Weizhena/Deep-Research-skills",
+      "sourceType": "github",
+      "skillPath": "skills/research-codex-en/research-add-fields/SKILL.md",
+      "computedHash": "3ad2c72c93da594a61a3d76488523cdcc29ca95de8f08c708ede8dbfbda5c5f2"
+    },
+    "research-add-items": {
+      "source": "Weizhena/Deep-Research-skills",
+      "sourceType": "github",
+      "skillPath": "skills/research-codex-en/research-add-items/SKILL.md",
+      "computedHash": "5307a5bc2ffd1b4a363289dab7b34eed3481186d792b4b905d3bdaad899ea1e1"
+    },
+    "research-deep": {
+      "source": "Weizhena/Deep-Research-skills",
+      "sourceType": "github",
+      "skillPath": "skills/research-codex-en/research-deep/SKILL.md",
+      "computedHash": "b2160ad35c4ad35b8227a6cd2caf29006b6f671990815887d2ac8eb3f6a6daf6"
+    },
+    "research-report": {
+      "source": "Weizhena/Deep-Research-skills",
+      "sourceType": "github",
+      "skillPath": "skills/research-codex-en/research-report/SKILL.md",
+      "computedHash": "8fc1d26e247f1a47d5750fa0ad22084b82c3e5e8a5f00839c90a5b692c97d374"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "mode": "architecture",
+  "template_type": "architecture",
+  "style": 4,
+  "quality_profile": "showcase",
+  "width": 960,
+  "height": 420,
+  "title": "大模型的三个规模维度",
+  "subtitle": "参数、数据与算力协同扩张，缺一不可",
+  "nodes": [
+    {
+      "id": "params",
+      "kind": "rect",
+      "x": 48,
+      "y": 148,
+      "width": 256,
+      "height": 130,
+      "label": "参数规模",
+      "sublabel": "决定表征容量与记忆上限",
+      "fill": "#f9fafb",
+      "stroke": "#3b82f6",
+      "flat": true
+    },
+    {
+      "id": "data",
+      "kind": "rect",
+      "x": 352,
+      "y": 148,
+      "width": 256,
+      "height": 130,
+      "label": "数据规模",
+      "sublabel": "数万亿 Token 语言与知识语料",
+      "fill": "#f9fafb",
+      "stroke": "#3b82f6",
+      "flat": true
+    },
+    {
+      "id": "compute",
+      "kind": "rect",
+      "x": 656,
+      "y": 148,
+      "width": 256,
+      "height": 130,
+      "label": "算力规模",
+      "sublabel": "GPU 集群训练总计算量",
+      "fill": "#f9fafb",
+      "stroke": "#3b82f6",
+      "flat": true
+    }
+  ],
+  "arrows": []
+}

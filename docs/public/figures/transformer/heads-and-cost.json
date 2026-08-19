@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "mode": "architecture",
+  "template_type": "architecture",
+  "style": 4,
+  "quality_profile": "showcase",
+  "width": 960,
+  "height": 420,
+  "title": "多头与平方代价",
+  "subtitle": "头数解决子空间，长度平方决定算力",
+  "nodes": [
+    {
+      "id": "heads",
+      "kind": "rect",
+      "x": 80,
+      "y": 148,
+      "width": 360,
+      "height": 120,
+      "label": "多头",
+      "sublabel": "原论文 8 个头并行，再拼接",
+      "fill": "#eff6ff",
+      "stroke": "#3b82f6",
+      "flat": true
+    },
+    {
+      "id": "cost",
+      "kind": "rect",
+      "x": 520,
+      "y": 148,
+      "width": 360,
+      "height": 120,
+      "label": "平方代价",
+      "sublabel": "n 个位置要算 n×n 个分数",
+      "fill": "#f9fafb",
+      "stroke": "#e5e7eb",
+      "flat": true
+    }
+  ],
+  "arrows": []
+}

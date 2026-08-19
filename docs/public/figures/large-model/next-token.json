@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "mode": "flowchart",
+  "template_type": "flowchart",
+  "style": 4,
+  "quality_profile": "showcase",
+  "width": 960,
+  "height": 420,
+  "title": "自回归生成机制",
+  "subtitle": "根据已有上下文预测下一个片段，循环追加",
+  "nodes": [
+    {
+      "id": "context",
+      "kind": "rect",
+      "x": 48,
+      "y": 144,
+      "width": 220,
+      "height": 96,
+      "label": "当前上下文",
+      "sublabel": "已有文本序列",
+      "fill": "#f9fafb",
+      "stroke": "#e5e7eb",
+      "flat": true
+    },
+    {
+      "id": "model",
+      "kind": "rect",
+      "x": 370,
+      "y": 136,
+      "width": 220,
+      "height": 112,
+      "label": "神经网络模型",
+      "sublabel": "计算词表概率分布",
+      "fill": "#eff6ff",
+      "stroke": "#3b82f6",
+      "flat": true
+    },
+    {
+      "id": "next",
+      "kind": "rect",
+      "x": 692,
+      "y": 144,
+      "width": 220,
+      "height": 96,
+      "label": "预测下一个词",
+      "sublabel": "概率采样的单个片段",
+      "fill": "#f9fafb",
+      "stroke": "#e5e7eb",
+      "flat": true
+    }
+  ],
+  "arrows": [
+    {
+      "id": "into-model",
+      "source": "context",
+      "target": "model",
+      "source_port": "right",
+      "target_port": "left",
+      "flow": "control",
+      "label": "输入"
+    },
+    {
+      "id": "out-token",
+      "source": "model",
+      "target": "next",
+      "source_port": "right",
+      "target_port": "left",
+      "flow": "control",
+      "label": "输出"
+    },
+    {
+      "id": "loop",
+      "source": "next",
+      "target": "context",
+      "source_port": "bottom",
+      "target_port": "bottom",
+      "flow": "feedback",
+      "label": "追加至末尾循环迭代",
+      "dashed": true,
+      "route_points": [[802, 320], [158, 320]]
+    }
+  ]
+}
