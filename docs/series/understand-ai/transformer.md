@@ -129,6 +129,11 @@ def scaled_dot_product_attention(Q, K, V, mask=None):
 
 两句话仅差最后一个形容词。在句 A 中，专门负责指代消解的注意力头在计算代词 ***it*** 的 Q-K 匹配时，会将主要权重投向 ***animal***（疲劳与生物实体相关）；而在句 B 中，同一个头在单步矩阵运算中能立刻把 ***it*** 的注意力重心切换到 ***street***（宽阔与道路属性相关）。模型并不需要预先植入语法词典，全靠多头注意力在训练中沉淀的统计关联。
 
+<figure>
+  <img src="/figures/transformer/coreference.svg" alt="展示自注意力在代词指代消解中的动态权重分配对比，对比 tired 与 wide 两个句式。" />
+  <figcaption>代词指代消解。自注意力无需人工规则，仅凭 QK 点积即可在单步内敏锐完成语境消除歧义。</figcaption>
+</figure>
+
 然而，全连接的注意力机制带来并行优势的同时，也背上了一项沉重的工程代价——二次方计算复杂度（$O(n^2)$ Complexity）。
 
 <figure>

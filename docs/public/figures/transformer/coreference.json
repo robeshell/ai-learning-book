@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "mode": "architecture",
+  "template_type": "architecture",
+  "style": 4,
+  "quality_profile": "showcase",
+  "width": 960,
+  "height": 420,
+  "title": "代词指代消解中的注意力动态分配",
+  "subtitle": "仅改变末尾形容词，自注意力即可在单步内精准转移指代关联",
+  "nodes": [
+    {
+      "id": "sent-a",
+      "kind": "rect",
+      "x": 58,
+      "y": 140,
+      "width": 390,
+      "height": 150,
+      "label": "句 A: ...because it was too tired",
+      "sublabel": "it 权重 85% 投向 animal（生物属性）",
+      "fill": "#eff6ff",
+      "stroke": "#3b82f6",
+      "flat": true
+    },
+    {
+      "id": "sent-b",
+      "kind": "rect",
+      "x": 512,
+      "y": 140,
+      "width": 390,
+      "height": 150,
+      "label": "句 B: ...because it was too wide",
+      "sublabel": "it 权重 80% 投向 street（空间属性）",
+      "fill": "#f9fafb",
+      "stroke": "#3b82f6",
+      "flat": true
+    }
+  ],
+  "arrows": []
+}

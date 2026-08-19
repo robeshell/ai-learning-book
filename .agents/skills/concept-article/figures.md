@@ -2,13 +2,11 @@
 
 机制图必须用 fireworks-tech-graph 生成。氛围插画默认不做。
 
-## Skill
+## 配图设计与案例可视化
 
-先读 `.agents/skills/fireworks-tech-graph/SKILL.md`。
-
-`SKILL_ROOT=.agents/skills/fireworks-tech-graph`
-
-风格钉死 **Style 4 Notion Clean**。不要换 1–12 里的其他皮肤。
+- **机制图与案例图并重**：每篇 2–5 张机制图。当正文引入核心具体案例（如代词指代消解对比、逐词采样概率流动、系统层级分流响应）时，配备直观的案例对比图，实现图文并茂、图文互证。
+- **图注要求**：图注必须能证明正文里的一句核心判断。证不了就删图。
+- 风格钉死 **Style 4 Notion Clean**。不要换 1–12 里的其他皮肤。
 
 ## 生成
 

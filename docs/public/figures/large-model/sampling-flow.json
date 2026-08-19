@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "mode": "flowchart",
+  "template_type": "flowchart",
+  "style": 4,
+  "quality_profile": "showcase",
+  "width": 960,
+  "height": 420,
+  "title": "自回归逐词采样的具体执行过程",
+  "subtitle": "模型根据前文计算概率分布，挑选最佳候选后拼回输入继续预测",
+  "nodes": [
+    {
+      "id": "context",
+      "kind": "rect",
+      "x": 48,
+      "y": 144,
+      "width": 200,
+      "height": 110,
+      "label": "当前输入序列",
+      "sublabel": "「床前的月光照在」",
+      "fill": "#f9fafb",
+      "stroke": "#e5e7eb",
+      "flat": true
+    },
+    {
+      "id": "logits",
+      "kind": "rect",
+      "x": 380,
+      "y": 135,
+      "width": 200,
+      "height": 128,
+      "label": "计算词表概率分布",
+      "sublabel": "地上 72% / 窗台 18%",
+      "fill": "#eff6ff",
+      "stroke": "#3b82f6",
+      "flat": true
+    },
+    {
+      "id": "next",
+      "kind": "rect",
+      "x": 712,
+      "y": 144,
+      "width": 200,
+      "height": 110,
+      "label": "拼接并进入下一轮",
+      "sublabel": "「床前的月光照在地上」",
+      "fill": "#f9fafb",
+      "stroke": "#e5e7eb",
+      "flat": true
+    }
+  ],
+  "arrows": [
+    {
+      "id": "to-logits",
+      "source": "context",
+      "target": "logits",
+      "source_port": "right",
+      "target_port": "left",
+      "flow": "control",
+      "label": "前向计算"
+    },
+    {
+      "id": "to-next",
+      "source": "logits",
+      "target": "next",
+      "source_port": "right",
+      "target_port": "left",
+      "flow": "control",
+      "label": "选中接续"
+    }
+  ]
+}

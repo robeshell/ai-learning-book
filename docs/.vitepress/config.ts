@@ -32,6 +32,7 @@ export default defineConfig({
     ],
   ],
   markdown: {
+    math: true,
     lineNumbers: false,
     theme: {
       light: "min-light",
