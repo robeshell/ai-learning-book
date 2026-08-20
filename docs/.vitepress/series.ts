@@ -870,6 +870,15 @@ export function articleHref(seriesId: string, articleId: string): string {
 }
 
 export function seriesHref(seriesId: string): string {
+  const series = seriesList.find((s) => s.id === seriesId);
+  if (
+    series &&
+    series.chapters.length > 0 &&
+    series.chapters[0].articles.length > 0
+  ) {
+    const firstArticle = series.chapters[0].articles[0];
+    return articleHref(series.id, firstArticle.id);
+  }
   return `/series/${seriesId}/`;
 }
 
@@ -914,26 +923,14 @@ export function buildSidebar() {
 }
 
 function sidebarForSeries(series: Series) {
-  const sectionTitle =
-    series.season === 0
-      ? "基础知识"
-      : `第${seasonLabel(series.season)}季 · ${series.title}`;
-  const overviewText = series.season === 0 ? "基础知识概览" : "本季概览";
-
-  return [
-    {
-      text: sectionTitle,
-      items: [{ text: overviewText, link: seriesHref(series.id) }],
-    },
-    ...series.chapters.map((chapter) => ({
-      text: chapter.title,
-      collapsed: false,
-      items: chapter.articles.map((article) => ({
-        text: `${String(article.order).padStart(2, "0")} ${article.title}`,
-        link: articleHref(series.id, article.id),
-      })),
+  return series.chapters.map((chapter) => ({
+    text: chapter.title,
+    collapsed: false,
+    items: chapter.articles.map((article) => ({
+      text: `${String(article.order).padStart(2, "0")} ${article.title}`,
+      link: articleHref(series.id, article.id),
     })),
-  ];
+  }));
 }
 
 export function seasonLabel(season: number): string {
