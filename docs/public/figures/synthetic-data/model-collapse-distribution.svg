@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">模型崩溃（Model Collapse）：递归无监督自吞食的不可逆退化</text>
-  <text x="36" y="68" class="subtitle">Nature 2024 研究表明：若模型无节制地吞食上一代模型生成的未验证数据，长尾罕见知识将彻底消失</text>
+  <text x="36" y="68" class="subtitle">自噬退化风险：尾部多样性丢失与方差坍缩</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- 3-Column Progression -->

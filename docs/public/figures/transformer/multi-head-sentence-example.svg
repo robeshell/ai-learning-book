@@ -18,7 +18,7 @@
 
   <!-- Header -->
   <text x="36" y="38" class="title">多头注意力机制（Multi-Head Attention）实战案例剖析</text>
-  <text x="36" y="60" class="subtitle">例句：“在暴风雨的夜晚，小明开着红色的跑车穿过了古老的木桥，因为他要赶回家。”</text>
+  <text x="36" y="60" class="subtitle">多头并行捕获代词指代、修饰归属、时空背景与动宾依赖</text>
   <line x1="36" y1="80" x2="924" y2="80" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Sentence Token Bar -->

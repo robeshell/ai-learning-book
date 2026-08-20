@@ -19,7 +19,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">文本如何转化为模型可计算的稠密向量</text>
-  <text x="36" y="68" class="subtitle">字符串经过分词器映射为整数 ID，再通过嵌入矩阵检索转化为高维连续向量</text>
+  <text x="36" y="68" class="subtitle">文本分词与词表映射流水线</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Card 1: 原始文本 -->

@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">Softmax 归一化在超长文本下的注意力稀释（Attention Dilution）</text>
-  <text x="36" y="68" class="subtitle">随着 Token 数量从 1k 暴涨至 128k+，海量无关背景噪声分摊总概率，导致关键线索的注意力被严重冲淡</text>
+  <text x="36" y="68" class="subtitle">海量词元分摊 Softmax 概率导致注意力稀释</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Main Grid -->
@@ -58,7 +58,7 @@
         <text x="12" y="20" class="box-label" fill="#86198f">海量噪声累积效应：</text>
         <text x="12" y="38" class="mono" fill="#a21caf">关键事实 Token:  [██            ] 12.1% (暴跌)</text>
         <text x="12" y="54" class="mono" fill="#701a75">10万无关 Token:  [████████████  ] 87.9% (噪声总和)</text>
-        <text x="12" y="72" class="mono-bold" fill="#c026d3">➔ 关键线索淹没在噪声汪洋中，发生认知退化（Rot）</text>
+        <text x="12" y="72" class="mono-bold" fill="#c026d3">➔ 关键信息被噪声冲淡，发生退化（Rot）</text>
       </g>
 
       <g transform="translate(16, 142)">

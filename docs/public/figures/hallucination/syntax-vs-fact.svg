@@ -20,7 +20,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">句法流畅度（Syntax Fluency） vs 事实真实性（Factuality）二维象限</text>
-  <text x="36" y="68" class="subtitle">大模型优化的是「文字搭配的高概率与流畅度」，语言通顺与事实真伪在数学上完全正交解耦</text>
+  <text x="36" y="68" class="subtitle">语言流畅度与事实正确性象限分布</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- 2x2 Quadrant Area -->
@@ -30,8 +30,8 @@
     <rect x="0" y="0" width="430" height="130" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
     <rect x="14" y="14" width="90" height="22" rx="4" fill="#e2e8f0"/>
     <text x="59" y="29" text-anchor="middle" class="tag" fill="#475569">粗糙真实</text>
-    <text x="114" y="30" class="box-label" fill="#334155">低流畅度 + 事实正确（早期检索 / 原始日志）</text>
-    <text x="14" y="60" class="box-desc" fill="#64748b">虽然语法生硬、缺乏修辞，但数据和事实严格准确。</text>
+    <text x="114" y="30" class="box-label" fill="#334155">低流畅度 + 事实正确（原始日志）</text>
+    <text x="14" y="60" class="box-desc" fill="#64748b">语法生硬但数据事实准确</text>
     <text x="14" y="82" class="mono" fill="#475569">例如："北京 气温 25度 湿度60% 晴"</text>
 
     <!-- Top-Right: 高流畅 + 真实 (理想区) -->
@@ -39,7 +39,7 @@
     <rect x="472" y="14" width="90" height="22" rx="4" fill="#dcfce7"/>
     <text x="517" y="29" text-anchor="middle" class="tag" fill="#15803d">理想输出</text>
     <text x="572" y="30" class="box-label" fill="#166534">高流畅度 + 事实正确（落地可信回答）</text>
-    <text x="472" y="60" class="box-desc" fill="#14532d">逻辑严密、文采飞扬，且事实有确凿出处依据（经 RAG/外部工具校准）。</text>
+    <text x="472" y="60" class="box-desc" fill="#14532d">逻辑严密且事实有据（经 RAG 检索校验）</text>
     <text x="472" y="82" class="mono" fill="#16a34a">例如："今天北京阳光明媚，最高气温约 25℃，体感适宜。"</text>
 
     <!-- Bottom-Left: 低流畅 + 假事实 -->
@@ -47,7 +47,7 @@
     <rect x="14" y="160" width="90" height="22" rx="4" fill="#f1f5f9"/>
     <text x="59" y="175" text-anchor="middle" class="tag" fill="#94a3b8">垃圾输出</text>
     <text x="114" y="176" class="box-label" fill="#64748b">低流畅度 + 事实错误（模型崩溃 / 随机噪点）</text>
-    <text x="14" y="206" class="box-desc" fill="#94a3b8">胡言乱语、语法破碎且毫无事实逻辑，人类能瞬间识破并丢弃。</text>
+    <text x="14" y="206" class="box-desc" fill="#94a3b8">语法破碎且无事实逻辑，易被直接识破</text>
     <text x="14" y="228" class="mono" fill="#94a3b8">例如："太阳 绿色 昨天 飞翔 水泥"</text>
 
     <!-- Bottom-Right: 高流畅 + 假事实 (致命幻觉区) -->
@@ -55,7 +55,7 @@
     <rect x="472" y="160" width="115" height="22" rx="4" fill="#fee2e2"/>
     <text x="529" y="175" text-anchor="middle" class="tag" fill="#dc2626">致命幻觉区 ⚠️</text>
     <text x="597" y="176" class="box-label" fill="#991b1b">高流畅度 + 事实虚构（一本正经地胡说）</text>
-    <text x="472" y="206" class="box-desc" fill="#7f1d1d">句式工整、学术腔调十足，但引用的论文、函数名、历史事件全系捏造！</text>
+    <text x="472" y="206" class="box-desc" fill="#7f1d1d">句式工整但引用的事实/函数名完全虚构</text>
     <text x="472" y="228" class="mono" fill="#b91c1c">例如："据著名学者张伟在 2021 年发表于《Nature》的论文证实..."</text>
 
   </g>

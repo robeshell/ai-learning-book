@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">Skill 专业技能包解剖：从单句咒语到结构化作业法</text>
-  <text x="36" y="68" class="subtitle">封装作业规程（SOP）、执行脚本、行业规范与专用工具，形成自包含的高效复用单元</text>
+  <text x="36" y="68" class="subtitle">结构化 SOP 规范、上下文约束与工作流编排</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- 4 Component Grid -->

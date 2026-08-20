@@ -20,7 +20,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">RAG（检索增强生成）全景工作流：开卷考试的系统架构</text>
-  <text x="36" y="68" class="subtitle">离线将私有知识库切块向量化，在线将最相关的依据实时注入窗口，引导大模型按图索骥精准解答</text>
+  <text x="36" y="68" class="subtitle">文档分块索引、向量检索与上下文生成三元组</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- 3-Phase Architecture -->

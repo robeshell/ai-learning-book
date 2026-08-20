@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">无状态 HTTP 请求：多轮交互中的数据「滚雪球」累积</text>
-  <text x="36" y="68" class="subtitle">服务端不保存会话记忆，客户端必须在每次请求中完整重传历史，导致输入开销随轮次剧烈上升</text>
+  <text x="36" y="68" class="subtitle">无状态服务端协议与多轮交互历史累积重传机制</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Main Comparison Grid -->
@@ -92,8 +92,8 @@
         <rect width="276" height="88" rx="4" fill="#dbeafe"/>
         <text x="10" y="22" class="box-label" fill="#1e40af">核心物理痛点：</text>
         <text x="10" y="42" class="box-desc" fill="#1e3a8a">• 模型“记忆”纯靠每次重传历史</text>
-        <text x="10" y="58" class="box-desc" fill="#1e3a8a">• 无缓存时第 3 轮重复算前 320 字</text>
-        <text x="10" y="74" class="box-desc" fill="#1e3a8a">• 空间换时间的 KV 缓存势在必行！</text>
+        <text x="10" y="58" class="box-desc" fill="#1e3a8a">• 无缓存时每轮需重复解析前序历史</text>
+        <text x="10" y="74" class="box-desc" fill="#1e3a8a">• 引入前缀状态缓存降低重算开销</text>
       </g>
     </g>
 

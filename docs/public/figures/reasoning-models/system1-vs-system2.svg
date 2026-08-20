@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">快思考（System 1）vs 慢思考（System 2）：直觉直出与长思维链</text>
-  <text x="36" y="68" class="subtitle">传统对话模型依赖单步前向直觉，深度推理模型通过隐式草稿纸自发展开多步探索、反思与回溯</text>
+  <text x="36" y="68" class="subtitle">系统 1 快思考直觉 vs 系统 2 慢思考链式推演</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- 2-Column Architecture Comparison -->
@@ -33,8 +33,8 @@
       <g transform="translate(16, 48)">
         <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
         <text x="12" y="20" class="mono-bold" fill="#0f172a">Prompt ➔ [单步直接生成回答]</text>
-        <text x="12" y="40" class="box-desc" fill="#64748b">• 无论问题多难，每个 Token 耗费固定常数算力</text>
-        <text x="12" y="56" class="box-desc" fill="#64748b">• 面对多步数理奥赛题，单步计算极易「卡壳」翻车</text>
+        <text x="12" y="40" class="box-desc" fill="#64748b">• 单 Token 耗费固定算力</text>
+        <text x="12" y="56" class="box-desc" fill="#64748b">• 面对复杂多步推理易发生错误</text>
         <text x="12" y="72" class="mono" fill="#dc2626">➔ 一旦开局走偏，后续错误自回归滚雪球</text>
       </g>
 
@@ -57,7 +57,7 @@
         <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
         <text x="12" y="20" class="mono-bold" fill="#1e40af">Prompt ➔ &lt;think&gt; 展开数千 Token 思考 &lt;/think&gt; ➔ 答案</text>
         <text x="12" y="40" class="box-desc" fill="#1e3a8a">• 自主拆解步骤：“首先分析边界条件...”</text>
-        <text x="12" y="56" class="box-desc" fill="#1e3a8a">• 主动反思纠错：“等等，这个公式不对，让我换种解法...”</text>
+        <text x="12" y="56" class="box-desc" fill="#1e3a8a">• 思考链自发反思与分步纠错</text>
         <text x="12" y="72" class="mono-bold" fill="#2563eb">➔ 测试时计算（Test-Time Compute）突破智力上限</text>
       </g>
 

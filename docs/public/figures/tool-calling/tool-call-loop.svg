@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">Tool Calling 工具调用 4 步闭环标准工作流</text>
-  <text x="36" y="68" class="subtitle">模型从不直接联网，它只负责生成结构化参数包；宿主系统负责物理拦截、安全执行与结果回填</text>
+  <text x="36" y="68" class="subtitle">参数生成、宿主执行与观测结果回传闭环</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- 4 Step Flow -->

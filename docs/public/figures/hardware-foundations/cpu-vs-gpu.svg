@@ -16,7 +16,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">CPU（大学教授） vs GPU（一万名小学生）：计算拓扑的物理本质</text>
-  <text x="36" y="68" class="subtitle">深度学习与神经网络本质是超大规模矩阵乘法，需要极致并发吞吐而非复杂的单核分支逻辑</text>
+  <text x="36" y="68" class="subtitle">高并发矩阵吞吐 vs 复杂分支逻辑调度</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Left Column: CPU -->
@@ -42,14 +42,14 @@
     <g transform="translate(16, 128)">
       <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
       <text x="14" y="20" class="box-label" fill="#0f172a">核心优势：复杂逻辑与指令调度</text>
-      <text x="14" y="38" class="box-desc" fill="#64748b">单核主频高达 5GHz，擅长分支跳转与系统调度。</text>
+      <text x="14" y="38" class="box-desc" fill="#64748b">单核主频高，擅长复杂分支与系统调度</text>
     </g>
 
     <g transform="translate(16, 188)">
       <rect width="398" height="76" rx="4" fill="#fee2e2"/>
       <text x="14" y="22" class="box-label" fill="#991b1b">在 AI 场景下的物理瓶颈：</text>
-      <text x="14" y="42" class="box-desc" fill="#7f1d1d">• 核心数少（8~64 核），无法并发计算海量乘法</text>
-      <text x="14" y="62" class="box-desc" fill="#7f1d1d">• 处理千亿参数矩阵需排队数小时，吞吐极低</text>
+      <text x="14" y="42" class="box-desc" fill="#7f1d1d">• 核心较少（8~64 核），并行度低</text>
+      <text x="14" y="62" class="box-desc" fill="#7f1d1d">• 矩阵乘法吞吐低，难以支撑大并发</text>
     </g>
   </g>
 
@@ -89,14 +89,14 @@
     <g transform="translate(16, 128)">
       <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
       <text x="14" y="20" class="box-label" fill="#166534">核心优势：海量并发乘加运算（y = Wx + b）</text>
-      <text x="14" y="38" class="box-desc" fill="#15803d">核心结构专为矩阵定制，单周期并发吞吐上万结果。</text>
+      <text x="14" y="38" class="box-desc" fill="#15803d">核心为矩阵定制，单周期并发万级乘加</text>
     </g>
 
     <g transform="translate(16, 188)">
       <rect width="398" height="76" rx="4" fill="#dcfce7"/>
       <text x="14" y="22" class="box-label" fill="#166534">在 AI 场景下的绝对统治力：</text>
-      <text x="14" y="42" class="box-desc" fill="#14532d">• 矩阵乘法（GEMM）天然可在万核上全量并发展开</text>
-      <text x="14" y="62" class="box-desc" fill="#14532d">• 数万亿次浮点运算在毫秒级内完成高吞吐计算</text>
+      <text x="14" y="42" class="box-desc" fill="#14532d">• 矩阵乘法（GEMM）天然高度并行</text>
+      <text x="14" y="62" class="box-desc" fill="#14532d">• 毫秒级完成数万亿次高吞吐计算</text>
     </g>
   </g>
 </svg>

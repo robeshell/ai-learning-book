@@ -15,7 +15,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">Chat Template 角色特殊标记（Special Tokens）物理排布</text>
-  <text x="36" y="68" class="subtitle">模型通过特殊 Token 区分对话角色，System 享有全序列最高先验注意力权重</text>
+  <text x="36" y="68" class="subtitle">角色特殊标记与结构化对话模板协议</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Main Pipeline Structure -->
@@ -28,7 +28,7 @@
         <text x="80" y="15" text-anchor="middle" class="special-token" fill="#334155">&lt;|im_start|&gt;system</text>
 
         <text x="176" y="16" class="role-title" fill="#0f172a">系统角色与安全底仓（常驻最前端）</text>
-        <text x="176" y="38" class="role-desc" fill="#64748b">内容：「你是一个严谨的代码审计助手...」 + 工具定义 &lt;|im_end|&gt;</text>
+        <text x="176" y="38" class="role-desc" fill="#64748b">系统设定与工具定义 &lt;|im_end|&gt;</text>
       </g>
       <!-- Priority Badge -->
       <rect x="748" y="24" width="124" height="22" rx="3" fill="#e2e8f0"/>
@@ -43,7 +43,7 @@
         <text x="70" y="15" text-anchor="middle" class="special-token" fill="#1e40af">&lt;|im_start|&gt;user</text>
 
         <text x="156" y="16" class="role-title" fill="#1e40af">用户提问与即时指令（动态输入）</text>
-        <text x="156" y="38" class="role-desc" fill="#3b82f6">内容：「请帮我审查这段 Python 代码的安全性...」 &lt;|im_end|&gt;</text>
+        <text x="156" y="38" class="role-desc" fill="#3b82f6">用户指令输入 &lt;|im_end|&gt;</text>
       </g>
       <!-- Priority Badge -->
       <rect x="748" y="24" width="124" height="22" rx="3" fill="#dbeafe"/>

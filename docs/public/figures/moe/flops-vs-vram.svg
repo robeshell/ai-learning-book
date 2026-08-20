@@ -16,7 +16,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">MoE 硬件账本的不对称性：算力极度轻盈 vs 显存刚性占满</text>
-  <text x="36" y="68" class="subtitle">算力开销只取决于激活参数（Active FLOPs），但显存占用取决于物理总参数量</text>
+  <text x="36" y="68" class="subtitle">计算量稀疏激活 vs 显存容量全量常驻</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Left Column: 算力开销 (Compute) -->
@@ -58,8 +58,8 @@
     <!-- Point 1 -->
     <g transform="translate(16, 54)">
       <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#fed7aa"/>
-      <text x="14" y="20" class="row-title" fill="#9a3412">权重常驻：所有专家必须全部塞入显存</text>
-      <text x="14" y="38" class="row-desc" fill="#7c2d12">每个 Token 可能随机调用任意专家，显存绝不能卸载</text>
+      <text x="14" y="20" class="row-title" fill="#9a3412">权重常驻：所有专家全量驻留显存</text>
+      <text x="14" y="38" class="row-desc" fill="#7c2d12">Token 随机路由各专家，显存不可卸载</text>
     </g>
 
     <!-- Point 2 -->

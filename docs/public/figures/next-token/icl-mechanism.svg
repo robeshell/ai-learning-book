@@ -16,7 +16,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">模型微调（参数学习）vs 上下文学习（In-Context Learning）的物理本质</text>
-  <text x="36" y="68" class="subtitle">上下文学习不改变任何神经元权重，它通过注意力机制在前向传播中收拢概率轨道</text>
+  <text x="36" y="68" class="subtitle">上下文隐式状态更新 vs 梯度显式参数微调</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Left Column: 微调（参数学习） -->
@@ -30,13 +30,13 @@
     <g transform="translate(16, 54)">
       <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
       <text x="14" y="20" class="row-title" fill="#334155">机制：反向传播与梯度更新 (ΔW ≠ 0)</text>
-      <text x="14" y="38" class="row-desc" fill="#64748b">根据标注样本计算损失 Loss，物理改写权重浮点数</text>
+      <text x="14" y="38" class="row-desc" fill="#64748b">计算损失反向求导，改写模型权重</text>
     </g>
 
     <!-- Point 2 -->
     <g transform="translate(16, 112)">
       <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
-      <text x="14" y="20" class="row-title" fill="#334155">生命周期与作用域：永久固化、全局生效</text>
+      <text x="14" y="20" class="row-title" fill="#334155">生命周期：参数永久固化生效</text>
       <text x="14" y="38" class="row-desc" fill="#64748b">权重落盘保存，影响该模型之后处理的所有请求</text>
     </g>
 

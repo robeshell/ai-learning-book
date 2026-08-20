@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">Base 基座模型 vs Chat 助手：文本接龙与指令遵循的本质分界</text>
-  <text x="36" y="68" class="subtitle">预训练产出的 Base 模型只掌握自监督文本补全逻辑，不会主动理解人类的对话与问答意图</text>
+  <text x="36" y="68" class="subtitle">基座模型纯文本续写 vs 对齐模型指令遵循</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- 2-Column Comparison -->
@@ -34,8 +34,8 @@
         <rect width="394" height="86" rx="4" fill="#ffffff" stroke="#fca5a5"/>
         <text x="12" y="20" class="mono-bold" fill="#0f172a">输入 Prompt: "中国的首都是哪里？"</text>
         <line x1="12" y1="30" x2="382" y2="30" stroke="#fecaca" stroke-width="1"/>
-        <text x="12" y="48" class="mono" fill="#dc2626">可能续写 1: "A. 北京  B. 上海  C. 广州  D. 深圳"</text>
-        <text x="12" y="66" class="mono" fill="#dc2626">可能续写 2: "日本的首都是东京，法国的首都是巴黎..."</text>
+        <text x="12" y="48" class="mono" fill="#dc2626">可能续写 1: "A. 北京  B. 上海..."</text>
+        <text x="12" y="66" class="mono" fill="#dc2626">可能续写 2: "东京是日本首都..."</text>
         <text x="12" y="82" class="mono" fill="#dc2626">可能续写 3: "这是一道常见的高中地理考题，请回答。"</text>
       </g>
 
@@ -60,7 +60,7 @@
         <text x="12" y="20" class="mono-bold" fill="#0f172a">输入 Prompt: "中国的首都是哪里？"</text>
         <line x1="12" y1="30" x2="382" y2="30" stroke="#bbf7d0" stroke-width="1"/>
         <text x="12" y="52" class="mono-bold" fill="#15803d">模型回复: "中国的首都是北京。"</text>
-        <text x="12" y="72" class="box-desc" fill="#166534">准确识别用户意图，以第一人称助手口吻提供解答并停机</text>
+        <text x="12" y="72" class="box-desc" fill="#166534">识别意图，以助手身份给出准确解答并停机</text>
       </g>
 
       <g transform="translate(16, 144)">

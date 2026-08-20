@@ -16,7 +16,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">词表规模对多语言 Token 压缩率的影响</text>
-  <text x="36" y="68" class="subtitle">扩充词表使非英语母语文本不再被生硬拆解为字节碎片，大幅降低显存消耗与 API 成本</text>
+  <text x="36" y="68" class="subtitle">不同分词词表在中英多语言下的切分效率</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Left Box: 早期小词表 -->
@@ -31,7 +31,7 @@
       <rect width="398" height="74" rx="4" fill="#ffffff" stroke="#fef08a"/>
       <text x="14" y="24" class="table-header">输入文本："今天天气真好"</text>
       <text x="14" y="46" class="mono" fill="#b45309">Tokens: [今, 天, 天, 气, 真, 好] (或 UTF-8 碎片)</text>
-      <text x="14" y="64" font-size="11px" fill="#d97706">消耗约 6~10 个 Token（1 个汉字 ≈ 1~2 Token）</text>
+      <text x="14" y="64" font-size="11px" fill="#d97706">消耗约 6~10 个 Token（单字 1~2 Token）</text>
     </g>
 
     <!-- Impact Note -->

@@ -16,7 +16,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">Temperature（温度）与 Top-P（核采样）的几何控盘机制</text>
-  <text x="36" y="68" class="subtitle">Temperature 调节概率平滑度与方差，Top-P 动态剔除尾部长尾不合理词汇</text>
+  <text x="36" y="68" class="subtitle">采样温度与核采样概率分布调节</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Left Column: Temperature 调节 -->
@@ -30,14 +30,14 @@
     <g transform="translate(16, 54)">
       <rect width="398" height="48" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
       <text x="14" y="20" class="row-title" fill="#1e40af">低温 (T = 0.2)：尖锐脉冲，确定性收拢</text>
-      <text x="14" y="36" class="row-desc" fill="#64748b">最高分词概率升至 95%+，用于代码、数学与提取事实</text>
+      <text x="14" y="36" class="row-desc" fill="#64748b">最高词概率达 95%+，用于代码与精确事实</text>
     </g>
 
     <!-- Standard T -->
     <g transform="translate(16, 110)">
       <rect width="398" height="48" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
       <text x="14" y="20" class="row-title" fill="#0f172a">标准 (T = 0.7)：平滑过渡，兼顾多样与通顺</text>
-      <text x="14" y="36" class="row-desc" fill="#64748b">大部分对话任务的默认参数，保证流畅的同时不复读</text>
+      <text x="14" y="36" class="row-desc" fill="#64748b">通用对话默认设定，保持流畅自然</text>
     </g>
 
     <!-- High T -->

@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">上下文隔离与结构化 Handoff 严密交接契约</text>
-  <text x="36" y="68" class="subtitle">子 Agent 在独立沙箱中吃掉海量探索噪声，仅向主控交接干净的结构化成果，杜绝上下文污染</text>
+  <text x="36" y="68" class="subtitle">主控上下文隔离、子智能体派发与状态聚合</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Main Grid -->
@@ -35,13 +35,13 @@
         <text x="12" y="20" class="box-label" fill="#0f172a">吃掉 500 次工具调用的海量噪声：</text>
         <text x="12" y="38" class="mono" fill="#475569">• 扫描了 200 个源码文件与 Git 日志</text>
         <text x="12" y="54" class="mono" fill="#475569">• 消耗了 120k 上下文 Token 的试错噪音</text>
-        <text x="12" y="70" class="mono-bold" fill="#0f172a">➔ 任务结束，子窗口连同巨额日志当场销毁！</text>
+        <text x="12" y="70" class="mono-bold" fill="#0f172a">➔ 任务结束，子窗口日志当场释放</text>
       </g>
 
       <g transform="translate(16, 142)">
         <rect width="394" height="78" rx="4" fill="#f1f5f9"/>
         <text x="12" y="20" class="box-label" fill="#334155">Handoff 交付契约：</text>
-        <text x="12" y="38" class="mono-bold" fill="#2563eb">• 仅返回精炼的结构化 JSON 结论 (500 字)</text>
+        <text x="12" y="38" class="mono-bold" fill="#2563eb">• 仅返回结构化 JSON 摘要结论</text>
         <text x="12" y="54" class="box-desc" fill="#64748b">• "缺陷确认在 auth.py:42 行，由于缺少 Token 校验"</text>
       </g>
     </g>

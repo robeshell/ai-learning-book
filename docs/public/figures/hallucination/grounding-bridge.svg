@@ -16,7 +16,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">从纯概率幻觉到落地锚定（Grounding）：技术演进全景</text>
-  <text x="36" y="68" class="subtitle">无法靠「加大模型」消除幻觉，必须引入外部可验证证据、确定性工具与闭环反馈</text>
+  <text x="36" y="68" class="subtitle">从内部参数记忆到外部检索约束</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Left: 孤立概率生成 (幻觉高发) -->
@@ -29,7 +29,7 @@
     <g transform="translate(14, 52)">
       <rect width="242" height="60" rx="4" fill="#ffffff" stroke="#fca5a5"/>
       <text x="10" y="20" class="box-label" fill="#991b1b">仅依赖静态记忆</text>
-      <text x="10" y="38" class="box-desc" fill="#7f1d1d">权重是冻结的参数压缩包，知识存在时效性与长尾遗忘。</text>
+      <text x="10" y="38" class="box-desc" fill="#7f1d1d">静态参数存在时效性与长尾遗忘</text>
     </g>
 
     <g transform="translate(14, 122)">
@@ -52,7 +52,7 @@
     <g transform="translate(14, 48)">
       <rect width="288" height="52" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
       <text x="10" y="18" class="box-label" fill="#166534">1. 知识锚定 (RAG 检索增强)</text>
-      <text x="10" y="36" class="box-desc" fill="#15803d">将权威文档注入窗口，要求模型「据此回答」</text>
+      <text x="10" y="36" class="box-desc" fill="#15803d">注入权威文档，约束模型据实回答</text>
     </g>
 
     <!-- Pillar 2: Tool Calling & MCP -->

@@ -16,7 +16,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">MoE 路由退化（Routing Collapse）与负载均衡（Load Balancing）</text>
-  <text x="36" y="68" class="subtitle">防止「少数专家过热挤爆、其余专家饥饿冷死」，确保海量参数得到充分训练</text>
+  <text x="36" y="68" class="subtitle">专家负载失衡与辅助平衡损失调节</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Left Column: 路由退化 -->
@@ -30,14 +30,14 @@
     <g transform="translate(16, 54)">
       <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#fed7aa"/>
       <text x="14" y="20" class="row-title" fill="#9a3412">马太效应：少数专家被绝大部分 Token 选中</text>
-      <text x="14" y="38" class="row-desc" fill="#7c2d12">Exp 1/2 负载率高达 95%，严重超出专家计算上限（Capacity）</text>
+      <text x="14" y="38" class="row-desc" fill="#7c2d12">专家 1/2 负载超限触发丢弃</text>
     </g>
 
     <!-- Point 2 -->
     <g transform="translate(16, 112)">
       <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#fed7aa"/>
       <text x="14" y="20" class="row-title" fill="#9a3412">其余专家饿死：Exp 3~8 几乎无梯度更新</text>
-      <text x="14" y="38" class="row-desc" fill="#7c2d12">47B 庞大参数形同虚设，模型实际退化为一个 13B 稠密小模型</text>
+      <text x="14" y="38" class="row-desc" fill="#7c2d12">参数冗余，实际退化为小稠密模型</text>
     </g>
 
     <!-- Result Banner -->

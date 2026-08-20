@@ -20,7 +20,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">知识蒸馏（Knowledge Distillation）：从千亿教师到轻量学生模型</text>
-  <text x="36" y="68" class="subtitle">通过软概率分布（Soft Labels）与高质量思考轨迹，将庞大模型的「暗知识」高效迁移至小模型</text>
+  <text x="36" y="68" class="subtitle">暗知识蒸馏：软标签概率分布迁移</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- 3-Column Distillation Workflow -->

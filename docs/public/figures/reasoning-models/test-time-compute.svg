@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">测试时计算（Test-Time Compute）与 RLVR 可验证规则强化</text>
-  <text x="36" y="68" class="subtitle">通过代码沙箱/数学真值给予确定性奖励（RLVR），模型在自我博弈中自发涌现反思、验证与分支探索</text>
+  <text x="36" y="68" class="subtitle">测试时计算扩展与自发搜索纠错</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- 3-Column Progression Grid -->
@@ -35,14 +35,14 @@
         <text x="10" y="20" class="box-label" fill="#0f172a">客观硬规则判题：</text>
         <text x="10" y="38" class="box-desc" fill="#64748b">• 准确率奖励（Accuracy）：最终答案判对</text>
         <text x="10" y="54" class="box-desc" fill="#64748b">• 格式奖励（Format）：严格标签包裹</text>
-        <text x="10" y="70" class="mono" fill="#0f172a">➔ 不干预中间怎么想，只看最终对不对</text>
+        <text x="10" y="70" class="mono" fill="#0f172a">➔ 结果导向：以最终答案正确性为奖励</text>
       </g>
 
       <g transform="translate(14, 142)">
         <rect width="256" height="78" rx="4" fill="#f1f5f9"/>
         <text x="10" y="20" class="box-label" fill="#334155">核心突破：</text>
         <text x="10" y="38" class="box-desc" fill="#64748b">• 彻底摆脱人类写死 CoT 模板的桎梏</text>
-        <text x="10" y="54" class="box-desc" fill="#64748b">• 探索空间无穷，自发找到最优推理策略</text>
+        <text x="10" y="54" class="box-desc" fill="#64748b">• 大搜索空间自发探索最优策略</text>
       </g>
     </g>
 

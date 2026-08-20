@@ -23,7 +23,7 @@
 
   <!-- Header -->
   <text x="36" y="40" class="title">反向传播与链式法则：误差梯度的倒流流水线</text>
-  <text x="36" y="64" class="subtitle">正向计算吐出预测并度量损失，反向利用多元微积分链式法则将误差偏导数精准分配至每一层权重矩阵</text>
+  <text x="36" y="64" class="subtitle">前向预测度量损失，反向链式求导倒流更新参数</text>
   <line x1="36" y1="86" x2="924" y2="86" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Main Pipeline Structure -->
@@ -34,7 +34,7 @@
       <rect width="888" height="114" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
       <rect x="14" y="10" width="76" height="20" rx="3" fill="#dbeafe"/>
       <text x="52" y="24" text-anchor="middle" class="tag" fill="#1d4ed8">前向传播</text>
-      <text x="100" y="25" class="col-title" fill="#1e40af">正向计算流（Forward Pass：从输入特征到标量损失）</text>
+      <text x="100" y="25" class="col-title" fill="#1e40af">正向计算流（从输入特征到标量损失）</text>
 
       <!-- Steps 1 to 4 in Forward Pass -->
       <!-- Step 1: Input -->
@@ -80,7 +80,7 @@
       <rect width="888" height="136" rx="6" fill="#fff5f5" stroke="#fecaca" stroke-width="1.5"/>
       <rect x="14" y="10" width="76" height="20" rx="3" fill="#fee2e2"/>
       <text x="52" y="24" text-anchor="middle" class="tag" fill="#b91c1c">反向传播</text>
-      <text x="100" y="25" class="col-title" fill="#991b1b">梯度倒流链（Backward Pass：链式法则误差反向求导与参数更新）</text>
+      <text x="100" y="25" class="col-title" fill="#991b1b">梯度倒流链（链式法则反向求导与参数更新）</text>
 
       <!-- Step 3 (Left): Weight Gradient & Update -->
       <g transform="translate(14, 42)">

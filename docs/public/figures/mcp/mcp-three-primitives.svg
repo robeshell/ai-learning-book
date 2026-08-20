@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">MCP 核心三原语（Primitives）：Tools, Resources 与 Prompts</text>
-  <text x="36" y="68" class="subtitle">通过结构化协议解耦主动动作、静态资源与引导模板，构建清晰的大模型上下文交互面</text>
+  <text x="36" y="68" class="subtitle">Resources、Prompts 与 Tools 三大通信原语</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- 3 Primitives Grid -->
@@ -66,7 +66,7 @@
       <g transform="translate(14, 154)">
         <rect width="252" height="66" rx="4" fill="#dcfce7"/>
         <text x="10" y="20" class="box-label" fill="#166534">工程价值：</text>
-        <text x="10" y="38" class="box-desc" fill="#14532d">• 宿主将本地文件/数据直接挂载进窗口</text>
+        <text x="10" y="38" class="box-desc" fill="#14532d">• 宿主将文件/数据挂载进窗口</text>
         <text x="10" y="54" class="box-desc" fill="#14532d">• 支持实时订阅（Subscribe）动态变化</text>
       </g>
     </g>

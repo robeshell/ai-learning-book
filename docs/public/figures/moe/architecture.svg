@@ -22,7 +22,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">Dense（密集模型）vs Sparse MoE（混合专家模型）架构对比</text>
-  <text x="36" y="68" class="subtitle">MoE 通过门控路由器（Router）为每个 Token 动态挑选 Top-K 专家，打破参数与计算量的绑定</text>
+  <text x="36" y="68" class="subtitle">稠密网络全量计算 vs 混合专家动态稀疏激活</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Left Column: Dense Model -->
@@ -36,7 +36,7 @@
     <g transform="translate(16, 54)">
       <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
       <text x="14" y="20" class="box-label" fill="#0f172a">全量参数硬连线计算</text>
-      <text x="14" y="38" class="box-desc" fill="#64748b">每个 Token 都必须通过 100% 的前馈网络权重</text>
+      <text x="14" y="38" class="box-desc" fill="#64748b">每个 Token 均经过全部 FFN 权重</text>
     </g>
 
     <g transform="translate(16, 114)">
@@ -50,7 +50,7 @@
     <g transform="translate(16, 212)">
       <rect width="398" height="52" rx="4" fill="#fee2e2"/>
       <text x="14" y="22" class="box-label" fill="#991b1b">物理代价：参数量与算力严格 1:1 绑定</text>
-      <text x="14" y="40" class="box-desc" fill="#b91c1c">想把模型知识容量做大，每次推理的 FLOPs 必须成倍暴涨</text>
+      <text x="14" y="40" class="box-desc" fill="#b91c1c">扩充模型容量导致推理 FLOPs 成倍增长</text>
     </g>
   </g>
 

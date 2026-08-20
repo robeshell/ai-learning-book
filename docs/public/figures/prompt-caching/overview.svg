@@ -22,7 +22,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">无状态重算 vs 前缀缓存（Prompt Caching）前向推理对比</text>
-  <text x="36" y="68" class="subtitle">复用静态前缀的 KV Cache 激活值，跳过高昂的 Prefill 自注意力矩阵乘法</text>
+  <text x="36" y="68" class="subtitle">前缀状态缓存与计算开销对比</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Left Column: 传统无状态全量重算 -->
@@ -36,7 +36,7 @@
     <g transform="translate(16, 52)">
       <rect width="398" height="52" rx="4" fill="#ffffff" stroke="#fed7aa"/>
       <text x="14" y="22" class="box-label" fill="#9a3412">输入：System (2k) + 历史 (6k) + 新问题</text>
-      <text x="14" y="40" class="box-desc" fill="#7c2d12">总计 8,000+ Tokens 全部重新送入 GPU 计算</text>
+      <text x="14" y="40" class="box-desc" fill="#7c2d12">8,000+ Tokens 全部重复送入 GPU</text>
     </g>
 
     <!-- Arrow -->

@@ -16,7 +16,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">参数记忆（Weights）与工作记忆（Context Window）的物理本质</text>
-  <text x="36" y="68" class="subtitle">大模型不会在对话中「记住」你，上下文窗口只是单次计算中临时维持的显存工作台</text>
+  <text x="36" y="68" class="subtitle">瞬时上下文工作台 vs 预训练固化权重</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Left Column: 参数记忆 -->
@@ -29,8 +29,8 @@
     <!-- Content Rows -->
     <g transform="translate(16, 54)">
       <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
-      <text x="14" y="22" class="item-label">承载方式：固化在磁盘与显存的浮点数</text>
-      <text x="14" y="40" class="item-desc">经数万亿 Token 预训练固化，推理期间绝不发生权重写入</text>
+      <text x="14" y="22" class="item-label">存储载体：静态显存浮点张量</text>
+      <text x="14" y="40" class="item-desc">预训练后参数固化，推理时不写入</text>
     </g>
 
     <g transform="translate(16, 112)">

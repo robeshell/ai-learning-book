@@ -18,7 +18,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">BPE（Byte Pair Encoding）子词合并演进过程</text>
-  <text x="36" y="68" class="subtitle">从单字符/单字节出发，通过统计最高频相邻对，迭代构建紧凑且无未登录词（OOV）死角的词表</text>
+  <text x="36" y="68" class="subtitle">BPE 字节对编码合并演化流程</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Step 1 -->

@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">记忆生命周期：上下文压缩、沉淀归档与动态唤回</text>
-  <text x="36" y="68" class="subtitle">工作记忆溢出时自动提炼摘要，跨会话核心经验持久化沉淀，并在新任务中按需语义召回</text>
+  <text x="36" y="68" class="subtitle">上下文压缩摘要、持久化归档与语义唤回</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Pipeline 4 Stages -->

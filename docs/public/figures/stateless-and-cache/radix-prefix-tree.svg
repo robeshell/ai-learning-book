@@ -20,7 +20,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">前缀树（Trie / Radix Tree）：中间状态缓存共享的数据结构底座</text>
-  <text x="36" y="68" class="subtitle">将公共系统模板与多轮交互历史组织为树状节点，新请求命中前缀即可直接复用缓存</text>
+  <text x="36" y="68" class="subtitle">基于最长公共前缀（LCP）的多分支内存状态共享</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Tree Diagram & Details -->
@@ -34,7 +34,7 @@
       <!-- Root Node: System Prompt -->
       <g transform="translate(18, 44)">
         <rect width="504" height="42" rx="5" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
-        <text x="14" y="26" class="mono-bold" fill="#1e40af">根节点 [公共模板 / 系统配置] ➔ 内存 Block #0 (100% 共享)</text>
+        <text x="14" y="26" class="mono-bold" fill="#1e40af">根节点 [系统公共模板] ➔ Block #0</text>
       </g>
 
       <!-- Connectors from Root to Branch 1 & Branch 2 -->
@@ -63,14 +63,14 @@
       <g transform="translate(18, 182)">
         <rect width="240" height="40" rx="4" fill="#fef3c7" stroke="#fcd34d"/>
         <text x="10" y="18" class="mono-bold" fill="#92400e">第 2 轮: 延续分支 A</text>
-        <text x="10" y="32" class="mono" fill="#b45309">复用 Block 0+1 (省大量重算!)</text>
+        <text x="10" y="32" class="mono" fill="#b45309">复用 Block 0+1 (免除前缀重算)</text>
       </g>
 
       <!-- Leaf 2: User B Turn 2 -->
       <g transform="translate(282, 182)">
         <rect width="240" height="40" rx="4" fill="#fef3c7" stroke="#fcd34d"/>
         <text x="10" y="18" class="mono-bold" fill="#92400e">第 2 轮: 延续分支 B</text>
-        <text x="10" y="32" class="mono" fill="#b45309">复用 Block 0+2 (省大量重算!)</text>
+        <text x="10" y="32" class="mono" fill="#b45309">复用 Block 0+2 (免除前缀重算)</text>
       </g>
     </g>
 
@@ -84,14 +84,14 @@
       <g transform="translate(16, 48)">
         <rect width="296" height="74" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
         <text x="12" y="22" class="box-label" fill="#1e40af">最长公共前缀（LCP）匹配：</text>
-        <text x="12" y="42" class="box-desc" fill="#0f172a">• 无论并发多少请求，公共前缀只算 1 次</text>
+        <text x="12" y="42" class="box-desc" fill="#0f172a">• 公共前缀仅需计算一次</text>
         <text x="12" y="58" class="box-desc" fill="#0f172a">• 命中前缀的中间状态计算耗时归零</text>
       </g>
 
       <g transform="translate(16, 132)">
         <rect width="296" height="88" rx="4" fill="#dbeafe"/>
         <text x="10" y="22" class="box-label" fill="#1e40af">真实工业落地应用：</text>
-        <text x="10" y="42" class="box-desc" fill="#1e3a8a">• 高性能计算与推理服务中的 Radix 树管理</text>
+        <text x="10" y="42" class="box-desc" fill="#1e3a8a">• 提升多会话并发吞吐与内存效率</text>
         <text x="10" y="58" class="box-desc" fill="#1e3a8a">• 共享前缀命中免除庞大重复计算</text>
         <text x="10" y="74" class="box-desc" fill="#1e3a8a">• 显著降低交互式系统的响应首包延迟</text>
       </g>

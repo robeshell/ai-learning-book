@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">提示词注入的根本根源：指令与数据的物理混淆</text>
-  <text x="36" y="68" class="subtitle">传统计算机拥有严格的代码段与数据段物理隔离；大模型将系统指令与不可信数据混为一谈</text>
+  <text x="36" y="68" class="subtitle">自然语言同构性与指令-数据混淆根源</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Main Grid -->
@@ -34,8 +34,8 @@
         <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
         <text x="12" y="20" class="box-label" fill="#1e40af">内存段页权限保护（NX / DEP）：</text>
         <text x="12" y="38" class="mono" fill="#1d4ed8">• 代码段（Text）：只读且可执行 (r-x)</text>
-        <text x="12" y="54" class="mono" fill="#1d4ed8">• 数据段（Data）：可读写但绝对不可执行 (rw-)</text>
-        <text x="12" y="70" class="mono-bold" fill="#2563eb">➔ 恶意用户输入被严格当作纯数据，无法作为指令运行</text>
+        <text x="12" y="54" class="mono" fill="#1d4ed8">• 数据段：可读写但不可执行 (rw-)</text>
+        <text x="12" y="70" class="mono-bold" fill="#2563eb">➔ 恶意输入被视为纯数据，不可执行</text>
       </g>
 
       <g transform="translate(16, 142)">

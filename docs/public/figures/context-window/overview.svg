@@ -14,7 +14,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">上下文窗口的物理结构与预算切分</text>
-  <text x="36" y="68" class="subtitle">单次前向推理中，所有输入与预留输出必须同时塞入同一个有限的 Token 工作台</text>
+  <text x="36" y="68" class="subtitle">输入与输出共享有限上下文窗口</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Outer Context Window Container -->
@@ -23,7 +23,7 @@
     <rect width="888" height="236" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6,4"/>
 
     <!-- Title bar -->
-    <text x="20" y="28" font-size="12px" font-weight="700" fill="#475569">单次推理上下文总量上限（标称 Context Window，如 32k / 128k Tokens）</text>
+    <text x="20" y="28" font-size="12px" font-weight="700" fill="#475569">单次推理上下文上限（如 32k / 128k Tokens）</text>
 
     <!-- Visual Segment Bar -->
     <g transform="translate(20, 48)">

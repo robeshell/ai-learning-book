@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">Computer Use 视觉感知与键鼠动作 4 步闭环</text>
-  <text x="36" y="68" class="subtitle">将桌面屏幕像素转化为视觉坐标决策，通过操作系统级底层事件驱动无 API 图形软件</text>
+  <text x="36" y="68" class="subtitle">屏幕截图感知、坐标推理与系统事件驱动</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- 4 Step Pipeline -->

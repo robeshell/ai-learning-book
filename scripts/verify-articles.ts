@@ -228,6 +228,58 @@ for (const series of seriesList) {
   }
 }
 
+// 9. 检查所有 SVG 配图文本长度与排版防溢出
+const figuresDir = path.join(publicDir, "figures");
+if (fs.existsSync(figuresDir)) {
+  const checkSvgDir = (dir: string) => {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        checkSvgDir(full);
+      } else if (entry.name.endsWith(".svg")) {
+        const svgContent = fs.readFileSync(full, "utf-8");
+        const relSvg = path.relative(publicDir, full);
+        const svgErrors: string[] = [];
+        const svgWarnings: string[] = [];
+
+        // 检查 subtitle 长度 (<= 28 字符)
+        const subMatch = svgContent.match(/<text[^>]*class=["']subtitle["'][^>]*>(.*?)<\/text>/s);
+        if (subMatch) {
+          const cleanSub = subMatch[1].replace(/<[^>]+>/g, "").trim();
+          if (cleanSub.length > 28) {
+            svgWarnings.push(`SVG subtitle 过长 (${cleanSub.length} 字): "${cleanSub.slice(0, 20)}..."`);
+          }
+        }
+
+        // 检查内部卡片单行文字长度 (单行汉字 <= 26)
+        const textMatches = svgContent.matchAll(/<text([^>]*)>(.*?)<\/text>/gs);
+        for (const tm of textMatches) {
+          const attr = tm[1];
+          if (attr.includes('class="title"') || attr.includes('class="subtitle"')) continue;
+          const cleanText = tm[2].replace(/<[^>]+>/g, "").trim();
+          const chineseCount = (cleanText.match(/[一-龥]/g) || []).length;
+          if (chineseCount > 26) {
+            svgWarnings.push(`SVG 卡片单行文字过长 (${chineseCount} 汉字): "${cleanText.slice(0, 20)}..."`);
+          }
+        }
+
+        if (svgErrors.length > 0 || svgWarnings.length > 0) {
+          results.push({
+            file: relSvg,
+            title: `SVG 配图: ${entry.name}`,
+            status: "asset",
+            passed: svgErrors.length === 0,
+            errors: svgErrors,
+            warnings: svgWarnings,
+          });
+        }
+      }
+    }
+  };
+  checkSvgDir(figuresDir);
+}
+
 // 打印自检结果看板
 let totalPassed = 0;
 let totalFailed = 0;

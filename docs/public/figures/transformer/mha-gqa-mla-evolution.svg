@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="38" class="title">注意力架构的工业级演进：从 MHA 到 GQA 与 MLA</text>
-  <text x="36" y="60" class="subtitle">打破长文本时代的显存带宽墙：在维持多头表达能力的同时，将 KV Cache 压缩 90% 以上</text>
+  <text x="36" y="68" class="subtitle">MHA、GQA 到 MLA 演进与 KV Cache 压缩</text>
   <line x1="36" y1="80" x2="924" y2="80" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- 3 Columns Comparison -->

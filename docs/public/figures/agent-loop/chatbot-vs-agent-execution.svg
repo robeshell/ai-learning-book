@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">Chatbot 聊天机器人 vs AI Agent 智能体执行流对比</text>
-  <text x="36" y="68" class="subtitle">Chatbot 停留在单次被动生成建议；Agent 自主分解动作、执行工具、看反馈并持续自愈直到交付结果</text>
+  <text x="36" y="68" class="subtitle">Chatbot 被动建议 vs Agent 自主执行反馈闭环</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Main Grid -->
@@ -32,9 +32,9 @@
 
       <g transform="translate(16, 48)">
         <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
-        <text x="12" y="20" class="box-label" fill="#0f172a">用户指令：“帮我把最新代码部署上线”</text>
+        <text x="12" y="20" class="box-label" fill="#0f172a">指令：“帮我把最新代码部署上线”</text>
         <text x="12" y="38" class="mono" fill="#475569">Chatbot 回复：</text>
-        <text x="12" y="54" class="box-desc" fill="#64748b">“好的！部署步骤如下：1. 跑测试；2. 构建 Docker 镜像；3. 推送镜像并部署...”</text>
+        <text x="12" y="54" class="box-desc" fill="#64748b">“建议步骤：1.跑测试 2.打镜像 3.发布”</text>
         <text x="12" y="72" class="mono-bold" fill="#0f172a">➔ 吐出建议后立即停机（人类必须自己去手动操作）</text>
       </g>
 
@@ -42,7 +42,7 @@
         <rect width="394" height="78" rx="4" fill="#f1f5f9"/>
         <text x="12" y="20" class="box-label" fill="#334155">核心特征：</text>
         <text x="12" y="38" class="box-desc" fill="#64748b">• 单次 Request 对应单次 Response</text>
-        <text x="12" y="54" class="box-desc" fill="#64748b">• 无法感知物理环境，不具备自主行动闭环能力</text>
+        <text x="12" y="54" class="box-desc" fill="#64748b">• 无法感知环境，无自主行动闭环</text>
       </g>
     </g>
 
@@ -55,7 +55,7 @@
 
       <g transform="translate(16, 48)">
         <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
-        <text x="12" y="20" class="box-label" fill="#1e40af">用户指令：“帮我把最新代码部署上线”</text>
+        <text x="12" y="20" class="box-label" fill="#1e40af">指令：“帮我把最新代码部署上线”</text>
         <text x="12" y="38" class="mono" fill="#1d4ed8">Agent 自主执行流水线：</text>
         <text x="12" y="54" class="mono" fill="#1d4ed8">• 自动跑测试 ➔ 发现报错 ➔ 自主修 Bug ➔ 重跑通过</text>
         <text x="12" y="72" class="mono-bold" fill="#2563eb">• 自动构建镜像 ➔ 部署 K8s ➔ 终答: “部署成功，服务健康”</text>

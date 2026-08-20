@@ -16,7 +16,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">传统连续显存分配 vs PagedAttention 虚拟分页机制</text>
-  <text x="36" y="68" class="subtitle">借鉴操作系统虚拟内存分页，消除 KV Cache 预分配带来的 60%~80% 显存碎片浪费</text>
+  <text x="36" y="68" class="subtitle">分页显存管理与碎片消除机制</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Left Column: 传统连续分配 -->
@@ -41,7 +41,7 @@
     <g transform="translate(16, 126)">
       <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#fed7aa"/>
       <text x="14" y="22" class="box-label" fill="#9a3412">显存利用率瓶颈</text>
-      <text x="14" y="39" class="box-desc" fill="#7c2d12">有效利用率仅 20%~40%，极大限制了并发 Batch Size</text>
+      <text x="14" y="39" class="box-desc" fill="#7c2d12">利用率仅 20%~40%，限制并发批次</text>
     </g>
 
     <!-- Result Banner -->
@@ -85,7 +85,7 @@
     <g transform="translate(16, 126)">
       <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
       <text x="14" y="22" class="box-label" fill="#166534">按需分配与页表连续抽象</text>
-      <text x="14" y="39" class="box-desc" fill="#14532d">物理显存不连续也可逻辑打分，显存浪费压至极限</text>
+      <text x="14" y="39" class="box-desc" fill="#14532d">非连续物理显存逻辑映射，消除浪费</text>
     </g>
 
     <!-- Result Banner -->

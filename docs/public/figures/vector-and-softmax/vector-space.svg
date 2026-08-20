@@ -26,7 +26,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">高维语义空间（Vector Space）与词向量的几何表示</text>
-  <text x="36" y="68" class="subtitle">计算机通过将概念映射为空间坐标箭头，用几何距离与方向表达语义关系</text>
+  <text x="36" y="68" class="subtitle">高维特征向量坐标与概念空间语义度量</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Left: Coordinate Visual -->
@@ -80,8 +80,8 @@
     <g transform="translate(16, 52)">
       <rect width="386" height="58" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
       <text x="12" y="20" class="box-label" fill="#1e40af">1. 距离度量语义相关度</text>
-      <text x="12" y="36" class="box-desc" fill="#1e3a8a">在真实高维空间中，同类事物聚集在局部超球面上；</text>
-      <text x="12" y="50" class="box-desc" fill="#64748b">无关概念（如“小猫”与“潜水艇”）相互垂直正交。</text>
+      <text x="12" y="36" class="box-desc" fill="#1e3a8a">高维空间中同类事物聚集在邻近流形；</text>
+      <text x="12" y="50" class="box-desc" fill="#64748b">无关概念在空间中趋向相互正交。</text>
     </g>
 
     <!-- Point 2 -->
@@ -97,8 +97,8 @@
     <g transform="translate(16, 198)">
       <rect width="386" height="66" rx="4" fill="#dbeafe"/>
       <text x="12" y="20" class="box-label" fill="#1e40af">一句话物理结论：</text>
-      <text x="12" y="38" class="box-desc" font-weight="600" fill="#1e3a8a">Embedding 将文字映射为高维向量坐标，</text>
-      <text x="12" y="54" class="box-desc" font-weight="600" fill="#1e3a8a">使计算机能用线性几何精确度量概念关联。</text>
+      <text x="12" y="38" class="box-desc" font-weight="600" fill="#1e3a8a">Embedding 将离散符号映射为连续向量，</text>
+      <text x="12" y="54" class="box-desc" font-weight="600" fill="#1e3a8a">通过几何距离与方向度量语义关联。</text>
     </g>
   </g>
 </svg>

@@ -20,7 +20,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">预训练语料清洗流水线：从万亿原始网页到纯净 Token 流</text>
-  <text x="36" y="68" class="subtitle">原始网络爬虫包含大量噪音与重复垃圾，必须经过多阶段严格清洗才能送入 GPU 集群</text>
+  <text x="36" y="68" class="subtitle">海量语料清洗、分词与自回归训练流水线</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- 4-Stage Pipeline Flow -->

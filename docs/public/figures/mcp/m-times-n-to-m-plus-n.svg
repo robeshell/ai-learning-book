@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">从 M×N 网状胶水到 M+N 标准协议：MCP 的架构演进</text>
-  <text x="36" y="68" class="subtitle">如同 USB-C 统一硬件接口、LSP 统一编程语言支持，MCP 彻底终结了大模型与上下文工具的碎片化适配</text>
+  <text x="36" y="68" class="subtitle">从 M×N 定制集成到 M+N 标准协议解耦</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Main Grid -->
@@ -33,9 +33,9 @@
       <g transform="translate(16, 48)">
         <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#fecaca"/>
         <text x="12" y="20" class="box-label" fill="#991b1b">高昂的胶水代码维护成本：</text>
-        <text x="12" y="38" class="mono" fill="#7f1d1d">• M 个客户端（Claude, Cursor, 各种 Agent 框架）</text>
-        <text x="12" y="54" class="mono" fill="#7f1d1d">• N 个数据源（GitHub, Postgres, Slack, Jira, Notion）</text>
-        <text x="12" y="72" class="box-desc" fill="#991b1b">➔ 每个客户端必须针对每个工具单独编写一套适配解析器！</text>
+        <text x="12" y="38" class="mono" fill="#7f1d1d">• M 个客户端应用</text>
+        <text x="12" y="54" class="mono" fill="#7f1d1d">• N 个外部数据源</text>
+        <text x="12" y="72" class="box-desc" fill="#991b1b">➔ 客户端需对每个工具单独开发专用适配器</text>
       </g>
 
       <g transform="translate(16, 142)">

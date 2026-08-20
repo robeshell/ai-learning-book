@@ -15,7 +15,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">提示词工程（Prompt Engineering）的真实能力边界</text>
-  <text x="36" y="68" class="subtitle">提示词是现有参数空间的定向牵引器，它既不是玄学咒语，也无法逾越物理规律</text>
+  <text x="36" y="68" class="subtitle">提示词能力边界与物理限制</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Left Column: 提示词能做到的事 -->
@@ -29,21 +29,21 @@
     <g transform="translate(16, 54)">
       <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
       <text x="14" y="20" class="row-title" fill="#15803d">1. 概率轨道收拢与格式锁定</text>
-      <text x="14" y="38" class="row-desc" fill="#166534">将生成锁定在 JSON、YAML、Markdown 等特定语法结构内</text>
+      <text x="14" y="38" class="row-desc" fill="#166534">锁定 JSON、YAML 等格式结构</text>
     </g>
 
     <!-- Point 2 -->
     <g transform="translate(16, 112)">
       <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
       <text x="14" y="20" class="row-title" fill="#15803d">2. 激活既有参数回路（角色扮演）</text>
-      <text x="14" y="38" class="row-desc" fill="#166534">唤醒预训练中固化的高维特定风格与专业表达语调</text>
+      <text x="14" y="38" class="row-desc" fill="#166534">激活预训练特定领域表征</text>
     </g>
 
     <!-- Point 3 -->
     <g transform="translate(16, 170)">
       <rect width="398" height="50" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
       <text x="14" y="20" class="row-title" fill="#15803d">3. 临时事实注入（In-Context Learning）</text>
-      <text x="14" y="38" class="row-desc" fill="#166534">将外部参考资料作为工作台线索，供当前单次前向推理使用</text>
+      <text x="14" y="38" class="row-desc" fill="#166534">将参考资料作为上下文线索供当前推理使用</text>
     </g>
   </g>
 

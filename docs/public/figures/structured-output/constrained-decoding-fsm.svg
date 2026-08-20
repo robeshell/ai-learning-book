@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">约束解码（Constrained Decoding）与 Logits Masking 机制</text>
-  <text x="36" y="68" class="subtitle">将 JSON Schema 编译为有限状态机（FSM），在每步采样前强制屏蔽所有非法 Token，实现 100% 语法合规</text>
+  <text x="36" y="68" class="subtitle">语法状态机（FSM）与 Token 掩码约束解码</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Pipeline 4 Stages -->
@@ -62,7 +62,7 @@
         <text x="8" y="56" class="mono" fill="#475569">"好的"  ➔ Logit: +9.2</text>
         <text x="8" y="74" class="mono" fill="#475569">"null"  ➔ Logit: +3.1</text>
         <text x="8" y="92" class="mono" fill="#475569">"未知"  ➔ Logit: +4.0</text>
-        <text x="8" y="118" class="box-desc" fill="#64748b">• 若直接采样，模型极易输出聊天废话 "好的"</text>
+        <text x="8" y="118" class="box-desc" fill="#64748b">• 自由生成易输出多余客套废话</text>
       </g>
     </g>
 

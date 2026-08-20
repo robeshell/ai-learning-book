@@ -16,7 +16,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">大模型推理两大核心优化维度：吞吐量 vs 单流延迟</text>
-  <text x="36" y="68" class="subtitle">优化高并发整体吞吐与优化单个用户的吐字等待，对应完全不同的系统架构取舍</text>
+  <text x="36" y="68" class="subtitle">首字延迟与系统吞吐量物理权衡</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Left Column: 吞吐量优化 (Throughput) -->
@@ -30,12 +30,12 @@
     <g transform="translate(16, 54)">
       <rect width="398" height="42" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
       <text x="14" y="18" class="row-title" fill="#1e40af">核心度量指标：Tokens / s / GPU</text>
-      <text x="14" y="34" class="row-desc">衡量每张卡每秒总共能为多少用户吐出多少字</text>
+      <text x="14" y="34" class="row-desc">衡量系统每秒生成的 Token 总数</text>
     </g>
 
     <g transform="translate(16, 104)">
       <rect width="398" height="42" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
-      <text x="14" y="18" class="row-title" fill="#334155">核心驱动技术：连续批处理 + PagedAttention</text>
+      <text x="14" y="18" class="row-title" fill="#334155">核心技术：连续批处理 + PagedAttn</text>
       <text x="14" y="34" class="row-desc">榨干 GPU 显存，把 Batch Size 尽可能拉到几十甚至上百</text>
     </g>
 
@@ -46,7 +46,7 @@
     </g>
 
     <g transform="translate(16, 204)">
-      <text x="0" y="14" font-size="11px" fill="#64748b">💡 吞吐量极高时，单个用户的排队延迟反而可能略有上升</text>
+      <text x="0" y="14" font-size="11px" fill="#64748b">大批次吞吐高，但单用户排队延迟略增</text>
     </g>
   </g>
 
@@ -77,7 +77,7 @@
     </g>
 
     <g transform="translate(16, 204)">
-      <text x="0" y="14" font-size="11px" fill="#15803d">💡 极致低延迟需要小模型协同，在单并发下体验收益最显著</text>
+      <text x="0" y="14" font-size="11px" fill="#15803d">极致低延迟需小模型推测，单并发收益明显</text>
     </g>
   </g>
 </svg>

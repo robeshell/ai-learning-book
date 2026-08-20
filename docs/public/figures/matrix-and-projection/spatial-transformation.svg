@@ -26,7 +26,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">矩阵变换几何本质：网格变形、空间旋转与拉伸</text>
-  <text x="36" y="68" class="subtitle">公式：y = Wx —— 矩阵 W 的每一列记录了标准基向量 [1, 0] 与 [0, 1] 变换后的新坐标落点</text>
+  <text x="36" y="68" class="subtitle">矩阵相乘本质是标准基底坐标系的空间线性变换</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Main Canvas -->
@@ -61,7 +61,7 @@
 
       <g transform="translate(20, 176)">
         <text x="0" y="18" class="box-desc" fill="#475569">• 单位正方形未发生形变，面积为 1.0</text>
-        <text x="0" y="36" class="box-desc" fill="#475569">• 向量 v 仅为基础基底的线性组合：v = 2i + 1j</text>
+        <text x="0" y="36" class="box-desc" fill="#475569">• 向量 v 为基底线性组合：v = 2i + 1j</text>
       </g>
     </g>
 
@@ -111,8 +111,8 @@
       </g>
 
       <g transform="translate(20, 176)">
-        <text x="0" y="18" class="box-desc" fill="#14532d">• 基底发生倾斜与伸长，网格从正方形变成平行四边形</text>
-        <text x="0" y="36" class="box-desc" fill="#14532d">• 矩阵相乘直接给出了所有高维向量在新坐标系中的落点</text>
+        <text x="0" y="18" class="box-desc" fill="#14532d">• 基底倾斜伸长，网格变换为平行四边形</text>
+        <text x="0" y="36" class="box-desc" fill="#14532d">• 矩阵相乘给出所有向量在新基底下的坐标</text>
       </g>
     </g>
 

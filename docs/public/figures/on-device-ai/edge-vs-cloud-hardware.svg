@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">云端数据中心 vs 移动端侧硬件物理约束对比</text>
-  <text x="36" y="68" class="subtitle">端侧设备受限于极低功耗与内存带宽；4-bit 极限压缩与 NPU 专用算力是离线运行的物理前提</text>
+  <text x="36" y="68" class="subtitle">云端高并发数据中心 vs 端侧微功耗芯片</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Main Grid -->

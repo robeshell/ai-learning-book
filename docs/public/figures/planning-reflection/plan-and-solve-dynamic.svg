@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">Plan-and-Solve 任务规划与动态重规划（Re-planning）机制</text>
-  <text x="36" y="68" class="subtitle">先构建全局依赖拓扑（DAG），自顶向下分步推进；遭遇意外物理障碍时触发动态重规划自愈</text>
+  <text x="36" y="68" class="subtitle">任务拓扑拆解、依赖追踪与动态重规划</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Pipeline 4 Stages -->

@@ -16,7 +16,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">首字延迟（TTFT）与计费成本的物理变化</text>
-  <text x="36" y="68" class="subtitle">云厂商通过前缀缓存省下庞大 GPU 算力集群，将收益通过价格折扣与极速响应反哺开发者</text>
+  <text x="36" y="68" class="subtitle">首字延迟与推理成本大幅优化</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Left Column: TTFT 首字延迟对比 -->
@@ -42,8 +42,8 @@
 
     <!-- Explanation -->
     <g transform="translate(16, 190)">
-      <text x="0" y="14" class="row-desc">💡 首字延迟缩短高达 80%~95%，避免长文本交互的卡顿感</text>
-      <text x="0" y="32" class="row-desc">GPU 跳过 Prefill 矩阵乘法，直接进入 Decode 吐字阶段</text>
+      <text x="0" y="14" class="row-desc">首字延迟缩短 80%~95%，消除等待</text>
+      <text x="0" y="32" class="row-desc">跳过 Prefill 计算，直接开始 Decode</text>
     </g>
   </g>
 

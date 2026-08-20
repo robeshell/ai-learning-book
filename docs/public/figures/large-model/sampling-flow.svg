@@ -39,7 +39,7 @@
   </defs>
   <rect data-graph-role="background" width="960.0" height="420.0" fill="#ffffff"/>
   <text x="48.0" y="48" text-anchor="start" class="title">自回归逐词采样的具体执行过程</text>
-  <text x="48.0" y="72" text-anchor="start" class="subtitle">模型根据前文计算概率分布，挑选最佳候选后拼回输入继续预测</text>
+  <text x="48.0" y="72" text-anchor="start" class="subtitle">根据前文概率分布采样候选词，拼接回输入继续生成</text>
   <line x1="48" y1="100" x2="912.0" y2="100" stroke="#e5e7eb" stroke-width="1"/>
   <path id="to-logits" data-graph-role="edge" data-edge-id="to-logits" data-source="context" data-target="logits" data-edge-kind="flow" data-topic-id="" data-flow="control" data-motion-role="" data-motion-stage="" data-motion-order="" data-protocol="" data-via="" data-critical-path-id="" data-critical-hop="" data-critical-hops="" data-critical="false" data-bends="0" data-route-stretch="1.0" data-bridges="" d="M 248,199 L 380,199" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowA)"/>
   <path id="to-next" data-graph-role="edge" data-edge-id="to-next" data-source="logits" data-target="next" data-edge-kind="flow" data-topic-id="" data-flow="control" data-motion-role="" data-motion-stage="" data-motion-order="" data-protocol="" data-via="" data-critical-path-id="" data-critical-hop="" data-critical-hops="" data-critical="false" data-bends="0" data-route-stretch="1.0" data-bridges="" d="M 580,199 L 712,199" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowA)"/>

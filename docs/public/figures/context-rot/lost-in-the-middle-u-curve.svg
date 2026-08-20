@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">长文本认知陷阱：迷失在中间（Lost in the Middle）U 型曲线</text>
-  <text x="36" y="68" class="subtitle">模型对首部（首因效应）与尾部（近因效应）提取最准；埋在中间（30%~70%）的关键事实召回率剧烈暴跌</text>
+  <text x="36" y="68" class="subtitle">首因与近因效应下的 U 型关键事实召回曲线</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Main Grid -->
@@ -69,8 +69,8 @@
       <g transform="translate(16, 48)">
         <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#fecaca"/>
         <text x="12" y="20" class="box-label" fill="#991b1b">认知衰减三大根源：</text>
-        <text x="12" y="38" class="mono" fill="#7f1d1d">1. 首因效应: 初始指令拥有极高先验注意力权重</text>
-        <text x="12" y="54" class="mono" fill="#7f1d1d">2. 近因效应: 最近输入的 Query 处于局部注意力焦距内</text>
+        <text x="12" y="38" class="mono" fill="#7f1d1d">1. 首因效应: 初始指令拥有高先验权重</text>
+        <text x="12" y="54" class="mono" fill="#7f1d1d">2. 近因效应: 邻近 Query 处于注意力焦距内</text>
         <text x="12" y="72" class="mono-bold" fill="#dc2626">3. 中间稀释: 庞大的背景噪声冲淡了中间 Token 权重</text>
       </g>
 

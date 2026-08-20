@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="40" class="title">Transformer 核心架构与数据流全景图</text>
-  <text x="36" y="64" class="subtitle">自注意力负责词间信息通信（Communication），前馈网络 FFN 负责事实知识提炼（Computation）</text>
+  <text x="36" y="68" class="subtitle">标准 Transformer 架构与残差归一化张量流</text>
   <line x1="36" y1="86" x2="924" y2="86" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Architecture Flow Grid -->

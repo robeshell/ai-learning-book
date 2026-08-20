@@ -26,7 +26,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">线性投影机制：同一个特征向量的「多重视角滤镜」</text>
-  <text x="36" y="68" class="subtitle">公式：y_A = x W_A, y_B = x W_B, y_C = x W_C —— 输入向量 x 不变，不同投影矩阵提取不同维度的子空间特征</text>
+  <text x="36" y="68" class="subtitle">相同输入向量通过不同投影矩阵提取多子空间特征</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Pipeline Canvas -->
@@ -77,7 +77,7 @@
         <!-- Result Box -->
         <rect x="185" y="10" width="410" height="52" rx="4" fill="#ffffff" stroke="#93c5fd"/>
         <text x="200" y="28" class="mono-bold" fill="#1d4ed8">y_A (形态子空间) ➔ 「外观几何属性」</text>
-        <text x="200" y="48" class="box-desc" fill="#1e3a8a">视角切换为物理形态：提取物体的边缘、轮廓、尺寸等几何表征分量</text>
+        <text x="200" y="48" class="box-desc" fill="#1e3a8a">提取物体的边缘、轮廓、尺寸等几何分量</text>
       </g>
 
       <!-- Row 2: Filter B -->
@@ -94,7 +94,7 @@
         <!-- Result Box -->
         <rect x="185" y="10" width="410" height="52" rx="4" fill="#ffffff" stroke="#fcd34d"/>
         <text x="200" y="28" class="mono-bold" fill="#b45309">y_B (功能子空间) ➔ 「行为作用属性」</text>
-        <text x="200" y="48" class="box-desc" fill="#92400e">视角切换为功能用途：提取物体的可食用性、可交互性与动态行为特征</text>
+        <text x="200" y="48" class="box-desc" fill="#92400e">提取物体的可交互性、用途与动态行为分量</text>
       </g>
 
       <!-- Row 3: Filter C -->
@@ -111,7 +111,7 @@
         <!-- Result Box -->
         <rect x="185" y="10" width="410" height="52" rx="4" fill="#ffffff" stroke="#86efac"/>
         <text x="200" y="28" class="mono-bold" fill="#15803d">y_C (类别子空间) ➔ 「分类归属属性」</text>
-        <text x="200" y="48" class="box-desc" fill="#14532d">视角切换为层次分类：提取所属生物分类或概念层级的抽象语义特征</text>
+        <text x="200" y="48" class="box-desc" fill="#14532d">提取生物分类与概念层级的高阶语义分量</text>
       </g>
 
     </g>

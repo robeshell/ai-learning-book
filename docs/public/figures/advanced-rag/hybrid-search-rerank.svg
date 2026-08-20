@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">多路混合检索与重排序（Hybrid Search + Rerank）</text>
-  <text x="36" y="68" class="subtitle">结合稠密向量语义与稀疏字面匹配，通过 RRF 倒数排名融合与 Cross-Encoder 深度打分精筛</text>
+  <text x="36" y="68" class="subtitle">稠密语义与稀疏字面多路召回及重排序精筛</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Pipeline 4 Stages -->

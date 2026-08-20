@@ -21,7 +21,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">推测采样（Speculative Decoding）起草与验证流水线</text>
-  <text x="36" y="68" class="subtitle">小模型极速起草多词，大模型单次前向并行核验，严格数学等价保证零精度损失</text>
+  <text x="36" y="68" class="subtitle">小模型自回归推测与大模型单步并行校验</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Main Pipeline Body -->
@@ -31,7 +31,7 @@
       <rect width="888" height="82" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
       <rect x="16" y="14" width="112" height="22" rx="3" fill="#e2e8f0"/>
       <text x="72" y="29" text-anchor="middle" class="badge" fill="#334155">阶段 1：小模型起草</text>
-      <text x="138" y="30" class="step-title" fill="#0f172a">Draft Model (1B) 极速自回归推测 K=4 个候选 Token</text>
+      <text x="138" y="30" class="step-title" fill="#0f172a">草稿模型 (1B) 快速推测 K=4 候选词</text>
 
       <g transform="translate(16, 44)">
         <rect x="0" y="0" width="110" height="28" rx="4" fill="#eff6ff" stroke="#bfdbfe"/>
@@ -46,7 +46,7 @@
         <rect x="360" y="0" width="110" height="28" rx="4" fill="#eff6ff" stroke="#bfdbfe"/>
         <text x="415" y="18" text-anchor="middle" class="token-box" fill="#1e40af">Token 4: "本质"</text>
 
-        <text x="490" y="18" class="step-desc">💡 参数极小，4 次自回归生成仅消耗数毫秒</text>
+        <text x="490" y="18" class="step-desc">参数极小，生成仅耗时数毫秒</text>
       </g>
     </g>
 
@@ -62,7 +62,7 @@
 
       <g transform="translate(16, 44)">
         <rect width="520" height="28" rx="4" fill="#ffffff" stroke="#93c5fd"/>
-        <text x="16" y="18" font-size="11px" font-weight="600" fill="#1e40af">并行动作：大模型用 1 次 Forward Pass 同时计算 4 个位置的真实条件概率分布 P(x)</text>
+        <text x="16" y="18" font-size="11px" font-weight="600" fill="#1e40af">大模型单次前向并行校验 4 个候选位置概率</text>
         <text x="550" y="18" class="step-desc">💡 充分吃满 GPU 算力，拒绝 4 次串行读取权重</text>
       </g>
     </g>

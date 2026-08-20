@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">表层对齐假说（LIMA）：预训练提供知识底座，SFT 调教交互外壳</text>
-  <text x="36" y="68" class="subtitle">NeurIPS 2023 经典结论：极少量（1000 条）高质量问答样本即可激活大模型的强大交互能力</text>
+  <text x="36" y="68" class="subtitle">预训练注入知识，微调对齐交互风格</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- 2-Column Layered Breakdown -->
@@ -33,8 +33,8 @@
       <g transform="translate(16, 48)">
         <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
         <text x="12" y="20" class="box-label" fill="#1e40af">习得的深层能力：</text>
-        <text x="12" y="38" class="box-desc" fill="#1e3a8a">• 世界常识、科学原理、语法规则与历史事实</text>
-        <text x="12" y="54" class="box-desc" fill="#1e3a8a">• 多语言翻译能力与长链条代码编程逻辑</text>
+        <text x="12" y="38" class="box-desc" fill="#1e3a8a">• 常识原理、语法规则与事实知识</text>
+        <text x="12" y="54" class="box-desc" fill="#1e3a8a">• 多语言能力与编程逻辑</text>
         <text x="12" y="70" class="mono-bold" fill="#2563eb">➔ 知识与智力上限在预训练时已被彻底锁死</text>
       </g>
 

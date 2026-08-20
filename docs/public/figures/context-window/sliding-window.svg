@@ -18,7 +18,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">上下文超限时的 FIFO 截断与信息遗忘机制</text>
-  <text x="36" y="68" class="subtitle">当多轮对话总量逼近窗口上限时，最早的历史记录将被强行剔除，导致模型失去早期设定</text>
+  <text x="36" y="68" class="subtitle">多轮对话历史超限滚动截断机制</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Main Comparison Area -->

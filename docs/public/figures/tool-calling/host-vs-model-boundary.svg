@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">大模型与宿主系统的物理执行与安全边界</text>
-  <text x="36" y="68" class="subtitle">大模型内部无网络套接字与操作系统权限；所有实际副作用行为完全由外部宿主环境鉴权与把关</text>
+  <text x="36" y="68" class="subtitle">大模型概率决策 vs 宿主系统确定性工具执行</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Main Grid -->
@@ -34,8 +34,8 @@
         <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
         <text x="12" y="20" class="box-label" fill="#0f172a">纯数学运算本质：</text>
         <text x="12" y="38" class="mono" fill="#475569">• 仅执行矩阵乘法与 Softmax 概率分布预测</text>
-        <text x="12" y="54" class="box-desc" fill="#64748b">• 无法直接打开 TCP Socket、发起 HTTP 请求或读写硬盘</text>
-        <text x="12" y="70" class="mono-bold" fill="#0f172a">➔ 产出物仅为一段带有结构化标记的纯文本！</text>
+        <text x="12" y="54" class="box-desc" fill="#64748b">• 无网络套接字与文件系统执行权</text>
+        <text x="12" y="70" class="mono-bold" fill="#0f172a">➔ 输出仅为结构化文本标记</text>
       </g>
 
       <g transform="translate(16, 142)">

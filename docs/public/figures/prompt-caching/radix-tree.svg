@@ -20,7 +20,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">前缀树（Radix Tree / Trie）在显存中的 KV Cache 共享结构</text>
-  <text x="36" y="68" class="subtitle">相同前缀的请求共享父节点显存块，分叉支路仅为差异部分分配计算与显存</text>
+  <text x="36" y="68" class="subtitle">前缀树索引与多会话缓存共享</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Tree Structure Diagram -->
@@ -94,6 +94,6 @@
   <!-- Bottom Tip Banner -->
   <g transform="translate(36, 326)">
     <rect width="888" height="36" rx="4" fill="#f8fafc" stroke="#e2e8f0"/>
-    <text x="16" y="23" font-size="11.5px" fill="#475569">💡 显存驻留逻辑：当多个并发用户共享同一套 System Prompt 与 Tool 定义时，前 3,500 Tokens 的 KV 显存仅在显卡中分配一次。</text>
+    <text x="16" y="23" font-size="11.5px" fill="#475569">公共前缀的 KV 缓存仅在显存中分配一次</text>
   </g>
 </svg>

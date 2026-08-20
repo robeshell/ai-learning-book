@@ -39,7 +39,7 @@
   </defs>
   <rect data-graph-role="background" width="960.0" height="420.0" fill="#ffffff"/>
   <text x="48.0" y="48" text-anchor="start" class="title">代词指代消解中的注意力动态分配</text>
-  <text x="48.0" y="72" text-anchor="start" class="subtitle">仅改变末尾形容词，自注意力即可在单步内精准转移指代关联</text>
+  <text x="48.0" y="72" text-anchor="start" class="subtitle">自注意力单步内精准捕获上下文指代关系</text>
   <line x1="48" y1="100" x2="912.0" y2="100" stroke="#e5e7eb" stroke-width="1"/>
   <g id="node-sent-a" data-graph-role="node" data-node-id="sent-a" data-semantic-role="rect" data-motion-role="" data-motion-stage="" data-motion-order="" data-parent="" data-deployment-id="" data-topic-id="" data-span-id="" data-station-order="" data-status="" data-start-ms="" data-duration-ms="" data-parent-span="" data-graph-bounds="58,140,448,290">
   <rect x="58.0" y="140.0" width="390.0" height="150.0" rx="4.0" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.8"/>

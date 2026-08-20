@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">云端与端侧协同（Hybrid AI）架构协同模式</text>
-  <text x="36" y="68" class="subtitle">端侧轻量小模型处理高频、隐私与意图路由；复杂长逻辑脱敏后路由至云端大模型</text>
+  <text x="36" y="68" class="subtitle">端侧低延迟私密任务 vs 云端大参数重度推理</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Main Grid -->
@@ -33,8 +33,8 @@
       <g transform="translate(16, 48)">
         <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
         <text x="12" y="20" class="box-label" fill="#166534">承担高频低延时与隐私任务：</text>
-        <text x="12" y="38" class="mono" fill="#15803d">• 意图识别、命令解析（如“设置闹钟”）</text>
-        <text x="12" y="54" class="mono" fill="#15803d">• 个人通讯录/私密笔记本地摘要与搜索</text>
+        <text x="12" y="38" class="mono" fill="#15803d">• 意图识别与命令解析</text>
+        <text x="12" y="54" class="mono" fill="#15803d">• 私密数据本地摘要与检索</text>
         <text x="12" y="70" class="mono-bold" fill="#16a34a">➔ 0ms 网络延迟，数据 100% 不出设备</text>
       </g>
 

@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">Embedding 高维向量空间：从离散字符到连续语义坐标</text>
-  <text x="36" y="68" class="subtitle">将任意自然语言文本映射为稠密浮点向量，使语义相近的概念在高维几何空间中彼此邻近</text>
+  <text x="36" y="68" class="subtitle">文本稠密向量化与概念几何聚类</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Main Grid -->
@@ -76,7 +76,7 @@
         <rect width="296" height="88" rx="4" fill="#dbeafe"/>
         <text x="10" y="20" class="box-label" fill="#1e40af">核心物理认知：</text>
         <text x="10" y="38" class="box-desc" fill="#1e3a8a">• 几何邻近度量的是「主题相关性」</text>
-        <text x="10" y="54" class="box-desc" fill="#1e3a8a">• 几何相近 ≠ 逻辑蕴含（否定句与肯定句向量高度接近）</text>
+        <text x="10" y="54" class="box-desc" fill="#1e3a8a">• 几何邻近不等于逻辑等价（否定句常与肯定句接近）</text>
         <text x="10" y="70" class="box-desc" fill="#1e3a8a">• 向量库只管相似度，不管事实正确</text>
       </g>
     </g>

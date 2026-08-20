@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">LoRA（低秩适配）：冻结主权重与轻量旁路矩阵分解</text>
-  <text x="36" y="68" class="subtitle">将巨大的全量更新矩阵 ΔW 分解为两个极小低秩矩阵的乘积 B · A，仅需微调 0.1% 参数即可完成下游适配</text>
+  <text x="36" y="68" class="subtitle">LoRA 低秩矩阵分解：参数冻结与高效微调</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Main Architecture Diagram -->
@@ -82,7 +82,7 @@
       <g transform="translate(16, 48)">
         <rect width="296" height="74" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
         <text x="12" y="20" class="box-label" fill="#1e40af">显存开销暴降 80%：</text>
-        <text x="12" y="40" class="mono" fill="#0f172a">70B 模型全量微调需 8 张 A100 (640GB)</text>
+        <text x="12" y="40" class="mono" fill="#0f172a">70B 全量微调需 8 张 A100</text>
         <text x="12" y="58" class="mono-bold" fill="#166534">➔ QLoRA 仅需单张 24GB 显卡即可微调！</text>
       </g>
 
