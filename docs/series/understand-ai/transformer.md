@@ -1,6 +1,6 @@
 ---
 title: "Transformer 与自注意力"
-description: "自注意力机制、QKV 物理投影与全词并发计算。"
+description: "从简单平均到 QKV 亲和力路由与现代注意力演进。"
 series: understand-ai
 chapter: foundation
 order: 2
@@ -13,153 +13,256 @@ videoSource: transformer
 
 # Transformer 与自注意力
 
-我们在上一篇确立了大模型的物理底座：它是一套以 Transformer 为主干架构、通过自监督预测下一个词训练出来的深度神经网络。
+在大语言模型中，输入的文本首先会被切分成一个个 Token，并转化为静态的高维向量。但这些初始向量存在一个根本缺陷：**它们是彼此孤立的**。
 
-很多人把 Transformer 想象成一个自带逻辑与思考能力的黑盒。在工程物理实现上，它并不是一个拥有独立意识的推理模块，而是一套高度优化的矩阵运算拓扑结构。[Vaswani 等人在 2017 年发表的论文 *Attention Is All You Need*](https://arxiv.org/abs/1706.03762) 中提出了这套架构，其最根本的变革在于：彻底废弃了以往自然语言处理依赖的循环（RNN）和卷积（CNN）机制，仅凭注意力（Attention）直接建立序列内部任意两个词之间的联系。
+在词表里，*“苹果”* 这个词查出来的向量永远是固定的一串数字。如果它孤立地躺在内存里，它根本不知道自己身处什么语境——它是一颗水果，还是一家科技公司？
 
-原论文最初针对的是机器翻译任务，整体结构由编码器（Encoder）和解码器（Decoder）两部分组成。今天大家在日常对话中接触的主流大语言模型，绝大多数采用了仅解码器（Decoder-only）架构。虽然整体骨架有所裁剪，但模型内部用于捕捉文字关联的核心——自注意力（Self-Attention）层，运转逻辑完全相同。
+只有结合上下文，一个词的语义才是完整的。
 
-## 循环网络为什么会被换掉
+模型如何让序列中的每一个词与周围的词对话，动态吸收语境信息？
 
-在 Transformer 诞生之前，处理语言序列的主流工具是循环神经网络（RNN）及其变体（如 LSTM 和 GRU）。循环网络的工作方式符合人类逐字阅读的直觉：按时间步从左向右推进，计算当前位置的状态时，必须依赖前一个位置传过来的隐状态。
+2017 年，Google 在论文 [*Attention Is All You Need*](https://arxiv.org/abs/1706.03762) 中提出了 **Transformer 架构与自注意力机制（Self-Attention）**。它抛弃了传统循环网络的串行等待，以矩阵并行点积计算词与词之间的关联，构成了现代大模型的通用底座。
 
-这种看似自然的处理机制，在工业化大模型训练中撞上了两堵无法逾越的物理之墙：
+---
 
-第一是算力无法并行。因为位置 2 的计算必须等待位置 1 的输出，位置 3 又必须等待位置 2，整个序列的处理被锁死在串行队列里。现代深度学习的硬件底座是拥有数以万计计算核心的 GPU 集群，GPU 最擅长的是同时进行海量数据的矩阵并发点积，最怕的就是「算完一步才能算下一步」的时间依赖。在长文本序列面前，庞大的算力集群只能被迫排队等待。
+## 为什么不能只做简单平均
 
-第二是长距离依赖的信息衰减。如果一段话开头出现了一个主语，到第 100 个词才出现对应的代词，循环网络必须让这个主语的信息穿过中间 99 次状态传递。随着链条拉长，最初的信息极易在连续的非线性变换中被稀释或抹平。
+如果我们要让第 $t$ 个词融合前文的信息，最直觉的做法是：**把第 $t$ 个词及其之前所有词的向量直接求算术平均**。
 
-论文在 Table 1 中用数学指标量化了这种差异：循环网络在序列长度为 $n$ 时，最少需要 $O(n)$ 步顺序操作，任意两个远距离词之间的信息传递路径长度也是 $O(n)$。
+假设输入序列为三个词的向量 $[x_1, x_2, x_3]$：
+- 位置 1 的输出：$y_1 = x_1$
+- 位置 2 的输出：$y_2 = \frac{1}{2}(x_1 + x_2)$
+- 位置 3 的输出：$y_3 = \frac{1}{3}(x_1 + x_2 + x_3)$
 
-自注意力机制从拓扑上彻底重构了这种连接方式：它直接在任意两个位置之间架起直连通道。
+用矩阵表示，这相当于构造一个下三角全 1 矩阵，做行归一化后与输入矩阵 $\mathbf{X}$ 相乘：
+
+$$\mathbf{W}_{\text{avg}} = \begin{bmatrix} 1.0 & 0 & 0 \\ 0.5 & 0.5 & 0 \\ 0.33 & 0.33 & 0.33 \end{bmatrix}, \quad \mathbf{Y} = \mathbf{W}_{\text{avg}} \mathbf{X}$$
+
+这个做法虽然简单，且由于下三角矩阵的存在不会窥探未来的词，但存在明显的缺陷：**它对所有历史词一视同仁**。
+
+在实际句子中，当我们要理解动词 *“穿过”* 时，它最需要关注的是主语 *“小明”* 和宾语 *“木桥”*，而不是介词 *“在”* 或助词 *“的”*。
+
+我们需要让每个词根据自身的内容，动态决定给前文的哪些词分配更多权重。
+
+---
+
+## 自注意力的计算过程：Q、K、V
+
+为了让权重完全由数据内容决定，自注意力机制为每个词引入了三套线性投影，派生出三种向量：
 
 <figure>
-  <img src="/figures/transformer/serial-vs-parallel.svg" alt="循环网络与自注意力拓扑对比" />
-  <figcaption>循环网络（串行依赖）与自注意力（全连接并行）拓扑对比</figcaption>
+  <video
+    controls
+    autoplay
+    loop
+    muted
+    playsinline
+    poster="/figures/transformer/transformer-attention-poster.jpg"
+    style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);"
+  >
+    <source src="/figures/transformer/transformer-attention.webm" type="video/webm" />
+    <source src="/figures/transformer/transformer-attention.mp4" type="video/mp4" />
+    您的浏览器不支持 HTML5 视频播放。
+  </video>
+  <figcaption>自注意力 QKV 动态语境路由动画演示</figcaption>
 </figure>
 
-在自注意力层中，任意两个词产生交互的顺序操作步数降为常数 $O(1)$，信息跨越整段文本的最长路径同样缩短为 $O(1)$。整段文本的所有词向量可以打包成矩阵，一次性送进显卡并发完成运算。
-
-[Google Research 官方博客](https://research.google/blog/transformer-a-novel-neural-network-architecture-for-language-understanding/) 曾举过一个经典例句：*I arrived at the bank after crossing the river*。要准确判断这里的 *bank* 指的是「河岸」还是「银行」，模型必须关联到后文出现的 *river*。循环网络需要把 *bank* 的语义一路向下传递并祈祷不被遗忘，而自注意力机制允许 *bank* 在单次矩阵运算中直接与 *river* 建立高权重连接。
-
-Transformer 能够横扫自然语言处理，不是因为它突然拥有了神秘的心智，而是因为它精准契合了 GPU 的矩阵并行架构，让千亿参数在万亿语料上的大规模吞吐成为工程现实。
-
-## 自注意力在算什么
-
-自注意力的操作对象是同一条输入序列内部的各个符号，因此被称为「自」（Self）注意力。
-
-它的核心目标非常直接：为序列中的每一个词，动态计算出它与句子中所有其他词的相关程度，并根据这个相关度把其他词的信息按比例加权吸收进来，从而生成一个融合了上下文语境的全新向量。
-
-<figure>
-  <img src="/figures/transformer/self-attention.svg" alt="自注意力计算流程" />
-  <figcaption>自注意力全句关联与信息汇聚计算流</figcaption>
-</figure>
-
-在自回归大模型中，解码器还需要严格遵守我们在上一篇讲到的因果规律：生成当前词时，绝对不能提前看到未来的词。
-
-如果在训练时允许模型看后面的文本，它就会直接「抄袭答案」而不是学习预测。为了实现这一点，工程上在计算注意力得分后、执行 Softmax 归一化之前，会加入一个因果掩码（Causal Mask）：将所有未来位置的得分配置为负无穷（$-\infty$）。经过 Softmax 计算后，未来词的注意力权重会被严格压为 0。
-
-输入文字是如何被切分成碎片并编码成向量的，我们在下一篇《什么是 Token》中详细拆解。这里只需要建立清晰的物理图景：自注意力层接收的是一组已经向量化的符号矩阵，它在内部完成全员相关性打分与信息汇聚，再将更新后的向量矩阵向后传递。
-
-## Q、K、V 是三种角色投影
-
-在讲解自注意力时，最常被提及的概念是 Q（Query，查询）、K（Key，键）、V（Value，值）。
-
-很多人容易望文生义，误以为模型内部存在三座各自独立的外部数据库。实际上它们不是外挂的存储系统，而是同一个输入词向量经过三次不同的线性矩阵变换后，派生出来的三种数学角色。
-
-我们可以把一个词向量送入自注意力层的过程，类比为一次精准的学术信息检索：
-
-1. **Query（查询向量）**：代表当前词的主动诉求——「以我现在的语境，我需要寻找什么样的上文来补充语义？」
-2. **Key（键向量）**：代表当前词向外展示的特征标签——「我身上包含哪些特征，能供其他词来匹配我？」
-3. **Value（值向量）**：代表当前词实际承载的语义实体——「如果其他词选中了我，我能给它提供什么实质信息？」
+1. **Query（查询向量 $q_i = x_i \mathbf{W}_Q$）**：当前词发出的查询——*“我在寻找什么样的特征？”*
+2. **Key（键向量 $k_j = x_j \mathbf{W}_K$）**：每个词对外暴露的特征标签——*“我具备什么样的语义属性供匹配？”*
+3. **Value（值向量 $v_j = x_j \mathbf{W}_V$）**：每个词实际承载的信息内容——*“如果匹配成功，我能提供什么特征？”*
 
 <figure>
   <img src="/figures/transformer/qkv.svg" alt="Query、Key、Value 角色分工" />
-  <figcaption>Query、Key、Value 三种向量角色的分工关系</figcaption>
+  <figcaption>Query、Key、Value 向量角色的分工关系</figcaption>
 </figure>
 
-具体的数学计算分为清晰的三步：
+### 1. 相似度打分与根号缩放
+词 $i$ 用自己的 $q_i$ 与前文词 $j$ 的 $k_j$ 计算点积。点积越大，说明两个词的语义相关度越高：
 
-第一步，计算相关性得分。用当前词的 Query 向量与全序列所有词的 Key 向量做内积（点积 $QK^T$）。两个向量方向越接近，点积结果越大，说明语义相关度越高。
+$$\text{Score}(i, j) = \frac{q_i \cdot k_j}{\sqrt{d_k}}$$
 
-第二步，数值缩放与归一化。点积结果除以缩放因子 $\sqrt{d_k}$（$d_k$ 为向量维度），防止向量维度过高时点积数值过大，导致后续 Softmax 函数进入梯度接近于零的饱和区。随后通过 Softmax 函数，将全句得分转化为总和为 1 的概率权重分布。
+**为什么要除以 $\sqrt{d_k}$？**  
+在维度 $d_k$ 较大（如 128）时，点积的方差会随维度线性放大到 128。数值过大会导致送入 Softmax 后进入饱和区，导数趋近于 0（引发梯度消失）。除以 $\sqrt{d_k}$ 将方差标准化拉回 1.0，保证反向传播时梯度平稳流动。
 
-第三步，加权求和。用计算出来的权重分布去乘以各个词的 Value 向量，并全部累加起来。最终得到的输出向量，既保留了当前词的特征，又按相关性强度融入了整段上下文的信息。
+### 2. 因果掩码与 Softmax 归一化
+为了防止当前词提前看到后文，我们将未来位置的打分置为 $-\infty$。随后通过 Softmax 将打分转化为总和为 1.0 的注意力权重：
 
-Vaswani 等人将这套计算形式命名为**缩放点积注意力**（Scaled Dot-Product Attention），其经典矩阵公式写作：
+$$\alpha_{i, j} = \text{softmax}\left( \text{Scores}_i \right)$$
 
-$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+以序列 `["苹果", "发布", "新手机"]` 为例，*“苹果”* 算出的权重分布可能为：
+- 对 *“苹果”* 自身：$0.15$
+- 对 *“发布”*：$0.10$
+- 对 *“新手机”*：$0.75$
 
-对应到 PyTorch 核心实现，代码只需要不到 10 行：
+### 3. Value 加权求和
+最后，按照算出的权重对各位置的 Value 向量求和：
+
+$$z_{\text{苹果}} = 0.15 \cdot v_{\text{苹果}} + 0.10 \cdot v_{\text{发布}} + 0.75 \cdot v_{\text{新手机}}$$
+
+输出向量 $z_{\text{苹果}}$ 融合了来自 *“新手机”* 的特征，在向量空间中更靠近科技公司的语义簇。
+
+全序列的矩阵计算公式如下：
+
+$$\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left( \frac{\mathbf{Q} \mathbf{K}^T}{\sqrt{d_k}} + \mathbf{M} \right) \mathbf{V}$$
+
+---
+
+## 多头注意力机制（Multi-Head Attention）
+
+如果只使用一套 Q、K、V 矩阵（单头注意力），单次 Softmax 算出的概率总预算只有 1.0。若模型将大部分注意力集中在主谓关系上，就无法充分兼顾修饰词或代词指代。
+
+为此，Transformer 引入了多头注意力机制（MHA）：
+
+<figure>
+  <img src="/figures/transformer/multi-head-sentence-example.svg" alt="多头注意力在长句中的多维关系解耦" />
+  <figcaption>多头注意力在长句中的多维关系解耦</figcaption>
+</figure>
+
+将模型总维度 $d$（如 4096）切分为 $h$ 个子空间（如 32 个头，每个头 $d_k = 128$），各个头并行独立计算：
+
+- **Head 1（主谓主干）**：捕捉核心动作骨架（`[小明]` $\leftrightarrow$ `[穿过]` $\leftrightarrow$ `[木桥]`）；
+- **Head 2（属性修饰）**：将形容词绑定到对应名词（`[红色]` $\rightarrow$ `[跑车]`、`[古老]` $\rightarrow$ `[木桥]`）；
+- **Head 3（代词消解）**：将句尾代词 `[他]` 关联回句首的 `[小明]`；
+- **Head 4（逻辑因果）**：关联连词 `[因为]` 与目的 `[赶回家]`。
+
+各个头的输出向量拼接在一起，通过线性输出矩阵 $\mathbf{W}_O$ 融合成最终表征：
+
+$$\text{MultiHead}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Concat}(\text{head}_1, \dots, \text{head}_h) \mathbf{W}_O$$
+
+---
+
+## 现代架构演进：GQA、MLA 与 RoPE
+
+2017 年的原始 Transformer 在面对今天的超长上下文与大规模部署时，遇到了显存占用和计算瓶颈。现代开源与工业级大模型主要在以下几个方向完成了演进：
+
+<figure>
+  <img src="/figures/transformer/mha-gqa-mla-evolution.svg" alt="注意力架构演进：MHA、GQA 与 MLA" />
+  <figcaption>注意力架构演进：MHA、GQA 与 MLA</figcaption>
+</figure>
+
+### 1. 显存优化：GQA 与 MLA
+- **经典 MHA 瓶颈**：在长文本生成时，每个头都需要独立缓存历史的 Key 和 Value（KV Cache），导致显存占用急剧膨胀；
+- **GQA（分组查询注意力 · Llama 3 / Qwen 2.5 采用）**：让多个 Query 头共享一组 Key/Value，将 KV Cache 显存占用大幅缩减（如 $8:1$ 分组可缩减 $87.5\%$）；
+- **MLA（多头潜变量注意力 · DeepSeek-V3 / R1 采用）**：通过低秩投影将 Key 和 Value 联合压缩为低维向量，将 KV Cache 显存降低 $90\%$ 以上。
+
+### 2. 硬件加速：FlashAttention
+- **瓶颈**：标准注意力计算需要在显存中物化生成 $N \times N$ 的中间矩阵，频繁读写显存成为主要耗时瓶颈；
+- **现代方案**：利用 GPU 片上高速缓存（SRAM），分块（Tiling）计算并在片上执行在线 Softmax，避免了 $N \times N$ 矩阵在显存中的读写。
+
+### 3. 相对位置编码：RoPE
+- **瓶颈**：传统的绝对正弦位置编码直接将位置向量加到词向量上，难以自然外推到更长的序列；
+- **现代方案（RoPE）**：将向量两两配对，在二维平面上根据位置进行角度旋转。两词的点积仅取决于相对距离，天然支持超长上下文扩展。
+
+### 4. 规范化与激活函数：RMSNorm 与 SwiGLU
+- **RMSNorm**：舍弃均值计算，仅计算均方根，在保持数值稳定性的同时减少计算开销；
+- **SwiGLU**：替代传统 ReLU/GELU，提升前馈网络（FFN）的特征表达能力。
+
+<figure>
+  <img src="/figures/transformer/transformer-architecture-flow.svg" alt="Transformer 解码器核心架构与数据流" />
+  <figcaption>Transformer 解码器核心架构与数据流</figcaption>
+</figure>
+
+---
+
+## 最小代码实现
+
+以下代码演示了因果自注意力的单步前向传播过程：
 
 ```python
 import torch
 import torch.nn.functional as F
 
-def scaled_dot_product_attention(Q, K, V, mask=None):
-    d_k = Q.size(-1)
-    # 1. 计算 Q 与 K 的点积打分，并除以 sqrt(d_k) 做数值缩放
-    scores = torch.matmul(Q, K.transpose(-2, -1)) / (d_k ** 0.5)
-    # 2. 因果遮蔽（Causal Mask）：将未来位置的分数压为负无穷
-    if mask is not None:
-        scores = scores.masked_fill(mask == 0, -1e9)
-    # 3. Softmax 归一化为概率权重，并对 V 做加权求和
-    attn_weights = F.softmax(scores, dim=-1)
-    return torch.matmul(attn_weights, V), attn_weights
+def self_attention_demo():
+    torch.manual_seed(42)
+    
+    # 模拟输入: 3 个 Token，每个 Token 维度 d_model = 4
+    # 句子: ["苹果", "发布", "新手机"]
+    X = torch.tensor([
+        [1.0, 0.2, 0.1, 0.5],  # 苹果
+        [0.1, 0.9, 0.8, 0.2],  # 发布
+        [0.9, 0.1, 0.2, 0.8]   # 新手机
+    ], dtype=torch.float32)
+    
+    seq_len, d_model = X.shape
+    d_k = 4
+    
+    # 1. 线性投影权重 W_Q, W_K, W_V
+    W_Q = torch.randn(d_model, d_k) * 0.5
+    W_K = torch.randn(d_model, d_k) * 0.5
+    W_V = torch.randn(d_model, d_k) * 0.5
+    
+    # 2. 派生 Q, K, V
+    Q = X @ W_Q  # (3, 4)
+    K = X @ W_K  # (3, 4)
+    V = X @ W_V  # (3, 4)
+    
+    # 3. 计算点积并做根号缩放
+    scores = (Q @ K.T) / (d_k ** 0.5)  # (3, 3)
+    
+    # 4. 构造因果掩码 (下三角矩阵，未来位置填 -inf)
+    mask = torch.tril(torch.ones(seq_len, seq_len))
+    masked_scores = scores.masked_fill(mask == 0, float('-inf'))
+    
+    # 5. Softmax 归一化得到注意力权重
+    attn_weights = F.softmax(masked_scores, dim=-1)
+    
+    # 6. Value 加权求和
+    output = attn_weights @ V  # (3, 4)
+    
+    print("--- 掩码打分矩阵 (包含 -inf 阻断未来) ---")
+    print(masked_scores)
+    print("\n--- 注意力权重分布 (每行和为 1.0) ---")
+    print(attn_weights)
+    print("\n--- 语境融合后的输出特征 Output ---")
+    print(output)
+
+self_attention_demo()
 ```
 
-你不需要在此刻死记矩阵推导，只需要记住这条因果链：**Query 与 Key 负责计算谁和谁相关，计算出的分数决定从 Value 里拿走多少信息。**
+**控制台输出：**
+```text
+--- 掩码打分矩阵 (包含 -inf 阻断未来) ---
+tensor([[-0.0554,    -inf,    -inf],
+        [-0.4017, -0.9109,    -inf],
+        [-0.0654, -0.2521, -0.1019]])
 
-## 多头机制与二次方开销
+--- 注意力权重分布 (每行和为 1.0) ---
+tensor([[1.0000, 0.0000, 0.0000],
+        [0.6246, 0.3754, 0.0000],
+        [0.3579, 0.2970, 0.3451]])
 
-如果只使用一组 Q、K、V 计算注意力（即单头注意力），模型算出来的权重分布往往会被最显著的一两种关系所主导，把其他细微的语法和逻辑关联抹平。
+--- 语境融合后的输出特征 Output ---
+tensor([[-1.0569,  0.1024, -0.4338,  0.6292],
+        [-0.9140,  0.2051, -0.4019,  0.1858],
+        [-1.0183,  0.3331, -0.4891,  0.2265]])
+```
 
-为了让模型能从多个维度观察上下文，Transformer 引入了多头注意力（Multi-Head Attention）机制。
+---
 
-多头注意力的做法是：把原本高维的 Q、K、V 通过多组不同的参数矩阵，线性投影到多个平行的低维子空间中。每个「头」（Head）在自己的子空间里独立运行一套缩放点积注意力，最后把所有头的输出向量拼接在一起，再做一次线性映射收拢。
+## 核心概念辨析
 
-在原论文中，模型设置了 8 个注意力头（$h=8$），总向量维度为 512，每个头的子空间维度为 64。
+- **简单平均 vs 自注意力**：
+  - 简单平均使用固定权重，无法根据语义区分重点；
+  - 自注意力通过 Q 与 K 的点积动态计算相关性权重。
+- **经典 MHA vs 现代 GQA / MLA**：
+  - 经典 MHA 全头独立缓存 KV，长文本显存开销大；
+  - GQA 采用分组共享 KV，MLA 采用低秩潜变量压缩，显著降低显存开销。
+- **绝对位置编码 vs RoPE 旋转位置编码**：
+  - 绝对位置相加难以自然外推长文本；
+  - RoPE 通过复数平面旋转编码相对位置，支持更长序列扩展。
+- **自注意力 vs 前馈网络（FFN）**：
+  - 自注意力负责跨 Token 交换信息、聚合上下文；
+  - 前馈网络负责每个 Token 独立进行非线性特征变换与知识提取。
 
-这种设计的精妙之处在于分工：有些头专注于捕捉相邻词之间的句法搭配，有些头专注于捕捉远距离的代词指代，还有些头专注于捕捉逻辑因果。多头机制确保了丰富语义在不同子空间里能够被同时捕捉，而不会互相干扰。
+文字进入 Transformer 之前，计算机是如何将自然语言切碎并编码为数字的？下一篇我们将探讨——《Token：文字的度量衡》。
 
-一个经典的代词指代（Winograd Schema）案例最能说明这种上下文捕捉能力：
-
-- 句 A：*The animal didn't cross the street because **it** was too tired.*（动物没穿过马路，因为**它**太累了）
-- 句 B：*The animal didn't cross the street because **it** was too wide.*（动物没穿过马路，因为**它**太宽了）
-
-两句话仅差最后一个形容词。在句 A 中，专门负责指代消解的注意力头在计算代词 ***it*** 的 Q-K 匹配时，会将主要权重投向 ***animal***（疲劳与生物实体相关）；而在句 B 中，同一个头在单步矩阵运算中能立刻把 ***it*** 的注意力重心切换到 ***street***（宽阔与道路属性相关）。模型并不需要预先植入语法词典，全靠多头注意力在训练中沉淀的统计关联。
-
-<figure>
-  <img src="/figures/transformer/coreference.svg" alt="自注意力代词指代消解" />
-  <figcaption>自注意力在代词指代消解中的动态权重分配</figcaption>
-</figure>
-
-然而，全连接的注意力机制带来并行优势的同时，也背上了一项沉重的工程代价——二次方计算复杂度（$O(n^2)$ Complexity）。
-
-<figure>
-  <img src="/figures/transformer/heads-and-cost.svg" alt="多头子空间分工与复杂度开销" />
-  <figcaption>多头子空间分工与 $O(n^2)$ 复杂度开销</figcaption>
-</figure>
-
-由于序列中的每一个词都需要与全序列的所有词各算一次点积，长度为 $n$ 的文本在单层自注意力中需要生成一个 $n \times n$ 的注意力矩阵。
-
-当文本长度 $n$ 较短时（例如几百个词），$n \times n$ 矩阵很小，GPU 能以极快速度算完；但当文本长度扩大到数万乃至数十万 Token 时，$n^2$ 的点积计算量和显存占用会以惊人的斜率向上飙升。长度增加 10 倍，注意力矩阵的元素数量就会暴增 100 倍。
-
-这正是后续我们在第 4 篇讨论「上下文窗口为什么不能无限开大」、第 5 篇讨论「为什么要用 KV Cache 缓存中间状态」的底层物理原因。
-
-## 读到这里该能分清
-
-Transformer 用自注意力机制取代了循环网络，把串行等候变成了常数步全连接，释放了 GPU 并发计算的潜力。
-
-自注意力的本质是全序列位置两两打分，再按分数将上下文信息加权汇聚到当前词的表示中。
-
-Q、K、V 是同一输入向量的三种线性投影：Query 负责寻找，Key 负责匹配，Value 负责提供实际内容。
-
-多头注意力通过多个子空间同时捕捉多维语义关联；但两两点积的机制导致计算与显存开销随序列长度呈 $O(n^2)$ 二次方上升。
-
-下一篇我们把视野从模型内部的矩阵网络，下沉到数据的输入输出界面：自然语言究竟是怎样被切碎并编码成数字 Token 的，以及为什么中英文在计费与消耗上存在巨大差异。
+---
 
 ## 参考文献
 
-1. Vaswani, A., Shazeer, N., Parmar, N., et al. (2017). [*Attention Is All You Need*](https://arxiv.org/abs/1706.03762). NeurIPS 2017 / arXiv:1706.03762.
-2. Google Research. (2017-08-31). [*Transformer: A Novel Neural Network Architecture for Language Understanding*](https://research.google/blog/transformer-a-novel-neural-network-architecture-for-language-understanding/).
+1. Vaswani, Ashish, Shazeer, Noam, Parmar, Niki, et al. (2017). [*Attention Is All You Need*](https://arxiv.org/abs/1706.03762). NeurIPS 2017 / arXiv:1706.03762.
+2. Su, Jianlin, Ahmed, Murtadha, Lu, Yu, et al. (2024). [*RoFormer: Enhanced Transformer with Rotary Position Embedding (RoPE)*](https://arxiv.org/abs/2104.09864). *Neurocomputing*, 568, 127063.
+3. Ainslie, Joshua, Lee-Thorp, James, de Jong, Michiel, et al. (2023). [*GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints*](https://arxiv.org/abs/2305.13245). EMNLP 2023 / arXiv:2305.13245.
+4. DeepSeek-AI. (2024). [*DeepSeek-V3 Technical Report*](https://arxiv.org/abs/2412.19437). arXiv:2412.19437.
+5. Dao, Tri. (2023). [*FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning*](https://arxiv.org/abs/2307.08691). ICLR 2024 / arXiv:2307.08691.
+6. Karpathy, Andrej. (2023). [*Let's build GPT: from scratch, in code, spelled out.*](https://www.youtube.com/watch?v=kCc8FmEb1nY). YouTube / GitHub `nanoGPT`.

@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">优化器演进全景：从朴素 SGD 到现代工业标准 AdamW</text>
+  <text x="36" y="68" class="subtitle">从固定步长盲目下山，到引入物理惯性（动量），再到自适应维度缩放与权重衰减解耦</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 3-Column Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Col 1: SGD -->
+    <g transform="translate(0, 0)">
+      <rect width="284" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#e2e8f0"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#475569">古典算法</text>
+      <text x="104" y="30" class="col-title" fill="#0f172a">SGD（随机梯度下降）</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="256" height="84" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="10" y="22" class="mono-bold" fill="#0f172a">W ← W - η · g_t</text>
+        <text x="10" y="42" class="box-desc" fill="#64748b">• 单纯按当前 batch 瞬时梯度下山</text>
+        <text x="10" y="58" class="box-desc" fill="#64748b">• 在狭长峡谷中容易剧烈横向震荡</text>
+        <text x="10" y="74" class="mono" fill="#dc2626">➔ 遭遇平坦鞍点直接卡死停滞</text>
+      </g>
+
+      <g transform="translate(14, 142)">
+        <rect width="256" height="78" rx="4" fill="#f1f5f9"/>
+        <text x="10" y="20" class="box-label" fill="#334155">核心局限：</text>
+        <text x="10" y="38" class="box-desc" fill="#64748b">• 所有参数使用相同固定步长</text>
+        <text x="10" y="54" class="box-desc" fill="#64748b">• 无记忆惯性，受噪声干扰严重</text>
+      </g>
+    </g>
+
+    <!-- Col 2: Momentum -->
+    <g transform="translate(302, 0)">
+      <rect width="284" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#dbeafe"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">物理动量</text>
+      <text x="104" y="30" class="col-title" fill="#1e40af">SGD + Momentum</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="256" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="10" y="20" class="mono-bold" fill="#1e40af">v_t = β v_(t-1) + g_t</text>
+        <text x="10" y="38" class="mono-bold" fill="#2563eb">W ← W - η · v_t</text>
+        <text x="10" y="58" class="box-desc" fill="#1e3a8a">• 赋予下山小球「重力加速度」</text>
+        <text x="10" y="74" class="mono-bold" fill="#1d4ed8">➔ 抵消横向震荡，顺势冲出鞍点！</text>
+      </g>
+
+      <g transform="translate(14, 142)">
+        <rect width="256" height="78" rx="4" fill="#dbeafe"/>
+        <text x="10" y="20" class="box-label" fill="#1e40af">机制突破：</text>
+        <text x="10" y="38" class="box-desc" fill="#1e3a8a">• 累积历史梯度方向（一阶动量）</text>
+        <text x="10" y="54" class="box-desc" fill="#1e3a8a">• 下山速度明显加快且轨迹更平滑</text>
+      </g>
+    </g>
+
+    <!-- Col 3: AdamW -->
+    <g transform="translate(604, 0)">
+      <rect width="284" height="236" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#dcfce7"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#15803d">工业标准</text>
+      <text x="104" y="30" class="col-title" fill="#166534">AdamW（解耦权重衰减）</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="256" height="84" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="8" y="18" class="mono-bold" fill="#166534">m_t = β₁ m + (1-β₁) g  (一阶)</text>
+        <text x="8" y="34" class="mono-bold" fill="#166534">v_t = β₂ v + (1-β₂) g² (二阶)</text>
+        <text x="8" y="52" class="mono-bold" fill="#15803d">W ← W - η(m/√v + λW)</text>
+        <text x="8" y="74" class="box-desc" fill="#14532d">按参数稀疏度自适应调节每个轴步长</text>
+      </g>
+
+      <g transform="translate(14, 142)">
+        <rect width="256" height="78" rx="4" fill="#dcfce7"/>
+        <text x="10" y="20" class="box-label" fill="#166534">工业黄金标准：</text>
+        <text x="10" y="38" class="box-desc" fill="#14532d">• 现代深度神经网络训练的主流首选</text>
+        <text x="10" y="54" class="box-desc" fill="#14532d">• 解耦 L2 衰减，泛化能力与稳定性最强</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

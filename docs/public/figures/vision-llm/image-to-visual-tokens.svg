@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13.5px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 11.5px; font-weight: 700; }
+      .box-desc { font-size: 10.5px; font-weight: 400; line-height: 1.35; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">图像切片（Patch）与视觉 Token 离散化流程</text>
+  <text x="36" y="68" class="subtitle">连续二维像素矩阵被切分为固定尺寸网格，线性投影降维并附带位置编码转换为离散 Token 序列</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 4 Step Pipeline -->
+  <g transform="translate(36, 114)">
+
+    <!-- Step 1: Raw Image (Width: 200) -->
+    <g transform="translate(0, 0)">
+      <rect width="200" height="236" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#f1f5f9"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#475569">第 1 步</text>
+      <text x="12" y="52" class="col-title" fill="#1e293b">原始输入图像</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+        <text x="8" y="18" class="box-label" fill="#334155">二维连续像素张量：</text>
+        <text x="8" y="38" class="mono" fill="#475569">Shape: H × W × C</text>
+        <text x="8" y="56" class="box-desc" fill="#64748b">• 例如 224 × 224 × 3</text>
+        <text x="8" y="74" class="box-desc" fill="#64748b">• 包含 150,528 个像素值</text>
+        <text x="8" y="100" class="mono-bold" fill="#0284c7">无法直接送入自注意力</text>
+        <text x="8" y="120" class="box-desc" fill="#64748b">直接算注意力复杂度爆炸</text>
+      </g>
+    </g>
+
+    <!-- Arrow 1 -->
+    <g transform="translate(206, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Step 2: Patch Tiling (Width: 200) -->
+    <g transform="translate(226, 0)">
+      <rect width="200" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#dbeafe"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#1d4ed8">第 2 步</text>
+      <text x="12" y="52" class="col-title" fill="#1e40af">Patch 网格切片</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="8" y="18" class="box-label" fill="#1e40af">网格化空间切块：</text>
+        <text x="8" y="38" class="mono" fill="#1d4ed8">• 切为 P × P (16×16) 小块</text>
+        <text x="8" y="56" class="mono-bold" fill="#2563eb">N = (H/P) × (W/P) = 196</text>
+        <text x="8" y="74" class="box-desc" fill="#1e3a8a">• 展平为 196 个向量</text>
+        <text x="8" y="98" class="mono" fill="#1d4ed8">每个 Patch: 16×16×3 = 768</text>
+        <text x="8" y="120" class="box-desc" fill="#1e3a8a">将空间图像转换为离散序列</text>
+      </g>
+    </g>
+
+    <!-- Arrow 2 -->
+    <g transform="translate(432, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Step 3: Linear Projection (Width: 200) -->
+    <g transform="translate(452, 0)">
+      <rect width="200" height="236" rx="6" fill="#fdf4ff" stroke="#f5d0fe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#fae8ff"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#c026d3">第 3 步</text>
+      <text x="12" y="52" class="col-title" fill="#86198f">线性投影与降维</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#f5d0fe"/>
+        <text x="8" y="18" class="box-label" fill="#86198f">特征维度线性映射：</text>
+        <text x="8" y="38" class="mono" fill="#a21caf">E = Patch · W_E</text>
+        <text x="8" y="56" class="box-desc" fill="#701a75">• 投影至 Hidden Dim D (768)</text>
+        <text x="8" y="74" class="mono-bold" fill="#c026d3">+ 1D 可学习位置编码 (Pos)</text>
+        <text x="8" y="98" class="box-desc" fill="#701a75">• 赋予模型空间相对位置感知</text>
+        <text x="8" y="120" class="box-desc" fill="#701a75">获得标准的视觉 Embedding</text>
+      </g>
+    </g>
+
+    <!-- Arrow 3 -->
+    <g transform="translate(658, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Step 4: Visual Tokens in LLM (Width: 205) -->
+    <g transform="translate(678, 0)">
+      <rect width="205" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+      <rect x="12" y="12" width="80" height="20" rx="4" fill="#dcfce7"/>
+      <text x="52" y="26" text-anchor="middle" class="tag" fill="#16a34a">第 4 步</text>
+      <text x="12" y="52" class="col-title" fill="#166534">视觉 Token 统一计算</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="181" height="154" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="8" y="18" class="box-label" fill="#166534">送入 Transformer：</text>
+        <text x="8" y="38" class="mono" fill="#15803d">[v_1, v_2, ..., v_196]</text>
+        <text x="8" y="56" class="box-desc" fill="#14532d">• 形式与文本 Token 完全一致</text>
+        <text x="8" y="74" class="box-desc" fill="#14532d">• 同样消耗上下文窗口 Token 配额</text>
+        <text x="8" y="100" class="mono-bold" fill="#16a34a">➔ 跨模态全注意力交互</text>
+        <text x="8" y="120" class="box-desc" fill="#14532d">实现看图说话与图文推理</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

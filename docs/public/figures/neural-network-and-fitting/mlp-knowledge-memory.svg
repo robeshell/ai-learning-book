@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 700; }
+    </style>
+    <marker id="arrow-blue" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-emerald" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">多层感知机（MLP）计算流水线：隐层特征提取与输出投影</text>
+  <text x="36" y="68" class="subtitle">公式：y = W₂ · σ(W₁ · x + b₁) + b₂ —— 通过隐层非线性激活实现高维空间折叠与模式拟合</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 3-Stage Pipeline -->
+  <g transform="translate(36, 114)">
+
+    <!-- Stage 1: Input Hidden State (Width: 240) -->
+    <g transform="translate(0, 0)">
+      <rect width="240" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#e2e8f0"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#475569">原始输入</text>
+      <text x="104" y="30" class="col-title" fill="#0f172a">输入向量 (x)</text>
+
+      <g transform="translate(14, 52)">
+        <rect width="212" height="74" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="12" y="24" class="mono-bold" fill="#0f172a">x ∈ R^(d_in)</text>
+        <text x="12" y="44" class="box-desc" fill="#475569">原始多维特征输入：</text>
+        <text x="12" y="62" class="mono-bold" fill="#2563eb">[x₁, x₂, ..., x_d]</text>
+      </g>
+
+      <g transform="translate(14, 138)">
+        <rect width="212" height="80" rx="4" fill="#f1f5f9"/>
+        <text x="10" y="22" class="box-label" fill="#334155">当前状态：</text>
+        <text x="10" y="42" class="box-desc" fill="#64748b">• 原始特征维度交织</text>
+        <text x="10" y="60" class="box-desc" fill="#64748b">• 尚未经历非线性解耦</text>
+      </g>
+    </g>
+
+    <!-- Arrow 1 -->
+    <line x1="248" y1="118" x2="288" y2="118" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+
+    <!-- Stage 2: Up-Projection + Activation (Hidden Layer) (Width: 320) -->
+    <g transform="translate(296, 0)">
+      <rect width="320" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="14" y="14" width="90" height="22" rx="4" fill="#dbeafe"/>
+      <text x="59" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">第 1 层 (隐层)</text>
+      <text x="114" y="30" class="col-title" fill="#1e40af">加权升维 + 激活折叠</text>
+
+      <g transform="translate(14, 52)">
+        <rect width="292" height="74" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="12" y="24" class="mono-bold" fill="#1d4ed8">h = ReLU(x · W₁ + b₁)</text>
+        <text x="12" y="46" class="box-desc" fill="#1e3a8a">• 映射到高维隐层空间 (d_hidden)</text>
+        <text x="12" y="64" class="mono-bold" fill="#059669">➔ 非线性折叠打破平面束缚</text>
+      </g>
+
+      <g transform="translate(14, 138)">
+        <rect width="292" height="80" rx="4" fill="#dbeafe"/>
+        <text x="10" y="22" class="box-label" fill="#1e40af">隐层特征表达：</text>
+        <text x="10" y="42" class="box-desc" fill="#1e3a8a">• 神经元组合激活提取局部模式</text>
+        <text x="10" y="60" class="box-desc" fill="#1e3a8a">• 在折叠后的空间中实现线性可分</text>
+      </g>
+    </g>
+
+    <!-- Arrow 2 -->
+    <line x1="624" y1="118" x2="664" y2="118" stroke="#059669" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+
+    <!-- Stage 3: Down-Projection (Output Layer) (Width: 220) -->
+    <g transform="translate(672, 0)">
+      <rect width="216" height="236" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="14" y="14" width="90" height="22" rx="4" fill="#dcfce7"/>
+      <text x="59" y="29" text-anchor="middle" class="tag" fill="#15803d">第 2 层 (输出)</text>
+      <text x="114" y="30" class="col-title" fill="#166534">投影与决策输出</text>
+
+      <g transform="translate(14, 52)">
+        <rect width="188" height="74" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="10" y="24" class="mono-bold" fill="#166534">y = h · W₂ + b₂</text>
+        <text x="10" y="44" class="box-desc" fill="#14532d">线性组合隐层特征</text>
+        <text x="10" y="62" class="mono-bold" fill="#15803d">输出预测得分/类别</text>
+      </g>
+
+      <g transform="translate(14, 138)">
+        <rect width="188" height="80" rx="4" fill="#dcfce7"/>
+        <text x="10" y="22" class="box-label" fill="#166534">最终输出：</text>
+        <text x="10" y="42" class="mono-bold" fill="#14532d">y ∈ R^(d_out)</text>
+        <text x="10" y="60" class="box-desc" fill="#14532d">完成复杂非线性函数映射</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

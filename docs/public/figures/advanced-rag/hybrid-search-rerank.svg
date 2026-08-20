@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 11.5px; font-weight: 700; }
+      .box-desc { font-size: 10.5px; font-weight: 400; line-height: 1.35; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">多路混合检索与重排序（Hybrid Search + Rerank）</text>
+  <text x="36" y="68" class="subtitle">结合稠密向量语义与稀疏字面匹配，通过 RRF 倒数排名融合与 Cross-Encoder 深度打分精筛</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Pipeline 4 Stages -->
+  <g transform="translate(36, 114)">
+
+    <!-- Stage 1: Dual Retrieval (Width: 220) -->
+    <g transform="translate(0, 0)">
+      <rect width="210" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="76" height="20" rx="4" fill="#dbeafe"/>
+      <text x="50" y="26" text-anchor="middle" class="tag" fill="#1d4ed8">阶段 1: 多路召回</text>
+      <text x="12" y="52" class="col-title" fill="#1e40af">双通道独立检索</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="186" height="66" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="8" y="18" class="box-label" fill="#1d4ed8">通道 A: 稠密向量 (Embedding)</text>
+        <text x="8" y="36" class="box-desc" fill="#1e3a8a">• 擅长近义词、跨句式语义</text>
+        <text x="8" y="52" class="mono" fill="#2563eb">➔ 召回 Top-50 候选</text>
+      </g>
+
+      <g transform="translate(12, 144)">
+        <rect width="186" height="66" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="8" y="18" class="box-label" fill="#0284c7">通道 B: 稀疏字面 (BM25)</text>
+        <text x="8" y="36" class="box-desc" fill="#0369a1">• 擅长错误码、专有型号名词</text>
+        <text x="8" y="52" class="mono" fill="#0284c7">➔ 召回 Top-50 候选</text>
+      </g>
+    </g>
+
+    <!-- Arrow 1 -->
+    <g transform="translate(216, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Stage 2: RRF Fusion (Width: 200) -->
+    <g transform="translate(236, 0)">
+      <rect width="195" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="12" y="12" width="76" height="20" rx="4" fill="#e2e8f0"/>
+      <text x="50" y="26" text-anchor="middle" class="tag" fill="#475569">阶段 2: 排名融合</text>
+      <text x="12" y="52" class="col-title" fill="#0f172a">RRF 倒数排名融合</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="171" height="80" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="8" y="18" class="box-label" fill="#0f172a">无量纲融合公式：</text>
+        <text x="8" y="38" class="mono-bold" fill="#0f172a">Score = Σ 1/(k + rank)</text>
+        <text x="8" y="56" class="box-desc" fill="#64748b">• 消除向量分与 BM25 分量纲差异</text>
+        <text x="8" y="72" class="box-desc" fill="#64748b">• 常数 k 通常取 60</text>
+      </g>
+
+      <g transform="translate(12, 156)">
+        <rect width="171" height="66" rx="4" fill="#f1f5f9"/>
+        <text x="8" y="20" class="box-label" fill="#334155">粗排合并池：</text>
+        <text x="8" y="38" class="box-desc" fill="#475569">• 去重后保留前 60 条候选</text>
+        <text x="8" y="54" class="box-desc" fill="#475569">• 确保高召回率（Recall）</text>
+      </g>
+    </g>
+
+    <!-- Arrow 2 -->
+    <g transform="translate(437, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Stage 3: Cross-Encoder Reranker (Width: 220) -->
+    <g transform="translate(457, 0)">
+      <rect width="210" height="236" rx="6" fill="#fdf4ff" stroke="#f5d0fe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="76" height="20" rx="4" fill="#fae8ff"/>
+      <text x="50" y="26" text-anchor="middle" class="tag" fill="#c026d3">阶段 3: 深度重排</text>
+      <text x="12" y="52" class="col-title" fill="#86198f">Cross-Encoder 重排</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="186" height="74" rx="4" fill="#ffffff" stroke="#f5d0fe"/>
+        <text x="8" y="18" class="box-label" fill="#a21caf">全量 Cross-Attention：</text>
+        <text x="8" y="36" class="mono" fill="#86198f">[Query, Chunk_i] ➔ BERT</text>
+        <text x="8" y="52" class="box-desc" fill="#701a75">• 深度交互计算精确相关度</text>
+        <text x="8" y="66" class="box-desc" fill="#701a75">• 识破否定句与虚假相近</text>
+      </g>
+
+      <g transform="translate(12, 150)">
+        <rect width="186" height="72" rx="4" fill="#fae8ff"/>
+        <text x="8" y="18" class="box-label" fill="#86198f">精排产出：</text>
+        <text x="8" y="36" class="box-desc" fill="#701a75">• 仅保留 Top 3~5 篇极致精准片段</text>
+        <text x="8" y="54" class="box-desc" fill="#701a75">• 过滤 90% 以上检索噪声</text>
+      </g>
+    </g>
+
+    <!-- Arrow 3 -->
+    <g transform="translate(673, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Stage 4: Grounded Generation (Width: 200) -->
+    <g transform="translate(693, 0)">
+      <rect width="195" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+      <rect x="12" y="12" width="76" height="20" rx="4" fill="#dcfce7"/>
+      <text x="50" y="26" text-anchor="middle" class="tag" fill="#16a34a">阶段 4: 生成注入</text>
+      <text x="12" y="52" class="col-title" fill="#166534">Prompt 上下文注入</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="171" height="80" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="8" y="18" class="box-label" fill="#15803d">高效上下文装配：</text>
+        <text x="8" y="36" class="box-desc" fill="#14532d">• 3 条最高质量参考依据</text>
+        <text x="8" y="52" class="box-desc" fill="#14532d">• 避免「迷失在中间」困境</text>
+        <text x="8" y="68" class="box-desc" fill="#14532d">• 节省 70% 提示词 Token</text>
+      </g>
+
+      <g transform="translate(12, 156)">
+        <rect width="171" height="66" rx="4" fill="#dcfce7"/>
+        <text x="8" y="20" class="box-label" fill="#166534">大模型高保真输出：</text>
+        <text x="8" y="38" class="box-desc" fill="#14532d">• 零幻觉事实归因解答</text>
+        <text x="8" y="54" class="box-desc" fill="#14532d">• 精确附带源文档出处页码</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

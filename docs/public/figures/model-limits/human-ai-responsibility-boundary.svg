@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13.5px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 11.5px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">人机协作边界：AI 概率副驾与人类终极责任</text>
+  <text x="36" y="68" class="subtitle">AI 是卓越的认知放大杠杆与概率生成器；人类是客观真理裁判、伦理红线与法律责任的终极承担者</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Main Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Left: AI Role (Width: 426) -->
+    <g transform="translate(0, 0)">
+      <rect width="426" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="16" y="14" width="110" height="22" rx="4" fill="#dbeafe"/>
+      <text x="71" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">AI 的物理定位</text>
+      <text x="136" y="30" class="col-title" fill="#1e40af">高通量概率生成与思维杠杆</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">AI 擅长什么：</text>
+        <text x="12" y="38" class="mono" fill="#1d4ed8">• 百万行代码草稿编写、多方案快速发散</text>
+        <text x="12" y="54" class="mono" fill="#1d4ed8">• 海量文献交叉提炼、跨语种多模态翻译</text>
+        <text x="12" y="70" class="mono-bold" fill="#2563eb">➔ 放大人类个体的脑力带宽，提高千倍执行效率</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#dbeafe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">不可逾越的边界：</text>
+        <text x="12" y="38" class="box-desc" fill="#1e3a8a">• 没有自我意识，无法感知痛感，没有生命体验</text>
+        <text x="12" y="54" class="box-desc" fill="#1e3a8a">• 无法对决策失误承担法律赔偿与道德代价</text>
+      </g>
+    </g>
+
+    <!-- Right: Human Role (Width: 426) -->
+    <g transform="translate(462, 0)">
+      <rect width="426" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+      <rect x="16" y="14" width="110" height="22" rx="4" fill="#dcfce7"/>
+      <text x="71" y="29" text-anchor="middle" class="tag" fill="#16a34a">人类的终极阵地</text>
+      <text x="136" y="30" class="col-title" fill="#166534">价值判断、客观验证与终身负责</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="12" y="20" class="box-label" fill="#166534">不可外包的核心职责：</text>
+        <text x="12" y="38" class="mono" fill="#15803d">• 医疗手术决断、司法审判裁决、关键核验</text>
+        <text x="12" y="54" class="mono" fill="#15803d">• 设立目标函数、制定安全红线与伦理框架</text>
+        <text x="12" y="70" class="mono-bold" fill="#16a34a">➔ 掌握最终拍板权，对真实世界后果承担全部责任</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#dcfce7"/>
+        <text x="12" y="20" class="box-label" fill="#166534">终极工程态度：</text>
+        <text x="12" y="38" class="box-desc" fill="#14532d">• 去除神话与恐慌，以严谨的工程与物理视角看待 AI</text>
+        <text x="12" y="54" class="box-desc" fill="#14532d">• 用好确定性沙箱与人机协作，驾驭智能革命新浪潮</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

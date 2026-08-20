@@ -133,9 +133,20 @@ for (const series of seriesList) {
           }
         }
 
-        // 5. 检查标准总结模块: ## 读到这里该能分清
-        if (!content.includes("## 读到这里该能分清")) {
-          errors.push("缺失标准总结模块: `## 读到这里该能分清`");
+        // 5. 检查标准总结模块: ## 核心概念辨析（严禁使用“读到这里该能分清”等说教用语）
+        if (!content.includes("## 核心概念辨析")) {
+          errors.push("缺失标准总结模块: `## 核心概念辨析`");
+        }
+        if (content.includes("## 读到这里该能分清")) {
+          errors.push("包含已废弃的说教式小标题: `## 读到这里该能分清`，请替换为 `## 核心概念辨析`");
+        }
+
+        // 5.5 检查是否存在说教/居高临下词汇（初学者、新手、小白等）
+        const condescendingWords = ["初学者", "小白", "低级错误"];
+        for (const word of condescendingWords) {
+          if (content.includes(word)) {
+            warnings.push(`正文中包含可能有说教意味的词汇: "${word}"`);
+          }
         }
 
         // 6. 检查标准参考文献模块: ## 参考文献

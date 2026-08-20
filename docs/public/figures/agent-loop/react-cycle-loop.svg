@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13.5px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 11.5px; font-weight: 700; }
+      .box-desc { font-size: 10.5px; font-weight: 400; line-height: 1.35; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">ReAct 范式：Thought-Action-Observation 自主执行闭环</text>
+  <text x="36" y="68" class="subtitle">将逻辑推理与环境物理交互深度交织，在单条上下文轨迹中持续迭代直至达成目标</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 3 Stage Loop + Termination -->
+  <g transform="translate(36, 114)">
+
+    <!-- Step 1: Thought (Width: 205) -->
+    <g transform="translate(0, 0)">
+      <rect width="200" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#dbeafe"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#1d4ed8">阶段 1</text>
+      <text x="12" y="52" class="col-title" fill="#1e40af">Thought（推理思考）</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="8" y="18" class="box-label" fill="#1e40af">分析当前状态与差距：</text>
+        <text x="8" y="36" class="box-desc" fill="#1e3a8a">• "用户让我部署服务"</text>
+        <text x="8" y="52" class="box-desc" fill="#1e3a8a">• "我需要先检查测试是否全通"</text>
+        <text x="8" y="72" class="mono-bold" fill="#2563eb">思考结论：</text>
+        <text x="8" y="90" class="box-desc" fill="#1e3a8a">• 决定先调用 pytest 工具</text>
+        <text x="8" y="120" class="mono" fill="#1d4ed8">➔ 明确下一步意图</text>
+      </g>
+    </g>
+
+    <!-- Arrow 1 -->
+    <g transform="translate(206, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Step 2: Action (Width: 205) -->
+    <g transform="translate(226, 0)">
+      <rect width="200" height="236" rx="6" fill="#fdf4ff" stroke="#f5d0fe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#fae8ff"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#c026d3">阶段 2</text>
+      <text x="12" y="52" class="col-title" fill="#86198f">Action（动作派发）</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#f5d0fe"/>
+        <text x="8" y="18" class="box-label" fill="#86198f">生成具副作用的调用：</text>
+        <text x="8" y="38" class="mono" fill="#a21caf">Action: run_shell</text>
+        <text x="8" y="54" class="mono" fill="#a21caf">Args: {"cmd": "pytest"}</text>
+        <text x="8" y="78" class="box-desc" fill="#701a75">• 宿主程序物理拦截</text>
+        <text x="8" y="94" class="box-desc" fill="#701a75">• 在沙箱终端中真实运行</text>
+        <text x="8" y="120" class="mono-bold" fill="#86198f">➔ 触发真实环境变化</text>
+      </g>
+    </g>
+
+    <!-- Arrow 2 -->
+    <g transform="translate(432, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Step 3: Observation (Width: 205) -->
+    <g transform="translate(452, 0)">
+      <rect width="200" height="236" rx="6" fill="#fef3c7" stroke="#fde68a" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#fef3c7"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#d97706">阶段 3</text>
+      <text x="12" y="52" class="col-title" fill="#92400e">Observation（观察反馈）</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#fde68a"/>
+        <text x="8" y="18" class="box-label" fill="#92400e">真实环境回传数据：</text>
+        <text x="8" y="38" class="mono" fill="#b45309">"FAILED: 2 tests failed</text>
+        <text x="8" y="54" class="mono" fill="#b45309"> in test_auth.py:42"</text>
+        <text x="8" y="78" class="box-desc" fill="#78350f">• 真实客观事实回填窗口</text>
+        <text x="8" y="94" class="box-desc" fill="#78350f">• 破除模型的主观幻想</text>
+        <text x="8" y="120" class="mono-bold" fill="#92400e">➔ 作为下轮 Thought 输入</text>
+      </g>
+    </g>
+
+    <!-- Loop Back / Exit Arrow (Width: 205) -->
+    <g transform="translate(658, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Step 4: Decision (Width: 205) -->
+    <g transform="translate(678, 0)">
+      <rect width="205" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#dcfce7"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#16a34a">闭环判定</text>
+      <text x="12" y="52" class="col-title" fill="#166534">继续循环 vs 目标达成</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="181" height="154" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="8" y="18" class="box-label" fill="#166534">多轮迭代决策分支：</text>
+        <text x="8" y="38" class="mono" fill="#15803d">• 若测试失败 ➔ 回到第 1 步</text>
+        <text x="8" y="54" class="box-desc" fill="#14532d">  (Thought: 我需要去修代码)</text>
+        <text x="8" y="78" class="mono" fill="#15803d">• 若目标达成 ➔ 输出最终结果</text>
+        <text x="8" y="94" class="box-desc" fill="#14532d">  (Action: finish_task)</text>
+        <text x="8" y="120" class="mono-bold" fill="#16a34a">➔ 熔断限制: 最大 15 轮</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

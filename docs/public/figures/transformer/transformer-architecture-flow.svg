@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13.5px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 11.5px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="460" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="40" class="title">Transformer 核心架构与数据流全景图</text>
+  <text x="36" y="64" class="subtitle">自注意力负责词间信息通信（Communication），前馈网络 FFN 负责事实知识提炼（Computation）</text>
+  <line x1="36" y1="86" x2="924" y2="86" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Architecture Flow Grid -->
+  <g transform="translate(36, 106)">
+
+    <!-- Step 1: Input & Embedding (Width: 200) -->
+    <g transform="translate(0, 0)">
+      <rect width="200" height="326" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#f1f5f9"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#475569">第 1 阶段</text>
+      <text x="12" y="52" class="col-title" fill="#1e293b">输入与位置注入</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="244" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+        <text x="8" y="20" class="box-label" fill="#334155">输入张量构建：</text>
+        <text x="8" y="40" class="mono" fill="#475569">• 文本分词: ["小明", "穿过", ...]</text>
+        <text x="8" y="60" class="mono" fill="#475569">• 词嵌入: Token_ID ➔ X_embed</text>
+        <text x="8" y="80" class="mono" fill="#475569">• 维度: (Seq_Len × d_model)</text>
+
+        <line x1="8" y1="98" x2="168" y2="98" stroke="#f1f5f9" stroke-width="1"/>
+        <text x="8" y="118" class="box-label" fill="#0284c7">叠加位置编码 Pos：</text>
+        <text x="8" y="138" class="mono" fill="#0369a1">X_0 = X_embed + Pos_Embed</text>
+        <text x="8" y="160" class="box-desc" fill="#64748b">• 赋予模型空间前后顺序感知</text>
+        <text x="8" y="180" class="box-desc" fill="#64748b">• 现代采用 RoPE 旋转位置编码</text>
+
+        <rect x="8" y="200" width="160" height="32" rx="4" fill="#f0f9ff"/>
+        <text x="88" y="220" text-anchor="middle" class="mono-bold" fill="#0284c7">➔ 初始向量进入主干</text>
+      </g>
+    </g>
+
+    <!-- Arrow 1 -->
+    <g transform="translate(206, 155)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Step 2: Decoder Block - Attention (Width: 220) -->
+    <g transform="translate(226, 0)">
+      <rect width="220" height="326" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="110" height="20" rx="4" fill="#dbeafe"/>
+      <text x="67" y="26" text-anchor="middle" class="tag" fill="#1d4ed8">第 2 阶段 · 通信层</text>
+      <text x="12" y="52" class="col-title" fill="#1e40af">Masked 多头自注意力</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="196" height="244" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="8" y="20" class="box-label" fill="#1e40af">全词通信（Communication）：</text>
+        <text x="8" y="40" class="mono" fill="#1d4ed8">• 投影为 Q, K, V 矩阵</text>
+        <text x="8" y="60" class="mono" fill="#1d4ed8">• 32 个注意力头并行捕捉语境</text>
+        <text x="8" y="80" class="mono" fill="#1d4ed8">• 下三角掩码 (Mask) 阻断未来</text>
+
+        <line x1="8" y1="98" x2="188" y2="98" stroke="#eff6ff" stroke-width="1"/>
+        <text x="8" y="118" class="box-label" fill="#2563eb">残差连接与层归一化：</text>
+        <text x="8" y="138" class="mono-bold" fill="#1d4ed8">X_mid = RMSNorm(X + Attn(X))</text>
+        <text x="8" y="160" class="box-desc" fill="#1e3a8a">• 残差高速公路：梯度无损反向传播</text>
+        <text x="8" y="180" class="box-desc" fill="#1e3a8a">• 保持特征数值稳定不发散</text>
+
+        <rect x="8" y="200" width="180" height="32" rx="4" fill="#dbeafe"/>
+        <text x="98" y="220" text-anchor="middle" class="mono-bold" fill="#1d4ed8">➔ 上下文信息充分融合</text>
+      </g>
+    </g>
+
+    <!-- Arrow 2 -->
+    <g transform="translate(452, 155)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Step 3: Decoder Block - FFN (Width: 220) -->
+    <g transform="translate(472, 0)">
+      <rect width="220" height="326" rx="6" fill="#fdf4ff" stroke="#f5d0fe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="110" height="20" rx="4" fill="#fae8ff"/>
+      <text x="67" y="26" text-anchor="middle" class="tag" fill="#c026d3">第 3 阶段 · 知识层</text>
+      <text x="12" y="52" class="col-title" fill="#86198f">前馈网络 FFN (MLP)</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="196" height="244" rx="4" fill="#ffffff" stroke="#f5d0fe"/>
+        <text x="8" y="20" class="box-label" fill="#86198f">事实记忆（Computation）：</text>
+        <text x="8" y="40" class="mono" fill="#a21caf">• 两层非线性投影: d ➔ 4d ➔ d</text>
+        <text x="8" y="60" class="mono" fill="#a21caf">• 激活函数: SwiGLU / GELU</text>
+        <text x="8" y="80" class="box-desc" fill="#701a75">• 每个 Token 独立思考提取知识</text>
+
+        <line x1="8" y1="98" x2="188" y2="98" stroke="#fdf4ff" stroke-width="1"/>
+        <text x="8" y="118" class="box-label" fill="#a21caf">残差连接与层堆叠：</text>
+        <text x="8" y="138" class="mono-bold" fill="#86198f">X_out = RMSNorm(X + FFN(X))</text>
+        <text x="8" y="160" class="box-desc" fill="#701a75">• 上述结构连续堆叠 32 ~ 128 层</text>
+        <text x="8" y="180" class="box-desc" fill="#701a75">• 特征抽象层级逐渐加深</text>
+
+        <rect x="8" y="200" width="180" height="32" rx="4" fill="#fae8ff"/>
+        <text x="98" y="220" text-anchor="middle" class="mono-bold" fill="#86198f">➔ 完成深层逻辑提炼</text>
+      </g>
+    </g>
+
+    <!-- Arrow 3 -->
+    <g transform="translate(698, 155)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Step 4: Head & Logits (Width: 200) -->
+    <g transform="translate(718, 0)">
+      <rect width="205" height="326" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#dcfce7"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#16a34a">第 4 阶段</text>
+      <text x="12" y="52" class="col-title" fill="#166534">词表概率预测</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="181" height="244" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="8" y="20" class="box-label" fill="#166534">投影至全词表：</text>
+        <text x="8" y="40" class="mono" fill="#15803d">• 线性头: d_model ➔ Vocab_Size</text>
+        <text x="8" y="60" class="mono" fill="#15803d">• 词表大小: ~128,000</text>
+        <text x="8" y="80" class="mono-bold" fill="#15803d">➔ 生成未归一化 Logits</text>
+
+        <line x1="8" y1="98" x2="173" y2="98" stroke="#f0fdf4" stroke-width="1"/>
+        <text x="8" y="118" class="box-label" fill="#166534">Softmax 与采样策略：</text>
+        <text x="8" y="138" class="mono" fill="#14532d">P = Softmax(Logits / T)</text>
+        <text x="8" y="160" class="box-desc" fill="#14532d">• Temperature / Top-p 采样</text>
+        <text x="8" y="180" class="box-desc" fill="#14532d">• 掷骰子输出下一个 Token！</text>
+
+        <rect x="8" y="200" width="165" height="32" rx="4" fill="#dcfce7"/>
+        <text x="90" y="220" text-anchor="middle" class="mono-bold" fill="#166534">➔ 吐出最新下一个词</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

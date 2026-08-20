@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">Skill 业务规程 vs MCP 接口总线分工协同</text>
+  <text x="36" y="68" class="subtitle">MCP 提供底层的通信套接字与通用接口，Skill 封装高阶的业务工作法与作业规程</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Main Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Left: MCP Layer (Width: 426) -->
+    <g transform="translate(0, 0)">
+      <rect width="426" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="16" y="14" width="90" height="22" rx="4" fill="#dbeafe"/>
+      <text x="61" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">通信总线</text>
+      <text x="116" y="30" class="col-title" fill="#1e40af">MCP 协议（提供通用接口）</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">底层通信与原始能力暴露：</text>
+        <text x="12" y="38" class="mono" fill="#1e3a8a">• bash_exec() / read_file() / write_file()</text>
+        <text x="12" y="54" class="mono" fill="#1e3a8a">• github_create_pr() / sql_query()</text>
+        <text x="12" y="72" class="box-desc" fill="#1e40af">➔ 解决「怎么连接」的问题（底层螺丝刀与扳手）</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#dbeafe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">特点：</text>
+        <text x="12" y="38" class="box-desc" fill="#1e3a8a">• 粒度细、无业务属性、全局通用</text>
+        <text x="12" y="54" class="box-desc" fill="#1e3a8a">• 不关心具体任务的先后顺序与质量把关</text>
+      </g>
+    </g>
+
+    <!-- Right: Skill Layer (Width: 426) -->
+    <g transform="translate(462, 0)">
+      <rect width="426" height="236" rx="6" fill="#fdf4ff" stroke="#f5d0fe" stroke-width="1.5"/>
+      <rect x="16" y="14" width="90" height="22" rx="4" fill="#fae8ff"/>
+      <text x="61" y="29" text-anchor="middle" class="tag" fill="#c026d3">业务作业法</text>
+      <text x="116" y="30" class="col-title" fill="#86198f">Skill 技能包（组织工程 SOP）</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#f5d0fe"/>
+        <text x="12" y="20" class="box-label" fill="#86198f">高阶工作流与质量卡点：</text>
+        <text x="12" y="38" class="mono" fill="#86198f">• /deploy-production: 跑测试 ➔ 扫安全 ➔ 打 Tag ➔ 部署</text>
+        <text x="12" y="54" class="mono" fill="#86198f">• /code-review: 检查规范 ➔ 找漏洞 ➔ 输出结构化报告</text>
+        <text x="12" y="72" class="box-desc" fill="#86198f">➔ 解决「按什么规范做」的问题（老师傅的装配手册）</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#fae8ff"/>
+        <text x="12" y="20" class="box-label" fill="#86198f">协同关系：</text>
+        <text x="12" y="38" class="box-desc" fill="#701a75">• Skill 在 SOP 规程中调用 MCP 暴露的基础工具</text>
+        <text x="12" y="54" class="box-desc" fill="#701a75">• 将复杂的专业工程能力打包为即插即用的复用资产</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

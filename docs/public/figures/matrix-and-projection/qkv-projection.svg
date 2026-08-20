@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 700; }
+    </style>
+    <marker id="arrow-blue" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-amber" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#d97706"/>
+    </marker>
+    <marker id="arrow-emerald" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">线性投影机制：同一个特征向量的「多重视角滤镜」</text>
+  <text x="36" y="68" class="subtitle">公式：y_A = x W_A, y_B = x W_B, y_C = x W_C —— 输入向量 x 不变，不同投影矩阵提取不同维度的子空间特征</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Pipeline Canvas -->
+  <g transform="translate(36, 114)">
+
+    <!-- Left: Input Token Vector (Width: 220) -->
+    <g transform="translate(0, 0)">
+      <rect width="220" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#e2e8f0"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#475569">原始输入</text>
+      <text x="104" y="30" class="col-title" fill="#0f172a">特征向量 (x)</text>
+
+      <g transform="translate(14, 52)">
+        <rect width="192" height="76" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="12" y="24" class="mono-bold" fill="#0f172a">实体特征: [对象 x]</text>
+        <text x="12" y="44" class="mono" fill="#64748b">x ∈ R^(d_in)</text>
+        <text x="12" y="62" class="mono" fill="#475569">[0.82, -0.15, ...]</text>
+      </g>
+
+      <g transform="translate(14, 140)">
+        <rect width="192" height="78" rx="4" fill="#f1f5f9"/>
+        <text x="10" y="20" class="box-label" fill="#334155">向量固有特性：</text>
+        <text x="10" y="38" class="box-desc" fill="#64748b">• 包含该对象的全量原始特征</text>
+        <text x="10" y="54" class="box-desc" fill="#64748b">• 尚未针对具体任务进行分工</text>
+        <text x="10" y="70" class="mono" fill="#475569">需要投影矩阵提取特定切面</text>
+      </g>
+    </g>
+
+    <!-- Branch Lines from Input to 3 Projection Filters -->
+    <path d="M 220 80 C 250 80, 250 40, 270 40" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+    <path d="M 220 118 L 270 118" fill="none" stroke="#d97706" stroke-width="2" marker-end="url(#arrow-amber)"/>
+    <path d="M 220 156 C 250 156, 250 196, 270 196" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+
+    <!-- Middle & Right: 3 Parallel Projections (Width: 600) -->
+    <g transform="translate(280, 0)">
+
+      <!-- Row 1: Filter A -->
+      <g transform="translate(0, 0)">
+        <rect width="608" height="72" rx="5" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.2"/>
+        <!-- Matrix Badge -->
+        <rect x="12" y="14" width="130" height="44" rx="4" fill="#dbeafe" stroke="#93c5fd"/>
+        <text x="77" y="32" text-anchor="middle" class="mono-bold" fill="#1d4ed8">× W_A 投影</text>
+        <text x="77" y="48" text-anchor="middle" font-size="10px" fill="#2563eb">形态特征矩阵</text>
+
+        <!-- Arrow -->
+        <line x1="150" y1="36" x2="175" y2="36" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+
+        <!-- Result Box -->
+        <rect x="185" y="10" width="410" height="52" rx="4" fill="#ffffff" stroke="#93c5fd"/>
+        <text x="200" y="28" class="mono-bold" fill="#1d4ed8">y_A (形态子空间) ➔ 「外观几何属性」</text>
+        <text x="200" y="48" class="box-desc" fill="#1e3a8a">视角切换为物理形态：提取物体的边缘、轮廓、尺寸等几何表征分量</text>
+      </g>
+
+      <!-- Row 2: Filter B -->
+      <g transform="translate(0, 82)">
+        <rect width="608" height="72" rx="5" fill="#fffbeb" stroke="#fde68a" stroke-width="1.2"/>
+        <!-- Matrix Badge -->
+        <rect x="12" y="14" width="130" height="44" rx="4" fill="#fef3c7" stroke="#fcd34d"/>
+        <text x="77" y="32" text-anchor="middle" class="mono-bold" fill="#b45309">× W_B 投影</text>
+        <text x="77" y="48" text-anchor="middle" font-size="10px" fill="#d97706">功能属性矩阵</text>
+
+        <!-- Arrow -->
+        <line x1="150" y1="36" x2="175" y2="36" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
+
+        <!-- Result Box -->
+        <rect x="185" y="10" width="410" height="52" rx="4" fill="#ffffff" stroke="#fcd34d"/>
+        <text x="200" y="28" class="mono-bold" fill="#b45309">y_B (功能子空间) ➔ 「行为作用属性」</text>
+        <text x="200" y="48" class="box-desc" fill="#92400e">视角切换为功能用途：提取物体的可食用性、可交互性与动态行为特征</text>
+      </g>
+
+      <!-- Row 3: Filter C -->
+      <g transform="translate(0, 164)">
+        <rect width="608" height="72" rx="5" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.2"/>
+        <!-- Matrix Badge -->
+        <rect x="12" y="14" width="130" height="44" rx="4" fill="#dcfce7" stroke="#86efac"/>
+        <text x="77" y="32" text-anchor="middle" class="mono-bold" fill="#15803d">× W_C 投影</text>
+        <text x="77" y="48" text-anchor="middle" font-size="10px" fill="#059669">类别标签矩阵</text>
+
+        <!-- Arrow -->
+        <line x1="150" y1="36" x2="175" y2="36" stroke="#059669" stroke-width="1.5" marker-end="url(#arrow-emerald)"/>
+
+        <!-- Result Box -->
+        <rect x="185" y="10" width="410" height="52" rx="4" fill="#ffffff" stroke="#86efac"/>
+        <text x="200" y="28" class="mono-bold" fill="#15803d">y_C (类别子空间) ➔ 「分类归属属性」</text>
+        <text x="200" y="48" class="box-desc" fill="#14532d">视角切换为层次分类：提取所属生物分类或概念层级的抽象语义特征</text>
+      </g>
+
+    </g>
+
+  </g>
+</svg>

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+    <marker id="rl-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3b82f6"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">经典 RLHF 工作流：SFT 基座、奖励模型（RM）与 PPO 强化学习</text>
+  <text x="36" y="68" class="subtitle">通过人类对生成候选的偏好打分拟合奖励模型，再通过 PPO 策略梯度与 KL 散度约束优化模型行为</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 3-Step Pipeline -->
+  <g transform="translate(36, 114)">
+
+    <!-- Step 1: SFT Baseline -->
+    <g transform="translate(0, 0)">
+      <rect width="270" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="14" y="14" width="70" height="22" rx="4" fill="#e2e8f0"/>
+      <text x="49" y="29" text-anchor="middle" class="tag" fill="#475569">第 1 阶段</text>
+      <text x="92" y="30" class="col-title" fill="#0f172a">SFT 策略预热</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="242" height="84" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="10" y="20" class="box-label" fill="#0f172a">微调初始策略：</text>
+        <text x="10" y="38" class="box-desc" fill="#64748b">• 用高质量示范样本微调 Base</text>
+        <text x="10" y="54" class="box-desc" fill="#64748b">• 产出初始策略模型 π_SFT</text>
+        <text x="10" y="70" class="mono" fill="#0f172a">• 冻结一份作为参考模型 π_ref</text>
+      </g>
+
+      <g transform="translate(14, 142)">
+        <rect width="242" height="78" rx="4" fill="#f1f5f9"/>
+        <text x="10" y="20" class="box-label" fill="#334155">角色定位：</text>
+        <text x="10" y="38" class="box-desc" fill="#64748b">• 保证模型能理解基础问答格式</text>
+        <text x="10" y="54" class="box-desc" fill="#64748b">• 作为强化学习的初始探索起点</text>
+      </g>
+    </g>
+
+    <!-- Arrow 1 -->
+    <path d="M 278 118 L 294 118" stroke="#3b82f6" stroke-width="2" marker-end="url(#rl-arrow)"/>
+
+    <!-- Step 2: Reward Model (RM) -->
+    <g transform="translate(302, 0)">
+      <rect width="278" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="14" y="14" width="70" height="22" rx="4" fill="#dbeafe"/>
+      <text x="49" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">第 2 阶段</text>
+      <text x="92" y="30" class="col-title" fill="#1e40af">奖励模型（RM）</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="250" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="10" y="20" class="box-label" fill="#1e40af">人类偏好排序打标：</text>
+        <text x="10" y="38" class="box-desc" fill="#1e3a8a">• 模型生成候选 (y_win, y_lose)</text>
+        <text x="10" y="54" class="box-desc" fill="#1e3a8a">• 人类标注偏好 y_win ≻ y_lose</text>
+        <text x="10" y="70" class="mono-bold" fill="#2563eb">P(w≻l) = σ(r(x, y_w) - r(x, y_l))</text>
+      </g>
+
+      <g transform="translate(14, 142)">
+        <rect width="250" height="78" rx="4" fill="#dbeafe"/>
+        <text x="10" y="20" class="box-label" fill="#1e40af">产出实体：</text>
+        <text x="10" y="38" class="box-desc" fill="#1e3a8a">• 一个将 (Prompt, Response) 映射为标量分数的 Reward Model</text>
+      </g>
+    </g>
+
+    <!-- Arrow 2 -->
+    <path d="M 588 118 L 604 118" stroke="#3b82f6" stroke-width="2" marker-end="url(#rl-arrow)"/>
+
+    <!-- Step 3: PPO Optimization -->
+    <g transform="translate(612, 0)">
+      <rect width="276" height="236" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="14" y="14" width="70" height="22" rx="4" fill="#dcfce7"/>
+      <text x="49" y="29" text-anchor="middle" class="tag" fill="#15803d">第 3 阶段</text>
+      <text x="92" y="30" class="col-title" fill="#166534">PPO 策略迭代</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="248" height="84" rx="4" fill="#ffffff" stroke="#86efac"/>
+        <text x="10" y="18" class="box-label" fill="#166534">强化学习优化目标：</text>
+        <text x="10" y="34" class="mono-bold" fill="#15803d">max E[ r(x, y) - β·KL(π_θ || π_ref) ]</text>
+        <text x="10" y="52" class="box-desc" fill="#14532d">• r(x,y)：追求更高的人类好评</text>
+        <text x="10" y="68" class="box-desc" fill="#14532d">• KL 惩罚：防止模型行为失控漂移</text>
+      </g>
+
+      <g transform="translate(14, 142)">
+        <rect width="248" height="78" rx="4" fill="#dcfce7"/>
+        <text x="10" y="20" class="box-label" fill="#166534">系统痛点：</text>
+        <text x="10" y="38" class="box-desc" fill="#14532d">• 需同时加载 4 个模型（4×显存）</text>
+        <text x="10" y="54" class="box-desc" fill="#14532d">• PPO 训练极易崩溃不稳定</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

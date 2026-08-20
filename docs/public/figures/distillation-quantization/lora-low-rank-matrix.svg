@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">LoRA（低秩适配）：冻结主权重与轻量旁路矩阵分解</text>
+  <text x="36" y="68" class="subtitle">将巨大的全量更新矩阵 ΔW 分解为两个极小低秩矩阵的乘积 B · A，仅需微调 0.1% 参数即可完成下游适配</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Main Architecture Diagram -->
+  <g transform="translate(36, 114)">
+
+    <!-- Left: Forward Pipeline Diagram (Width: 540) -->
+    <g transform="translate(0, 0)">
+      <rect width="540" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <text x="18" y="26" class="col-title" fill="#0f172a">LoRA 前向计算：h = W₀ x + (B · A) x · (α / r)</text>
+
+      <!-- Main Path: Frozen W_0 -->
+      <g transform="translate(20, 44)">
+        <rect width="220" height="170" rx="5" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+        <rect x="10" y="10" width="70" height="22" rx="3" fill="#dbeafe"/>
+        <text x="45" y="25" text-anchor="middle" class="tag" fill="#1d4ed8">主干网络</text>
+        <text x="90" y="26" class="col-title" fill="#1e40af">冻结权重 W₀</text>
+
+        <rect x="15" y="44" width="190" height="70" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="25" y="66" class="mono-bold" fill="#0f172a">维度: d × k</text>
+        <text x="25" y="84" class="mono" fill="#2563eb">(如 4096 × 4096)</text>
+        <text x="25" y="100" class="mono-bold" fill="#dc2626">🔒 梯度严格冻结 (不更新)</text>
+
+        <text x="20" y="140" class="box-desc" fill="#1e3a8a">• 保持预训练基础知识不被遗忘</text>
+        <text x="20" y="156" class="box-desc" fill="#1e3a8a">• 无需存储优化器动量状态</text>
+      </g>
+
+      <!-- Plus Sign -->
+      <text x="258" y="136" font-size="24" font-weight="700" fill="#64748b">+</text>
+
+      <!-- Side Path: Low-Rank B and A -->
+      <g transform="translate(285, 44)">
+        <rect width="235" height="170" rx="5" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+        <rect x="10" y="10" width="70" height="22" rx="3" fill="#dcfce7"/>
+        <text x="45" y="25" text-anchor="middle" class="tag" fill="#15803d">可训练旁路</text>
+        <text x="90" y="26" class="col-title" fill="#166534">低秩适配 ΔW</text>
+
+        <!-- Matrix A -->
+        <g transform="translate(12, 40)">
+          <rect width="210" height="48" rx="3" fill="#ffffff" stroke="#86efac"/>
+          <text x="10" y="20" class="mono-bold" fill="#15803d">矩阵 A (降维): r × k</text>
+          <text x="10" y="38" class="mono" fill="#64748b">(高斯随机初始化, r=8)</text>
+        </g>
+
+        <!-- Matrix B -->
+        <g transform="translate(12, 96)">
+          <rect width="210" height="48" rx="3" fill="#ffffff" stroke="#86efac"/>
+          <text x="10" y="20" class="mono-bold" fill="#15803d">矩阵 B (升维): d × r</text>
+          <text x="10" y="38" class="mono" fill="#64748b">(零矩阵初始化, 保证初始恒等)</text>
+        </g>
+
+        <text x="15" y="160" class="mono-bold" fill="#15803d">✨ 仅对 A 与 B 计算梯度更新</text>
+      </g>
+    </g>
+
+    <!-- Right: Engineering Ledger (Width: 328) -->
+    <g transform="translate(560, 0)">
+      <rect width="328" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="16" y="14" width="90" height="22" rx="4" fill="#dbeafe"/>
+      <text x="61" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">工程收益</text>
+      <text x="116" y="30" class="col-title" fill="#1e40af">LoRA 核心物理价值</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="296" height="74" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">显存开销暴降 80%：</text>
+        <text x="12" y="40" class="mono" fill="#0f172a">70B 模型全量微调需 8 张 A100 (640GB)</text>
+        <text x="12" y="58" class="mono-bold" fill="#166534">➔ QLoRA 仅需单张 24GB 显卡即可微调！</text>
+      </g>
+
+      <g transform="translate(16, 132)">
+        <rect width="296" height="88" rx="4" fill="#dbeafe"/>
+        <text x="10" y="20" class="box-label" fill="#1e40af">推理期零额外延迟：</text>
+        <text x="10" y="38" class="box-desc" fill="#1e3a8a">• 部署前执行权重融合：W_final = W₀ + B · A</text>
+        <text x="10" y="54" class="box-desc" fill="#1e3a8a">• 恢复为原生单一矩阵乘法，完全无附加计算开销</text>
+        <text x="10" y="70" class="box-desc" fill="#1e3a8a">• 支持多租户秒级热插拔不同 LoRA 适配器</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

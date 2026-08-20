@@ -16,8 +16,8 @@
   <rect width="960" height="380" fill="#ffffff"/>
 
   <!-- Header -->
-  <text x="36" y="44" class="title">KV Cache 机制：空间换时间的工程权衡</text>
-  <text x="36" y="68" class="subtitle">自回归生成时将历史 Token 的 Key 与 Value 向量驻留显存，避免每吐一字都推倒重算整条序列</text>
+  <text x="36" y="44" class="title">中间状态缓存机制：空间换时间的工程权衡</text>
+  <text x="36" y="68" class="subtitle">序列计算时将历史中间状态驻留内存，避免每次追加新数据都推倒重算整条历史</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- 2-Column Comparison -->
@@ -32,17 +32,17 @@
 
       <g transform="translate(16, 50)">
         <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#fca5a5"/>
-        <text x="12" y="22" class="box-label" fill="#991b1b">第 t 步吐字计算：</text>
-        <text x="12" y="42" class="mono" fill="#0f172a">• 历史 1 ~ t-1 的所有 Q, K, V 全部推倒重算</text>
-        <text x="12" y="60" class="mono" fill="#0f172a">• 计算复杂度：随序列长度呈 O(T²) 爆炸</text>
-        <text x="12" y="76" class="mono-bold" fill="#dc2626">➔ 算力被大量重复矩阵乘法挤爆！</text>
+        <text x="12" y="22" class="box-label" fill="#991b1b">追加第 t 步数据计算：</text>
+        <text x="12" y="42" class="mono" fill="#0f172a">• 历史 1 ~ t-1 的所有中间状态全部推倒重算</text>
+        <text x="12" y="60" class="mono" fill="#0f172a">• 累积计算复杂度：随序列长度呈 O(T²) 爆炸</text>
+        <text x="12" y="76" class="mono-bold" fill="#dc2626">➔ 算力被大量重复矩阵乘加挤爆！</text>
       </g>
 
       <g transform="translate(16, 146)">
         <rect width="394" height="74" rx="4" fill="#fee2e2"/>
         <text x="12" y="22" class="box-label" fill="#991b1b">物理代价：</text>
-        <text x="12" y="42" class="box-desc" fill="#7f1d1d">• 显存开销小（不存历史中间状态）</text>
-        <text x="12" y="60" class="box-desc" fill="#7f1d1d">• 延迟极高：长文本生成时越吐越慢</text>
+        <text x="12" y="42" class="box-desc" fill="#7f1d1d">• 内存开销小（不存历史中间状态）</text>
+        <text x="12" y="60" class="box-desc" fill="#7f1d1d">• 延迟极高：序列变长时计算耗时急剧上升</text>
       </g>
     </g>
 
@@ -50,22 +50,22 @@
     <g transform="translate(462, 0)">
       <rect width="426" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
       <rect x="16" y="14" width="90" height="22" rx="4" fill="#15803d"/>
-      <text x="61" y="29" text-anchor="middle" class="tag" fill="#ffffff">工业标准</text>
-      <text x="116" y="30" class="col-title" fill="#166534">启用 KV Cache（空间换时间）</text>
+      <text x="61" y="29" text-anchor="middle" class="tag" fill="#ffffff">工程标准</text>
+      <text x="116" y="30" class="col-title" fill="#166534">启用状态缓存（空间换时间）</text>
 
       <g transform="translate(16, 50)">
         <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#86efac"/>
-        <text x="12" y="22" class="box-label" fill="#166534">第 t 步吐字计算：</text>
-        <text x="12" y="42" class="mono" fill="#0f172a">• 历史 1 ~ t-1 的 K、V 矩阵直接从显存读取</text>
-        <text x="12" y="60" class="mono" fill="#0f172a">• 仅需计算新来 Token t 的 Q_t, K_t, V_t</text>
-        <text x="12" y="76" class="mono-bold" fill="#15803d">➔ 单步计算降至 O(1)，生成速率恒定！</text>
+        <text x="12" y="22" class="box-label" fill="#166534">追加第 t 步数据计算：</text>
+        <text x="12" y="42" class="mono" fill="#0f172a">• 历史 1 ~ t-1 的中间特征直接从内存读取</text>
+        <text x="12" y="60" class="mono" fill="#0f172a">• 仅需计算新来数据 t 的增量状态并与缓存融合</text>
+        <text x="12" y="76" class="mono-bold" fill="#15803d">➔ 单步增量计算降至 O(1)，处理速率恒定！</text>
       </g>
 
       <g transform="translate(16, 146)">
         <rect width="394" height="74" rx="4" fill="#dcfce7"/>
         <text x="12" y="22" class="box-label" fill="#166534">工程权衡：</text>
-        <text x="12" y="42" class="box-desc" fill="#14532d">• 牺牲显存：每个历史 Token 占用显存</text>
-        <text x="12" y="60" class="box-desc" fill="#14532d">• 换取百倍速度：大模型交互的物理支柱</text>
+        <text x="12" y="42" class="box-desc" fill="#14532d">• 牺牲内存空间：每个历史节点占用缓存</text>
+        <text x="12" y="60" class="box-desc" fill="#14532d">• 换取低延迟响应：实时交互系统的核心支柱</text>
       </g>
     </g>
 

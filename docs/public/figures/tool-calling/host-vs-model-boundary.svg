@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">大模型与宿主系统的物理执行与安全边界</text>
+  <text x="36" y="68" class="subtitle">大模型内部无网络套接字与操作系统权限；所有实际副作用行为完全由外部宿主环境鉴权与把关</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Main Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Left: Model Realm (Width: 426) -->
+    <g transform="translate(0, 0)">
+      <rect width="426" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="16" y="14" width="110" height="22" rx="4" fill="#e2e8f0"/>
+      <text x="71" y="29" text-anchor="middle" class="tag" fill="#475569">模型认知域</text>
+      <text x="136" y="30" class="col-title" fill="#0f172a">大模型（无副作用的大脑）</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="12" y="20" class="box-label" fill="#0f172a">纯数学运算本质：</text>
+        <text x="12" y="38" class="mono" fill="#475569">• 仅执行矩阵乘法与 Softmax 概率分布预测</text>
+        <text x="12" y="54" class="box-desc" fill="#64748b">• 无法直接打开 TCP Socket、发起 HTTP 请求或读写硬盘</text>
+        <text x="12" y="70" class="mono-bold" fill="#0f172a">➔ 产出物仅为一段带有结构化标记的纯文本！</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#f1f5f9"/>
+        <text x="12" y="20" class="box-label" fill="#334155">能力边界：</text>
+        <text x="12" y="38" class="box-desc" fill="#64748b">• 决定「是否需要调工具」以及「传什么参数」</text>
+        <text x="12" y="54" class="box-desc" fill="#64748b">• 对外界客观状态一无所知，全凭上下文回填获取反馈</text>
+      </g>
+    </g>
+
+    <!-- Right: Host Realm (Width: 426) -->
+    <g transform="translate(462, 0)">
+      <rect width="426" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="16" y="14" width="110" height="22" rx="4" fill="#dbeafe"/>
+      <text x="71" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">宿主执行域</text>
+      <text x="136" y="30" class="col-title" fill="#1e40af">外部运行时（掌控真实执行权）</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">宿主环境安全拦截与执行：</text>
+        <text x="12" y="38" class="mono" fill="#1d4ed8">• 参数解析器（JSON Parser / Pydantic 校验）</text>
+        <text x="12" y="54" class="mono" fill="#1d4ed8">• 权限鉴权（OAuth / API Key / 租户数据隔离）</text>
+        <text x="12" y="70" class="mono-bold" fill="#2563eb">➔ 真正发起物理网络 IO、数据库写操作或系统命令</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#dbeafe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">高危动作与人工介入（Human-in-the-loop）：</text>
+        <text x="12" y="38" class="box-desc" fill="#1e3a8a">• 只读操作（查询天气、查库）自动秒级执行</text>
+        <text x="12" y="54" class="box-desc" fill="#1e3a8a">• 写操作（转账、删库、发邮件）强制弹窗人工确认</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

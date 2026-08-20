@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+    <marker id="rag-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3b82f6"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">RAG（检索增强生成）全景工作流：开卷考试的系统架构</text>
+  <text x="36" y="68" class="subtitle">离线将私有知识库切块向量化，在线将最相关的依据实时注入窗口，引导大模型按图索骥精准解答</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 3-Phase Architecture -->
+  <g transform="translate(36, 114)">
+
+    <!-- Phase 1: Offline Indexing -->
+    <g transform="translate(0, 0)">
+      <rect width="270" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="14" y="14" width="70" height="22" rx="4" fill="#e2e8f0"/>
+      <text x="49" y="29" text-anchor="middle" class="tag" fill="#475569">离线处理</text>
+      <text x="92" y="30" class="col-title" fill="#0f172a">1. 文档索引构建</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="242" height="84" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="10" y="20" class="box-label" fill="#0f172a">知识入库流水线：</text>
+        <text x="10" y="38" class="box-desc" fill="#64748b">• PDF / Word / Markdown 解析</text>
+        <text x="10" y="54" class="box-desc" fill="#64748b">• 文本滑动切块（Chunking 500字）</text>
+        <text x="10" y="70" class="mono" fill="#2563eb">➔ Embedding 向量化 ➔ Vector DB</text>
+      </g>
+
+      <g transform="translate(14, 142)">
+        <rect width="242" height="78" rx="4" fill="#f1f5f9"/>
+        <text x="10" y="20" class="box-label" fill="#334155">物理形态：</text>
+        <text x="10" y="38" class="box-desc" fill="#64748b">• 百万级高维向量索引（如 1536维）</text>
+        <text x="10" y="54" class="box-desc" fill="#64748b">• 毫秒级 HNSW / IVFFlat 向量检索</text>
+      </g>
+    </g>
+
+    <!-- Arrow 1 -->
+    <path d="M 278 118 L 294 118" stroke="#3b82f6" stroke-width="2" marker-end="url(#rag-arrow)"/>
+
+    <!-- Phase 2: Online Retrieval -->
+    <g transform="translate(302, 0)">
+      <rect width="278" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="14" y="14" width="70" height="22" rx="4" fill="#dbeafe"/>
+      <text x="49" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">在线实时</text>
+      <text x="92" y="30" class="col-title" fill="#1e40af">2. 相似语义召回</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="250" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="10" y="20" class="box-label" fill="#1e40af">Query 匹配与重排：</text>
+        <text x="10" y="38" class="box-desc" fill="#1e3a8a">• 用户提问向量化 Query Embedding</text>
+        <text x="10" y="54" class="box-desc" fill="#1e3a8a">• 计算余弦相似度召回 Top-K 片段</text>
+        <text x="10" y="70" class="mono-bold" fill="#2563eb">➔ 提取前 3~5 个最高分依据 Context</text>
+      </g>
+
+      <g transform="translate(14, 142)">
+        <rect width="250" height="78" rx="4" fill="#dbeafe"/>
+        <text x="10" y="20" class="box-label" fill="#1e40af">关键挑战：</text>
+        <text x="10" y="38" class="box-desc" fill="#1e3a8a">• 召回不准导致模型误导（Garbage in）</text>
+        <text x="10" y="54" class="box-desc" fill="#1e3a8a">• 需兼顾关键词匹配与稠密向量语义</text>
+      </g>
+    </g>
+
+    <!-- Arrow 2 -->
+    <path d="M 588 118 L 604 118" stroke="#3b82f6" stroke-width="2" marker-end="url(#rag-arrow)"/>
+
+    <!-- Phase 3: Augmented Generation -->
+    <g transform="translate(612, 0)">
+      <rect width="276" height="236" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="14" y="14" width="70" height="22" rx="4" fill="#dcfce7"/>
+      <text x="49" y="29" text-anchor="middle" class="tag" fill="#15803d">生成输出</text>
+      <text x="92" y="30" class="col-title" fill="#166534">3. 窗口注入与生成</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="248" height="84" rx="4" fill="#ffffff" stroke="#86efac"/>
+        <text x="10" y="18" class="box-label" fill="#166534">Prompt 动态组装：</text>
+        <text x="10" y="34" class="mono" fill="#15803d">"请严格根据以下依据回答问题："</text>
+        <text x="10" y="50" class="mono-bold" fill="#0f172a">[参考依据 1] + [参考依据 2]</text>
+        <text x="10" y="68" class="mono-bold" fill="#166534">"问题: 用户提问"</text>
+      </g>
+
+      <g transform="translate(14, 142)">
+        <rect width="248" height="78" rx="4" fill="#dcfce7"/>
+        <text x="10" y="20" class="box-label" fill="#166534">核心收益：</text>
+        <text x="10" y="38" class="box-desc" fill="#14532d">• 极大抑制幻觉，答案可溯源出处</text>
+        <text x="10" y="54" class="box-desc" fill="#14532d">• 私有知识秒级更新，无需重新训练</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

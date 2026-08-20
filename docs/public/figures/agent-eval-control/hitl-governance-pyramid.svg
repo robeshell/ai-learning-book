@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13.5px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 11.5px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">智能体风险分级与人在回路（HITL）治理体系</text>
+  <text x="36" y="68" class="subtitle">根据动作破坏性与不可逆程度实施分级管控；全链路 Tracing 提供可观测审计溯源</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 3-Tier Risk Cards Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Tier 0: Read-Only (Width: 280) -->
+    <g transform="translate(0, 0)">
+      <rect width="280" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+      <rect x="16" y="14" width="90" height="22" rx="4" fill="#dcfce7"/>
+      <text x="61" y="29" text-anchor="middle" class="tag" fill="#16a34a">Level 0: 只读</text>
+      <text x="16" y="56" class="col-title" fill="#166534">完全自主执行</text>
+
+      <g transform="translate(16, 70)">
+        <rect width="248" height="74" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="10" y="20" class="box-label" fill="#166534">适用动作：</text>
+        <text x="10" y="38" class="mono" fill="#15803d">• 搜索网页、读取文档</text>
+        <text x="10" y="54" class="mono" fill="#15803d">• 查询只读数据库 (SELECT)</text>
+      </g>
+
+      <g transform="translate(16, 154)">
+        <rect width="248" height="66" rx="4" fill="#dcfce7"/>
+        <text x="10" y="20" class="box-label" fill="#166534">管控策略：</text>
+        <text x="10" y="38" class="box-desc" fill="#14532d">• 零摩擦免审批，吞吐最高</text>
+        <text x="10" y="54" class="box-desc" fill="#14532d">• 全量记录输入输出 Trace</text>
+      </g>
+    </g>
+
+    <!-- Tier 1: Low Risk Write (Width: 280) -->
+    <g transform="translate(304, 0)">
+      <rect width="280" height="236" rx="6" fill="#fefce8" stroke="#fef08a" stroke-width="1.5"/>
+      <rect x="16" y="14" width="90" height="22" rx="4" fill="#fef9c3"/>
+      <text x="61" y="29" text-anchor="middle" class="tag" fill="#ca8a04">Level 1: 低危</text>
+      <text x="16" y="56" class="col-title" fill="#854d0e">沙箱与事后审计</text>
+
+      <g transform="translate(16, 70)">
+        <rect width="248" height="74" rx="4" fill="#ffffff" stroke="#fef08a"/>
+        <text x="10" y="20" class="box-label" fill="#854d0e">适用动作：</text>
+        <text x="10" y="38" class="mono" fill="#a16207">• 创建临时文件、本地提交</text>
+        <text x="10" y="54" class="mono" fill="#a16207">• 发送内部测试通知消息</text>
+      </g>
+
+      <g transform="translate(16, 154)">
+        <rect width="248" height="66" rx="4" fill="#fef9c3"/>
+        <text x="10" y="20" class="box-label" fill="#854d0e">管控策略：</text>
+        <text x="10" y="38" class="box-desc" fill="#713f12">• 限制在隔离 Docker / Worktree</text>
+        <text x="10" y="54" class="box-desc" fill="#713f12">• 动作可撤销、支持一键回滚</text>
+      </g>
+    </g>
+
+    <!-- Tier 2: High Risk (Width: 280) -->
+    <g transform="translate(608, 0)">
+      <rect width="280" height="236" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="1.5"/>
+      <rect x="16" y="14" width="110" height="22" rx="4" fill="#fee2e2"/>
+      <text x="71" y="29" text-anchor="middle" class="tag" fill="#dc2626">Level 2: 不可逆</text>
+      <text x="16" y="56" class="col-title" fill="#991b1b">强制人工卡点 (HITL)</text>
+
+      <g transform="translate(16, 70)">
+        <rect width="248" height="74" rx="4" fill="#ffffff" stroke="#fecaca"/>
+        <text x="10" y="20" class="box-label" fill="#991b1b">适用动作：</text>
+        <text x="10" y="38" class="mono" fill="#b91c1c">• 删除生产数据库、资金划转</text>
+        <text x="10" y="54" class="mono" fill="#b91c1c">• 外发正式邮件、合并主干 PR</text>
+      </g>
+
+      <g transform="translate(16, 154)">
+        <rect width="248" height="66" rx="4" fill="#fee2e2"/>
+        <text x="10" y="20" class="box-label" fill="#991b1b">管控策略：</text>
+        <text x="10" y="38" class="box-desc" fill="#7f1d1d">• 必须弹出人类确认窗口</text>
+        <text x="10" y="54" class="box-desc" fill="#7f1d1d">• 任何人未批准则强行终止动作</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

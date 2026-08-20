@@ -182,12 +182,34 @@ body {
   margin: 32px 0;
 }
 
-.vp-doc figure img {
+.vp-doc figure img,
+.vp-doc p img {
   display: block;
   width: 100%;
   border: 1px solid var(--border);
   border-radius: 4px;
   background: var(--ivory);
+  cursor: zoom-in;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.vp-doc figure img:hover,
+.vp-doc p img:hover {
+  opacity: 0.96;
+}
+
+/* Medium Zoom lightbox overlay */
+.medium-zoom-overlay {
+  z-index: 100;
+  backdrop-filter: blur(6px);
+}
+
+.medium-zoom-image--opened {
+  z-index: 101;
+  border-radius: 6px;
+  cursor: zoom-out !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+  background: #ffffff;
 }
 
 .vp-doc figcaption {

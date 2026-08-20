@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13.5px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 11.5px; font-weight: 700; }
+      .box-desc { font-size: 10.5px; font-weight: 400; line-height: 1.35; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">Tool Calling 工具调用 4 步闭环标准工作流</text>
+  <text x="36" y="68" class="subtitle">模型从不直接联网，它只负责生成结构化参数包；宿主系统负责物理拦截、安全执行与结果回填</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 4 Step Flow -->
+  <g transform="translate(36, 114)">
+
+    <!-- Step 1: Schema Injection (Width: 205) -->
+    <g transform="translate(0, 0)">
+      <rect width="200" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#dbeafe"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#1d4ed8">第 1 步</text>
+      <text x="12" y="52" class="col-title" fill="#1e40af">工具 Schema 注入</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="8" y="18" class="box-label" fill="#1e40af">JSON Schema 定义：</text>
+        <text x="8" y="36" class="mono" fill="#1d4ed8">"name": "get_weather"</text>
+        <text x="8" y="52" class="mono" fill="#1d4ed8">"params": {"city": "str"}</text>
+        <text x="8" y="72" class="box-desc" fill="#1e3a8a">• 随 System Prompt 注入</text>
+        <text x="8" y="88" class="box-desc" fill="#1e3a8a">• 告知模型“你拥有的工具”</text>
+        <text x="8" y="110" class="mono-bold" fill="#2563eb">Prompt + 用户问题</text>
+        <text x="8" y="128" class="box-desc" fill="#64748b">"查一下北京明天的天气"</text>
+      </g>
+    </g>
+
+    <!-- Arrow 1 -->
+    <g transform="translate(206, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Step 2: Model Decision (Width: 205) -->
+    <g transform="translate(226, 0)">
+      <rect width="200" height="236" rx="6" fill="#fdf4ff" stroke="#f5d0fe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#fae8ff"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#c026d3">第 2 步</text>
+      <text x="12" y="52" class="col-title" fill="#86198f">模型生成调用意图</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#f5d0fe"/>
+        <text x="8" y="18" class="box-label" fill="#86198f">输出结构化参数包：</text>
+        <text x="8" y="38" class="mono" fill="#a21caf">&lt;tool_call&gt;</text>
+        <text x="8" y="54" class="mono" fill="#a21caf">{"name": "get_weather",</text>
+        <text x="8" y="70" class="mono" fill="#a21caf"> "args": {"city": "北京"}}</text>
+        <text x="8" y="86" class="mono" fill="#a21caf">&lt;/tool_call&gt;</text>
+        <text x="8" y="112" class="box-desc" fill="#701a75">• 触发特殊终止符 (EOS)</text>
+        <text x="8" y="128" class="box-desc" fill="#701a75">• 挂起当前自回归生成</text>
+      </g>
+    </g>
+
+    <!-- Arrow 2 -->
+    <g transform="translate(432, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Step 3: Host Execution (Width: 205) -->
+    <g transform="translate(452, 0)">
+      <rect width="200" height="236" rx="6" fill="#fef3c7" stroke="#fde68a" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#fef3c7"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#d97706">第 3 步</text>
+      <text x="12" y="52" class="col-title" fill="#92400e">宿主系统物理执行</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#fde68a"/>
+        <text x="8" y="18" class="box-label" fill="#92400e">外部代码真实发起：</text>
+        <text x="8" y="38" class="mono" fill="#b45309">requests.get("api.weather...")</text>
+        <text x="8" y="58" class="box-desc" fill="#78350f">• 校验参数合法性</text>
+        <text x="8" y="74" class="box-desc" fill="#78350f">• 物理网络/数据库执行</text>
+        <text x="8" y="94" class="box-label" fill="#92400e">执行返回真实数据：</text>
+        <text x="8" y="112" class="mono" fill="#b45309">{"temp": "24°C", "sky": "晴"}</text>
+        <text x="8" y="130" class="box-desc" fill="#78350f">• 沙箱鉴权与安全拦截</text>
+      </g>
+    </g>
+
+    <!-- Arrow 3 -->
+    <g transform="translate(658, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Step 4: Result Feedback (Width: 205) -->
+    <g transform="translate(678, 0)">
+      <rect width="205" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#dcfce7"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#16a34a">第 4 步</text>
+      <text x="12" y="52" class="col-title" fill="#166534">结果回填与最终生成</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="181" height="154" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="8" y="18" class="box-label" fill="#166534">回填上下文并恢复生成：</text>
+        <text x="8" y="38" class="mono" fill="#15803d">role: "tool"</text>
+        <text x="8" y="54" class="mono" fill="#15803d">content: {"temp": "24°C"}</text>
+        <text x="8" y="74" class="box-label" fill="#166534">模型输出自然语言：</text>
+        <text x="8" y="94" class="box-desc" fill="#14532d">"北京明天天气晴朗，气温为 24 摄氏度，非常适宜出行。"</text>
+        <text x="8" y="130" class="mono-bold" fill="#16a34a">➔ 任务圆满达成闭环</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

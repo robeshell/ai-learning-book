@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .head-title { font-size: 13.5px; font-weight: 700; }
+      .head-tag { font-size: 10.5px; font-weight: 600; }
+      .token-text { font-size: 12px; font-weight: 600; fill: #1e293b; }
+      .token-box { rx: 4; stroke-width: 1; }
+      .desc-text { font-size: 11px; fill: #475569; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="480" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="38" class="title">多头注意力机制（Multi-Head Attention）实战案例剖析</text>
+  <text x="36" y="60" class="subtitle">例句：“在暴风雨的夜晚，小明开着红色的跑车穿过了古老的木桥，因为他要赶回家。”</text>
+  <line x1="36" y1="80" x2="924" y2="80" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Sentence Token Bar -->
+  <g transform="translate(36, 96)">
+    <rect width="888" height="42" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="16" y="26" font-size="12" font-weight="700" fill="#475569">全句 Token 序列：</text>
+
+    <!-- Token Chips -->
+    <g transform="translate(130, 8)">
+      <!-- Tokens -->
+      <rect x="0" y="0" width="56" height="26" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="28" y="17" text-anchor="middle" class="token-text">暴风雨</text>
+
+      <rect x="62" y="0" width="44" height="26" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="84" y="17" text-anchor="middle" class="token-text">夜晚</text>
+
+      <rect x="112" y="0" width="44" height="26" rx="4" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="134" y="17" text-anchor="middle" class="token-text" fill="#1d4ed8">小明</text>
+
+      <rect x="162" y="0" width="44" height="26" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="184" y="17" text-anchor="middle" class="token-text">开着</text>
+
+      <rect x="212" y="0" width="44" height="26" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="234" y="17" text-anchor="middle" class="token-text">红色</text>
+
+      <rect x="262" y="0" width="44" height="26" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="284" y="17" text-anchor="middle" class="token-text">跑车</text>
+
+      <rect x="312" y="0" width="44" height="26" rx="4" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="334" y="17" text-anchor="middle" class="token-text" fill="#1d4ed8">穿过</text>
+
+      <rect x="362" y="0" width="44" height="26" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="384" y="17" text-anchor="middle" class="token-text">古老</text>
+
+      <rect x="412" y="0" width="44" height="26" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="434" y="17" text-anchor="middle" class="token-text">木桥</text>
+
+      <rect x="462" y="0" width="44" height="26" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="484" y="17" text-anchor="middle" class="token-text">因为</text>
+
+      <rect x="512" y="0" width="36" height="26" rx="4" fill="#fdf4ff" stroke="#a855f7" stroke-width="1.5"/>
+      <text x="530" y="17" text-anchor="middle" class="token-text" fill="#7e22ce">他</text>
+
+      <rect x="554" y="0" width="44" height="26" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="576" y="17" text-anchor="middle" class="token-text">赶回</text>
+
+      <rect x="604" y="0" width="36" height="26" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="622" y="17" text-anchor="middle" class="token-text">家</text>
+    </g>
+  </g>
+
+  <!-- 4 Distinct Heads Grid -->
+  <g transform="translate(36, 156)">
+
+    <!-- Head 1: Syntax Core (Width: 206) -->
+    <g transform="translate(0, 0)">
+      <rect width="208" height="300" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="76" height="20" rx="4" fill="#dbeafe"/>
+      <text x="50" y="26" text-anchor="middle" class="head-tag" fill="#1d4ed8">Head 1 (主谓头)</text>
+      <text x="12" y="52" class="head-title" fill="#1e40af">句法核心骨架</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="184" height="218" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="8" y="20" font-size="11.5" font-weight="700" fill="#1e40af">注意力聚焦关系：</text>
+        <text x="8" y="40" class="mono-bold" fill="#2563eb">[小明] ⟵ 92% ⟶ [穿过]</text>
+        <text x="8" y="58" class="mono" fill="#475569">[穿过] ⟵ 85% ⟶ [木桥]</text>
+
+        <line x1="8" y1="74" x2="176" y2="74" stroke="#eff6ff" stroke-width="1"/>
+        <text x="8" y="94" font-size="11" font-weight="700" fill="#334155">子空间解析：</text>
+        <text x="8" y="114" class="desc-text">• 过滤所有修饰形容词</text>
+        <text x="8" y="132" class="desc-text">• 专心锁定「主语-动词-宾语」</text>
+        <text x="8" y="150" class="desc-text">• 提取核心命题：</text>
+        <text x="16" y="170" font-weight="600" fill="#1d4ed8">“小明穿过木桥”</text>
+
+        <rect x="8" y="186" width="168" height="24" rx="4" fill="#dbeafe"/>
+        <text x="92" y="202" text-anchor="middle" class="mono-bold" fill="#1d4ed8">捕获主谓宾核心动作</text>
+      </g>
+    </g>
+
+    <!-- Head 2: Attribute Modifiers (Width: 208) -->
+    <g transform="translate(226, 0)">
+      <rect width="208" height="300" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+      <rect x="12" y="12" width="76" height="20" rx="4" fill="#dcfce7"/>
+      <text x="50" y="26" text-anchor="middle" class="head-tag" fill="#16a34a">Head 2 (修饰头)</text>
+      <text x="12" y="52" class="head-title" fill="#166534">实体属性与定语</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="184" height="218" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="8" y="20" font-size="11.5" font-weight="700" fill="#166534">注意力聚焦关系：</text>
+        <text x="8" y="40" class="mono-bold" fill="#16a34a">[红色] ⟵ 96% ⟶ [跑车]</text>
+        <text x="8" y="58" class="mono-bold" fill="#16a34a">[古老] ⟵ 94% ⟶ [木桥]</text>
+
+        <line x1="8" y1="74" x2="176" y2="74" stroke="#f0fdf4" stroke-width="1"/>
+        <text x="8" y="94" font-size="11" font-weight="700" fill="#334155">子空间解析：</text>
+        <text x="8" y="114" class="desc-text">• 忽略远距离动词关系</text>
+        <text x="8" y="132" class="desc-text">• 专心将形容词属性绑定到</text>
+        <text x="8" y="150" class="desc-text">  紧邻的名词实体上</text>
+        <text x="16" y="170" font-weight="600" fill="#15803d">避免“红色木桥”属性错位</text>
+
+        <rect x="8" y="186" width="168" height="24" rx="4" fill="#dcfce7"/>
+        <text x="92" y="202" text-anchor="middle" class="mono-bold" fill="#15803d">精准绑定实体特征</text>
+      </g>
+    </g>
+
+    <!-- Head 3: Coreference (Width: 208) -->
+    <g transform="translate(452, 0)">
+      <rect width="208" height="300" rx="6" fill="#fdf4ff" stroke="#f5d0fe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="76" height="20" rx="4" fill="#fae8ff"/>
+      <text x="50" y="26" text-anchor="middle" class="head-tag" fill="#c026d3">Head 3 (代词头)</text>
+      <text x="12" y="52" class="head-title" fill="#86198f">跨距代词指代消解</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="184" height="218" rx="4" fill="#ffffff" stroke="#f5d0fe"/>
+        <text x="8" y="20" font-size="11.5" font-weight="700" fill="#86198f">注意力聚焦关系：</text>
+        <text x="8" y="40" class="mono-bold" fill="#a21caf">[他] ⟵ 98% ⟶ [小明]</text>
+        <text x="8" y="58" class="mono" fill="#475569">[他] ⟵  1% ⟶ [跑车/木桥]</text>
+
+        <line x1="8" y1="74" x2="176" y2="74" stroke="#fdf4ff" stroke-width="1"/>
+        <text x="8" y="94" font-size="11" font-weight="700" fill="#334155">子空间解析：</text>
+        <text x="8" y="114" class="desc-text">• 跨越 10 个词的远距离锁定</text>
+        <text x="8" y="132" class="desc-text">• 将 [小明] 的实体特征向量</text>
+        <text x="8" y="150" class="desc-text">  直接注入代词 [他]</text>
+        <text x="16" y="170" font-weight="600" fill="#a21caf">彻底消除语境二义性</text>
+
+        <rect x="8" y="186" width="168" height="24" rx="4" fill="#fae8ff"/>
+        <text x="92" y="202" text-anchor="middle" class="mono-bold" fill="#86198f">长距离语义无损直连</text>
+      </g>
+    </g>
+
+    <!-- Head 4: Environment & Cause (Width: 208) -->
+    <g transform="translate(678, 0)">
+      <rect width="210" height="300" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+      <rect x="12" y="12" width="76" height="20" rx="4" fill="#ffedd5"/>
+      <text x="50" y="26" text-anchor="middle" class="head-tag" fill="#ea580c">Head 4 (时空头)</text>
+      <text x="12" y="52" class="head-title" fill="#9a3412">环境与因果逻辑</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="186" height="218" rx="4" fill="#ffffff" stroke="#fed7aa"/>
+        <text x="8" y="20" font-size="11.5" font-weight="700" fill="#9a3412">注意力聚焦关系：</text>
+        <text x="8" y="40" class="mono-bold" fill="#ea580c">[因为] ⟵ 88% ⟶ [赶回家]</text>
+        <text x="8" y="58" class="mono-bold" fill="#ea580c">[穿过] ⟵ 82% ⟶ [暴风雨]</text>
+
+        <line x1="8" y1="74" x2="178" y2="74" stroke="#fff7ed" stroke-width="1"/>
+        <text x="8" y="94" font-size="11" font-weight="700" fill="#334155">子空间解析：</text>
+        <text x="8" y="114" class="desc-text">• 建立行为与环境的因果关联</text>
+        <text x="8" y="132" class="desc-text">• 将「赶回家」的动机赋予</text>
+        <text x="8" y="150" class="desc-text">  前面的「穿过」动作</text>
+        <text x="16" y="170" font-weight="600" fill="#c2410c">赋予模型高阶推理能力</text>
+
+        <rect x="8" y="186" width="170" height="24" rx="4" fill="#ffedd5"/>
+        <text x="93" y="202" text-anchor="middle" class="mono-bold" fill="#ea580c">构建因果与背景逻辑</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

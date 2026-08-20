@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13.5px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 11.5px; font-weight: 700; }
+      .box-desc { font-size: 10.5px; font-weight: 400; line-height: 1.35; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">Computer Use 视觉感知与键鼠动作 4 步闭环</text>
+  <text x="36" y="68" class="subtitle">将桌面屏幕像素转化为视觉坐标决策，通过操作系统级底层事件驱动无 API 图形软件</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 4 Step Pipeline -->
+  <g transform="translate(36, 114)">
+
+    <!-- Step 1: Capture (Width: 205) -->
+    <g transform="translate(0, 0)">
+      <rect width="200" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#dbeafe"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#1d4ed8">第 1 步</text>
+      <text x="12" y="52" class="col-title" fill="#1e40af">高保真屏幕截屏</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="8" y="18" class="box-label" fill="#1e40af">捕获当前桌面状态：</text>
+        <text x="8" y="38" class="mono" fill="#1d4ed8">• OS 截取 1920x1080 图像</text>
+        <text x="8" y="56" class="box-desc" fill="#1e3a8a">• 编码为多模态 Vision 输入</text>
+        <text x="8" y="74" class="box-desc" fill="#1e3a8a">• 注入大模型上下文窗口</text>
+        <text x="8" y="100" class="mono-bold" fill="#2563eb">像素即全部世界状态</text>
+        <text x="8" y="120" class="box-desc" fill="#64748b">无需目标应用暴露任何源码</text>
+      </g>
+    </g>
+
+    <!-- Arrow 1 -->
+    <g transform="translate(206, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Step 2: Visual Grounding (Width: 205) -->
+    <g transform="translate(226, 0)">
+      <rect width="200" height="236" rx="6" fill="#fdf4ff" stroke="#f5d0fe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#fae8ff"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#c026d3">第 2 步</text>
+      <text x="12" y="52" class="col-title" fill="#86198f">视觉定位与坐标计算</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#f5d0fe"/>
+        <text x="8" y="18" class="box-label" fill="#86198f">模型视觉空间推理：</text>
+        <text x="8" y="38" class="mono" fill="#a21caf">• 识别“保存”按钮像素位置</text>
+        <text x="8" y="56" class="mono-bold" fill="#a21caf">Action: mouse_click</text>
+        <text x="8" y="74" class="mono" fill="#a21caf">Coordinate: (x=840, y=520)</text>
+        <text x="8" y="100" class="box-desc" fill="#701a75">• 预测绝对/归一化坐标</text>
+        <text x="8" y="120" class="box-desc" fill="#701a75">• 输出结构化键鼠动作参数</text>
+      </g>
+    </g>
+
+    <!-- Arrow 2 -->
+    <g transform="translate(432, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Step 3: OS Event (Width: 205) -->
+    <g transform="translate(452, 0)">
+      <rect width="200" height="236" rx="6" fill="#fef3c7" stroke="#fde68a" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#fef3c7"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#d97706">第 3 步</text>
+      <text x="12" y="52" class="col-title" fill="#92400e">OS 物理事件派发</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#fde68a"/>
+        <text x="8" y="18" class="box-label" fill="#92400e">操作系统底层模拟：</text>
+        <text x="8" y="38" class="mono" fill="#b45309">• 移动光标至 (840, 520)</text>
+        <text x="8" y="56" class="mono" fill="#b45309">• 触发物理 MouseDown/Up</text>
+        <text x="8" y="74" class="mono" fill="#b45309">• 键盘输入 "password123"</text>
+        <text x="8" y="100" class="box-desc" fill="#78350f">• 真实触发 GUI 状态更新</text>
+        <text x="8" y="120" class="box-desc" fill="#78350f">• 沙箱拦截高危系统弹窗</text>
+      </g>
+    </g>
+
+    <!-- Arrow 3 -->
+    <g transform="translate(658, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Step 4: Verification (Width: 205) -->
+    <g transform="translate(678, 0)">
+      <rect width="205" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#dcfce7"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#16a34a">第 4 步</text>
+      <text x="12" y="52" class="col-title" fill="#166534">重新截屏视觉核验</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="181" height="154" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="8" y="18" class="box-label" fill="#166534">环境反馈与自愈判断：</text>
+        <text x="8" y="38" class="mono" fill="#15803d">• 捕获点击后的新屏幕</text>
+        <text x="8" y="56" class="box-desc" fill="#14532d">• 确认弹窗是否成功弹出</text>
+        <text x="8" y="74" class="box-desc" fill="#14532d">• 若点击漂移未命中，重算坐标</text>
+        <text x="8" y="100" class="mono-bold" fill="#16a34a">➔ 达成 GUI 任务闭环</text>
+        <text x="8" y="120" class="box-desc" fill="#14532d">多轮循环直到完成流程</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

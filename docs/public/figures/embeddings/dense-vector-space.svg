@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">Embedding 高维向量空间：从离散字符到连续语义坐标</text>
+  <text x="36" y="68" class="subtitle">将任意自然语言文本映射为稠密浮点向量，使语义相近的概念在高维几何空间中彼此邻近</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Main Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Left: Geometric Space Map (Width: 540) -->
+    <g transform="translate(0, 0)">
+      <rect width="540" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <text x="18" y="26" class="col-title" fill="#0f172a">高维特征空间投影切面（768 / 1536 维）</text>
+
+      <!-- Cluster 1: Tech/AI (Blue) -->
+      <g transform="translate(24, 46)">
+        <rect width="230" height="80" rx="4" fill="#eff6ff" stroke="#93c5fd"/>
+        <text x="10" y="20" class="tag" fill="#1d4ed8">聚类簇 A: 人工智能与算法</text>
+        <circle cx="20" cy="40" r="4" fill="#2563eb"/>
+        <text x="30" y="44" class="mono" fill="#1e40af">"深度学习神经网络" [0.82, 0.45, ...]</text>
+        <circle cx="20" cy="62" r="4" fill="#2563eb"/>
+        <text x="30" y="66" class="mono" fill="#1e40af">"Transformer 注意力机制" [0.79, 0.48, ...]</text>
+      </g>
+
+      <!-- Cluster 2: Pets/Animals (Green) -->
+      <g transform="translate(285, 46)">
+        <rect width="230" height="80" rx="4" fill="#f0fdf4" stroke="#86efac"/>
+        <text x="10" y="20" class="tag" fill="#15803d">聚类簇 B: 宠物与动物</text>
+        <circle cx="20" cy="40" r="4" fill="#16a34a"/>
+        <text x="30" y="44" class="mono" fill="#166534">"可爱的小狗幼犬" [-0.41, 0.88, ...]</text>
+        <circle cx="20" cy="62" r="4" fill="#16a34a"/>
+        <text x="30" y="66" class="mono" fill="#166534">"金毛寻回犬照顾" [-0.38, 0.85, ...]</text>
+      </g>
+
+      <!-- Query Vector: User Input -->
+      <g transform="translate(24, 142)">
+        <rect width="491" height="76" rx="4" fill="#fef3c7" stroke="#fcd34d"/>
+        <text x="12" y="20" class="mono-bold" fill="#92400e">用户提问 Query: "大模型的注意力是怎么算的？"</text>
+        <line x1="12" y1="30" x2="475" y2="30" stroke="#fcd34d" stroke-width="1"/>
+        <text x="12" y="48" class="box-desc" fill="#78350f">与聚类 A（技术）余弦相似度 = 0.91 ➔ 命中召回！</text>
+        <text x="12" y="66" class="box-desc" fill="#78350f">与聚类 B（宠物）余弦相似度 = 0.08 ➔ 距离遥远剔除</text>
+      </g>
+    </g>
+
+    <!-- Right: Metric Ledger (Width: 328) -->
+    <g transform="translate(560, 0)">
+      <rect width="328" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="16" y="14" width="90" height="22" rx="4" fill="#dbeafe"/>
+      <text x="61" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">几何度量</text>
+      <text x="116" y="30" class="col-title" fill="#1e40af">余弦相似度公式</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="296" height="74" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="12" y="22" class="box-label" fill="#1e40af">高维夹角方向度量：</text>
+        <text x="12" y="44" class="mono-bold" fill="#2563eb">cos(θ) = (u · v) / (||u|| ||v||)</text>
+        <text x="12" y="62" class="mono" fill="#64748b">取值 [-1.0, 1.0]，1.0 为方向完全一致</text>
+      </g>
+
+      <g transform="translate(16, 132)">
+        <rect width="296" height="88" rx="4" fill="#dbeafe"/>
+        <text x="10" y="20" class="box-label" fill="#1e40af">核心物理认知：</text>
+        <text x="10" y="38" class="box-desc" fill="#1e3a8a">• 几何邻近度量的是「主题相关性」</text>
+        <text x="10" y="54" class="box-desc" fill="#1e3a8a">• 几何相近 ≠ 逻辑蕴含（否定句与肯定句向量高度接近）</text>
+        <text x="10" y="70" class="box-desc" fill="#1e3a8a">• 向量库只管相似度，不管事实正确</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

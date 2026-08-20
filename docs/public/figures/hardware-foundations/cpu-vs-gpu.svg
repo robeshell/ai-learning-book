@@ -16,7 +16,7 @@
 
   <!-- Header -->
   <text x="36" y="44" class="title">CPU（大学教授） vs GPU（一万名小学生）：计算拓扑的物理本质</text>
-  <text x="36" y="68" class="subtitle">大模型本质是超大规模矩阵乘法，需要极致并发吞吐而非复杂的单核分支逻辑</text>
+  <text x="36" y="68" class="subtitle">深度学习与神经网络本质是超大规模矩阵乘法，需要极致并发吞吐而非复杂的单核分支逻辑</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 
   <!-- Left Column: CPU -->

@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 700; }
+    </style>
+    <marker id="arrow-blue" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-emerald" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">人工神经元计算流：线性加权与非线性激活</text>
+  <text x="36" y="68" class="subtitle">公式：a = σ(w^T x + b) —— 先通过权重与偏置完成线性汇总，再通过激活函数赋予空间弯折能力</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Main Pipeline (3 Stages) -->
+  <g transform="translate(36, 114)">
+
+    <!-- Stage 1: Multiple Inputs (Width: 220) -->
+    <g transform="translate(0, 0)">
+      <rect width="220" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#e2e8f0"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#475569">输入特征</text>
+      <text x="104" y="30" class="col-title" fill="#0f172a">输入向量 (x)</text>
+
+      <g transform="translate(14, 52)">
+        <rect width="192" height="36" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="12" y="23" class="mono-bold" fill="#0f172a">x₁ (如尺寸大小)</text>
+      </g>
+      <g transform="translate(14, 96)">
+        <rect width="192" height="36" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="12" y="23" class="mono-bold" fill="#0f172a">x₂ (如色彩饱和度)</text>
+      </g>
+      <g transform="translate(14, 140)">
+        <rect width="192" height="36" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="12" y="23" class="mono-bold" fill="#0f172a">x₃ (如空间坐标)</text>
+      </g>
+
+      <text x="14" y="206" class="box-desc" fill="#64748b">• 原始数据特征各维度输入</text>
+      <text x="14" y="222" class="box-desc" fill="#64748b">• 每个维度分配独立的权重 w_i</text>
+    </g>
+
+    <!-- Connectors with Weights -->
+    <path d="M 220 70 L 290 100" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrow-blue)"/>
+    <text x="250" y="75" font-size="10px" font-weight="700" fill="#2563eb">× w₁</text>
+    <path d="M 220 114 L 290 114" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrow-blue)"/>
+    <text x="250" y="108" font-size="10px" font-weight="700" fill="#2563eb">× w₂</text>
+    <path d="M 220 158 L 290 128" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrow-blue)"/>
+    <text x="250" y="152" font-size="10px" font-weight="700" fill="#2563eb">× w₃</text>
+
+    <!-- Stage 2: Linear Aggregation + Bias (Width: 260) -->
+    <g transform="translate(300, 0)">
+      <rect width="260" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#dbeafe"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">第 1 步</text>
+      <text x="104" y="30" class="col-title" fill="#1e40af">线性加权与偏置</text>
+
+      <g transform="translate(14, 52)">
+        <rect width="232" height="74" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="12" y="26" class="mono-bold" fill="#1d4ed8">z = Σ (w_i · x_i) + b</text>
+        <text x="12" y="48" class="mono" fill="#2563eb">z = w^T x + b</text>
+        <text x="12" y="66" class="box-desc" fill="#64748b">偏置 b 充当激活门槛基准线</text>
+      </g>
+
+      <g transform="translate(14, 138)">
+        <rect width="232" height="80" rx="4" fill="#dbeafe"/>
+        <text x="10" y="22" class="box-label" fill="#1e40af">局限性：</text>
+        <text x="10" y="42" class="box-desc" fill="#1e3a8a">• 仍是纯线性运算</text>
+        <text x="10" y="58" class="box-desc" fill="#1e3a8a">• 无法弯折空间切分复杂曲线</text>
+        <text x="10" y="74" class="box-desc" fill="#1e3a8a">• 必须输入下一阶段激活函数</text>
+      </g>
+    </g>
+
+    <!-- Arrow to Stage 3 -->
+    <line x1="560" y1="118" x2="600" y2="118" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+
+    <!-- Stage 3: Non-Linear Activation (Width: 328) -->
+    <g transform="translate(608, 0)">
+      <rect width="280" height="236" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#dcfce7"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#15803d">第 2 步</text>
+      <text x="104" y="30" class="col-title" fill="#166534">非线性激活 (σ)</text>
+
+      <g transform="translate(14, 52)">
+        <rect width="252" height="74" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="12" y="26" class="mono-bold" fill="#15803d">a = ReLU(z) = max(0, z)</text>
+        <text x="12" y="48" class="mono-bold" fill="#059669">a = GELU(z) (大模型主流)</text>
+        <text x="12" y="66" class="box-desc" fill="#14532d">打破线性关系，实现空间弯折</text>
+      </g>
+
+      <g transform="translate(14, 138)">
+        <rect width="252" height="80" rx="4" fill="#dcfce7"/>
+        <text x="10" y="22" class="box-label" fill="#166534">核心数学红利：</text>
+        <text x="10" y="42" class="box-desc" fill="#14532d">• 负数归零或平滑抑制（稀疏性）</text>
+        <text x="10" y="58" class="box-desc" fill="#14532d">• 多层堆叠可拟合任意复杂函数</text>
+        <text x="10" y="74" class="mono-bold" fill="#15803d">👉 深度网络智能表达的基石！</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

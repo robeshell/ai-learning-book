@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">表层对齐假说（LIMA）：预训练提供知识底座，SFT 调教交互外壳</text>
+  <text x="36" y="68" class="subtitle">NeurIPS 2023 经典结论：极少量（1000 条）高质量问答样本即可激活大模型的强大交互能力</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 2-Column Layered Breakdown -->
+  <g transform="translate(36, 114)">
+
+    <!-- Left: Pre-training (Knowledge Lake, 99%) -->
+    <g transform="translate(0, 0)">
+      <rect width="426" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="16" y="14" width="90" height="22" rx="4" fill="#dbeafe"/>
+      <text x="61" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">知识内核 (99%)</text>
+      <text x="116" y="30" class="col-title" fill="#1e40af">预训练阶段（Pre-training）</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">习得的深层能力：</text>
+        <text x="12" y="38" class="box-desc" fill="#1e3a8a">• 世界常识、科学原理、语法规则与历史事实</text>
+        <text x="12" y="54" class="box-desc" fill="#1e3a8a">• 多语言翻译能力与长链条代码编程逻辑</text>
+        <text x="12" y="70" class="mono-bold" fill="#2563eb">➔ 知识与智力上限在预训练时已被彻底锁死</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#dbeafe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">数据规模：</text>
+        <text x="12" y="38" class="mono" fill="#1e3a8a">10,000,000,000,000+ Tokens (数万亿级)</text>
+        <text x="12" y="56" class="box-desc" fill="#1e3a8a">消耗 90% 以上的工程算力与预训练预算</text>
+      </g>
+    </g>
+
+    <!-- Right: SFT (Surface Alignment, 1%) -->
+    <g transform="translate(462, 0)">
+      <rect width="426" height="236" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="16" y="14" width="90" height="22" rx="4" fill="#dcfce7"/>
+      <text x="61" y="29" text-anchor="middle" class="tag" fill="#15803d">交互表层 (1%)</text>
+      <text x="116" y="30" class="col-title" fill="#166534">SFT 监督微调（Alignment）</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#86efac"/>
+        <text x="12" y="20" class="box-label" fill="#166534">微调调教的核心行为：</text>
+        <text x="12" y="38" class="box-desc" fill="#14532d">• 角色设定（"我是 AI 助手"）与多轮会话结构</text>
+        <text x="12" y="54" class="box-desc" fill="#14532d">• 格式约束（Markdown 列表、JSON 结构输出）</text>
+        <text x="12" y="70" class="mono-bold" fill="#15803d">➔ 激活内在知识，包装为人类喜闻乐见的风格</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#dcfce7"/>
+        <text x="12" y="20" class="box-label" fill="#166534">质量胜于数量法则：</text>
+        <text x="12" y="38" class="box-desc" fill="#14532d">• 1,000 条精雕细琢的高质量样本 ＞ 50,000 条杂乱爬虫</text>
+        <text x="12" y="56" class="box-desc" fill="#14532d">• 低质数据会导致模型口吻劣质化、逻辑混乱</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

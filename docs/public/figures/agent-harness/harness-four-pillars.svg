@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13.5px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 11.5px; font-weight: 700; }
+      .box-desc { font-size: 10.5px; font-weight: 400; line-height: 1.35; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">Harness 智能体底盘的四大工程支柱</text>
+  <text x="36" y="68" class="subtitle">大模型负责无状态概率决策，Harness 宿主底盘负责掌控真实世界的状态、安全、资源与容灾</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 4 Pillars Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Pillar 1: Lifecycle & State (Width: 205) -->
+    <g transform="translate(0, 0)">
+      <rect width="200" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#dbeafe"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#1d4ed8">支柱 1</text>
+      <text x="12" y="52" class="col-title" fill="#1e40af">生命周期与持久化</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="8" y="18" class="box-label" fill="#1e40af">状态机与断点恢复：</text>
+        <text x="8" y="36" class="box-desc" fill="#1e3a8a">• Checkpointing 状态快照</text>
+        <text x="8" y="52" class="box-desc" fill="#1e3a8a">• 断网或 API 崩溃后无缝续跑</text>
+        <text x="8" y="68" class="box-desc" fill="#1e3a8a">• 支持回滚到历史任一轮次</text>
+        <text x="8" y="90" class="mono-bold" fill="#2563eb">状态持久化在磁盘</text>
+        <text x="8" y="108" class="box-desc" fill="#64748b">会话重启不丢失执行进度</text>
+        <text x="8" y="130" class="mono" fill="#1d4ed8">➔ 抵御进程意外退出</text>
+      </g>
+    </g>
+
+    <!-- Pillar 2: Security & Sandbox (Width: 205) -->
+    <g transform="translate(226, 0)">
+      <rect width="200" height="236" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#fee2e2"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#dc2626">支柱 2</text>
+      <text x="12" y="52" class="col-title" fill="#991b1b">权限拦截与沙箱</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#fecaca"/>
+        <text x="8" y="18" class="box-label" fill="#991b1b">物理级安全硬防线：</text>
+        <text x="8" y="36" class="box-desc" fill="#7f1d1d">• 命令与路径白名单校验</text>
+        <text x="8" y="52" class="box-desc" fill="#7f1d1d">• Docker / 隔离环境运行</text>
+        <text x="8" y="68" class="box-desc" fill="#7f1d1d">• 高危写入操作弹窗确认</text>
+        <text x="8" y="90" class="mono-bold" fill="#dc2626">Human-in-the-loop</text>
+        <text x="8" y="108" class="box-desc" fill="#7f1d1d">绝对禁止越权删库与外发</text>
+        <text x="8" y="130" class="mono" fill="#991b1b">➔ 模型无越权物理途径</text>
+      </g>
+    </g>
+
+    <!-- Pillar 3: Context Compaction (Width: 205) -->
+    <g transform="translate(452, 0)">
+      <rect width="200" height="236" rx="6" fill="#fdf4ff" stroke="#f5d0fe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#fae8ff"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#c026d3">支柱 3</text>
+      <text x="12" y="52" class="col-title" fill="#86198f">上下文裁剪与压缩</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#f5d0fe"/>
+        <text x="8" y="18" class="box-label" fill="#86198f">防止窗口溢出与遗忘：</text>
+        <text x="8" y="36" class="box-desc" fill="#701a75">• 工具长日志自动截断</text>
+        <text x="8" y="52" class="box-desc" fill="#701a75">• 历史轮次滚动摘要压缩</text>
+        <text x="8" y="68" class="box-desc" fill="#701a75">• 保持 Prompt 前缀稳定</text>
+        <text x="8" y="90" class="mono-bold" fill="#86198f">Radix 缓存友好</text>
+        <text x="8" y="108" class="box-desc" fill="#701a75">最大化 Prompt Caching 命中</text>
+        <text x="8" y="130" class="mono" fill="#701a75">➔ 降低延迟与成本</text>
+      </g>
+    </g>
+
+    <!-- Pillar 4: Timeouts & Recovery (Width: 205) -->
+    <g transform="translate(678, 0)">
+      <rect width="205" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#dcfce7"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#16a34a">支柱 4</text>
+      <text x="12" y="52" class="col-title" fill="#166534">超时熔断与容灾重试</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="181" height="154" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="8" y="18" class="box-label" fill="#166534">健壮的鲁棒性保障：</text>
+        <text x="8" y="36" class="box-desc" fill="#14532d">• 子进程执行超时强制 Kill</text>
+        <text x="8" y="52" class="box-desc" fill="#14532d">• API 限流指数退避重试</text>
+        <text x="8" y="68" class="box-desc" fill="#14532d">• 避免智能体无限死锁挂起</text>
+        <text x="8" y="90" class="mono-bold" fill="#16a34a">自动化容错兜底</text>
+        <text x="8" y="108" class="box-desc" fill="#14532d">将异常转换为错误 Observation</text>
+        <text x="8" y="130" class="mono" fill="#166534">➔ 驱动模型自主修复</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

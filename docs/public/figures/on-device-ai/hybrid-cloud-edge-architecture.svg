@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13.5px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 11.5px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">云端与端侧协同（Hybrid AI）架构协同模式</text>
+  <text x="36" y="68" class="subtitle">端侧轻量小模型处理高频、隐私与意图路由；复杂长逻辑脱敏后路由至云端大模型</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Main Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Left: Local Edge Tier (Width: 426) -->
+    <g transform="translate(0, 0)">
+      <rect width="426" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+      <rect x="16" y="14" width="110" height="22" rx="4" fill="#dcfce7"/>
+      <text x="71" y="29" text-anchor="middle" class="tag" fill="#16a34a">端侧前置层</text>
+      <text x="136" y="30" class="col-title" fill="#166534">本地 SLM（1B ~ 3B 离线运行）</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="12" y="20" class="box-label" fill="#166534">承担高频低延时与隐私任务：</text>
+        <text x="12" y="38" class="mono" fill="#15803d">• 意图识别、命令解析（如“设置闹钟”）</text>
+        <text x="12" y="54" class="mono" fill="#15803d">• 个人通讯录/私密笔记本地摘要与搜索</text>
+        <text x="12" y="70" class="mono-bold" fill="#16a34a">➔ 0ms 网络延迟，数据 100% 不出设备</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#dcfce7"/>
+        <text x="12" y="20" class="box-label" fill="#166534">智能路由器功能：</text>
+        <text x="12" y="38" class="box-desc" fill="#14532d">• 若任务简单：本地直接推理并返回结果</text>
+        <text x="12" y="54" class="box-desc" fill="#14532d">• 若需深度规划：对隐私数据做本地脱敏后发往云端</text>
+      </g>
+    </g>
+
+    <!-- Right: Cloud Giant Tier (Width: 426) -->
+    <g transform="translate(462, 0)">
+      <rect width="426" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="16" y="14" width="110" height="22" rx="4" fill="#dbeafe"/>
+      <text x="71" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">云端深度层</text>
+      <text x="136" y="30" class="col-title" fill="#1e40af">超大模型集群（70B ~ 405B）</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">承担复杂推理与全域知识：</text>
+        <text x="12" y="38" class="mono" fill="#1d4ed8">• 跨领域复杂数理逻辑推理、长代码编写</text>
+        <text x="12" y="54" class="mono" fill="#1d4ed8">• 百万 Token 超长论文深度综合分析</text>
+        <text x="12" y="70" class="mono-bold" fill="#2563eb">➔ 拥有最顶级的知识储备与思维链能力</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#dbeafe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">工程协同收益：</text>
+        <text x="12" y="38" class="box-desc" fill="#1e3a8a">• 削减 80% 的云端无谓 API 调用成本</text>
+        <text x="12" y="54" class="box-desc" fill="#1e3a8a">• 兼顾手机续航发热、数据隐私与顶级推理能力</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

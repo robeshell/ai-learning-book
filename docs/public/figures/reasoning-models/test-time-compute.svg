@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">测试时计算（Test-Time Compute）与 RLVR 可验证规则强化</text>
+  <text x="36" y="68" class="subtitle">通过代码沙箱/数学真值给予确定性奖励（RLVR），模型在自我博弈中自发涌现反思、验证与分支探索</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 3-Column Progression Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Col 1: RLVR Mechanism -->
+    <g transform="translate(0, 0)">
+      <rect width="284" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#e2e8f0"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#475569">训练机制</text>
+      <text x="104" y="30" class="col-title" fill="#0f172a">RLVR 可验证奖励</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="256" height="84" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="10" y="20" class="box-label" fill="#0f172a">客观硬规则判题：</text>
+        <text x="10" y="38" class="box-desc" fill="#64748b">• 准确率奖励（Accuracy）：最终答案判对</text>
+        <text x="10" y="54" class="box-desc" fill="#64748b">• 格式奖励（Format）：严格标签包裹</text>
+        <text x="10" y="70" class="mono" fill="#0f172a">➔ 不干预中间怎么想，只看最终对不对</text>
+      </g>
+
+      <g transform="translate(14, 142)">
+        <rect width="256" height="78" rx="4" fill="#f1f5f9"/>
+        <text x="10" y="20" class="box-label" fill="#334155">核心突破：</text>
+        <text x="10" y="38" class="box-desc" fill="#64748b">• 彻底摆脱人类写死 CoT 模板的桎梏</text>
+        <text x="10" y="54" class="box-desc" fill="#64748b">• 探索空间无穷，自发找到最优推理策略</text>
+      </g>
+    </g>
+
+    <!-- Col 2: Aha Moment -->
+    <g transform="translate(302, 0)">
+      <rect width="284" height="236" rx="6" fill="#fef3c7" stroke="#fcd34d" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#fef3c7"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#92400e">自发涌现</text>
+      <text x="104" y="30" class="col-title" fill="#92400e">顿悟时刻（Aha Moment）</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="256" height="84" rx="4" fill="#ffffff" stroke="#fcd34d"/>
+        <text x="10" y="20" class="box-label" fill="#92400e">强化学习中的自我反思：</text>
+        <text x="10" y="38" class="mono-bold" fill="#b45309">"Wait, let me double check..."</text>
+        <text x="10" y="54" class="box-desc" fill="#78350f">• 发现中间假设矛盾，主动推倒重来</text>
+        <text x="10" y="70" class="box-desc" fill="#78350f">• 思考长度随训练步数自然拉长数倍</text>
+      </g>
+
+      <g transform="translate(14, 142)">
+        <rect width="256" height="78" rx="4" fill="#fef3c7"/>
+        <text x="10" y="20" class="box-label" fill="#92400e">智力形态：</text>
+        <text x="10" y="38" class="box-desc" fill="#78350f">• 展现出近似人类数理家的反思推演</text>
+        <text x="10" y="54" class="box-desc" fill="#78350f">• 并非人类强加规则，而是算力自洽收敛</text>
+      </g>
+    </g>
+
+    <!-- Col 3: Test-time Scaling -->
+    <g transform="translate(604, 0)">
+      <rect width="284" height="236" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#dcfce7"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#15803d">推理标度律</text>
+      <text x="104" y="30" class="col-title" fill="#166534">测试时算力标度律</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="256" height="84" rx="4" fill="#ffffff" stroke="#86efac"/>
+        <text x="10" y="20" class="box-label" fill="#166534">双轮驱动新范式：</text>
+        <text x="10" y="38" class="box-desc" fill="#14532d">• 预训练算力（参数大、数据多）</text>
+        <text x="10" y="54" class="box-desc" fill="#14532d">• 推理算力（思考深、Token 宽）</text>
+        <text x="10" y="72" class="mono-bold" fill="#15803d">➔ 算力可在「训得大」与「想得深」间置换</text>
+      </g>
+
+      <g transform="translate(14, 142)">
+        <rect width="256" height="78" rx="4" fill="#dcfce7"/>
+        <text x="10" y="20" class="box-label" fill="#166534">工业价值：</text>
+        <text x="10" y="38" class="box-desc" fill="#14532d">• 用 8B/32B 小模型慢思考逼近千亿大模型</text>
+        <text x="10" y="54" class="box-desc" fill="#14532d">• 动态按任务难度分配计算资源</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

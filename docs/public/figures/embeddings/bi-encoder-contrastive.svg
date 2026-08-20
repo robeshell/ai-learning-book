@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">双塔编码器（Bi-Encoder）与对比学习：拉近正例、推开负例</text>
+  <text x="36" y="68" class="subtitle">Query 与 Document 分别独立通过 Transformer 编码为定长向量，通过 InfoNCE 损失拉近相关对并推离批次负例</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Main Architecture Comparison Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Left: Bi-Encoder (Dense Retrieval) -->
+    <g transform="translate(0, 0)">
+      <rect width="426" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="16" y="14" width="90" height="22" rx="4" fill="#dbeafe"/>
+      <text x="61" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">双塔架构</text>
+      <text x="116" y="30" class="col-title" fill="#1e40af">Bi-Encoder（向量检索首选）</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">独立解耦编码机制：</text>
+        <text x="12" y="38" class="mono" fill="#1e3a8a">• Query ➔ 编码器 A ➔ 向量 u (1536维)</text>
+        <text x="12" y="54" class="mono" fill="#1e3a8a">• Document ➔ 编码器 B ➔ 向量 v (1536维)</text>
+        <text x="12" y="72" class="mono-bold" fill="#1d4ed8">➔ 相似度 = u · v（计算极快，支持十亿级库）</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#dbeafe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">工业工程优势：</text>
+        <text x="12" y="38" class="box-desc" fill="#1e3a8a">• 海量文档可 100% 离线预先计算并建索引</text>
+        <text x="12" y="54" class="box-desc" fill="#1e3a8a">• 在线仅需对单个 Query 做一次前向推断</text>
+      </g>
+    </g>
+
+    <!-- Right: Cross-Encoder (Reranker) -->
+    <g transform="translate(462, 0)">
+      <rect width="426" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="16" y="14" width="90" height="22" rx="4" fill="#e2e8f0"/>
+      <text x="61" y="29" text-anchor="middle" class="tag" fill="#475569">单塔交互</text>
+      <text x="116" y="30" class="col-title" fill="#0f172a">Cross-Encoder（重排精筛首选）</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="12" y="20" class="box-label" fill="#0f172a">全注意力交叉计算：</text>
+        <text x="12" y="38" class="mono" fill="#0f172a">• [Query, Document] 拼接送入 Transformer</text>
+        <text x="12" y="54" class="box-desc" fill="#64748b">• 词与词之间展开深度全量 Self-Attention</text>
+        <text x="12" y="72" class="mono-bold" fill="#0f172a">➔ 准确率极高，但计算复杂度无法离线预存</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#f1f5f9"/>
+        <text x="12" y="20" class="box-label" fill="#334155">黄金组合分工：</text>
+        <text x="12" y="38" class="box-desc" fill="#64748b">• Bi-Encoder（粗排）：百万库中召回前 100 条</text>
+        <text x="12" y="54" class="box-desc" fill="#64748b">• Cross-Encoder（重排）：100 条中精挑前 3 条</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

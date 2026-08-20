@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13.5px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 11.5px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">静态问答评测 vs 智能体多步轨迹评测</text>
+  <text x="36" y="68" class="subtitle">传统基准测试静态文本相似度；Agent 评测核心检验多步环境交互与最终物理状态断言</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Main Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Left: Static Eval (Width: 426) -->
+    <g transform="translate(0, 0)">
+      <rect width="426" height="236" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+      <rect x="16" y="14" width="110" height="22" rx="4" fill="#f1f5f9"/>
+      <text x="71" y="29" text-anchor="middle" class="tag" fill="#475569">静态单轮评测</text>
+      <text x="136" y="30" class="col-title" fill="#1e293b">传统模型基准 (MMLU / GSM8K)</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+        <text x="12" y="20" class="box-label" fill="#334155">评测机制：</text>
+        <text x="12" y="38" class="mono" fill="#475569">Input ➔ [LLM] ➔ Output Text (A/B/C/D)</text>
+        <text x="12" y="56" class="box-desc" fill="#64748b">• 单步生成，无外部环境反馈</text>
+        <text x="12" y="72" class="mono-bold" fill="#0284c7">➔ 仅考察知识记忆与封闭文本推理</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#f1f5f9"/>
+        <text x="12" y="20" class="box-label" fill="#334155">局限性：</text>
+        <text x="12" y="38" class="box-desc" fill="#475569">• 无法评估工具调用序列合理性与容错能力</text>
+        <text x="12" y="54" class="box-desc" fill="#475569">• 高分模型在复杂工程实战中可能瞬间卡死或死循环</text>
+      </g>
+    </g>
+
+    <!-- Right: Agent Trajectory Eval (Width: 426) -->
+    <g transform="translate(462, 0)">
+      <rect width="426" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="16" y="14" width="110" height="22" rx="4" fill="#dbeafe"/>
+      <text x="71" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">智能体轨迹评测</text>
+      <text x="136" y="30" class="col-title" fill="#1e40af">沙箱与物理断言 (SWE-bench / GAIA)</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">全流程多步评估指标：</text>
+        <text x="12" y="38" class="mono" fill="#1d4ed8">Thought ➔ Tool Action ➔ Obs ➔ State Change</text>
+        <text x="12" y="56" class="box-desc" fill="#1e3a8a">• 轨迹效率：步数消耗、冗余工具调用比例</text>
+        <text x="12" y="72" class="mono-bold" fill="#2563eb">➔ 最终状态断言：单元测试是否全部 Pass (True/False)</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#dbeafe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">工程价值：</text>
+        <text x="12" y="38" class="box-desc" fill="#1e3a8a">• 提供绝对客观、可自动回归的研发质量基线</text>
+        <text x="12" y="54" class="box-desc" fill="#1e3a8a">• 精准定位是模型理解不足、工具报错还是环境故障</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

@@ -1,6 +1,6 @@
 ---
 title: "Token：文字的度量衡"
-description: "BPE 词表切分、中英文切分差异与计费度量衡。"
+description: "从字符到子词与 BPE 算法，及现代大词表演进。"
 series: understand-ai
 chapter: foundation
 order: 3
@@ -13,184 +13,215 @@ videoSource: token
 
 # Token：文字的度量衡
 
-人们在使用大语言模型时，经常会看到「128k 上下文窗口」、「每百万 Token 计费 0.15 美元」或者「输出最大 4096 Token」这类术语。初学者常常把 Token 等同于「字」或「单词」，但在大模型的底层世界里，Token 是神经网络与人类语言进行交互的最小度量衡。
+在实际使用大模型时，我们经常会看到“128k 上下文窗口”、“每百万 Token 计费 0.15 美元”或“最大输出 4096 Token”等术语。
 
-深度神经网络本质上是由浮点数矩阵构成的计算系统，它无法直接读写 ASCII 字符或 UTF-8 字符串。文本要被大模型理解，必须先由分词器（Tokenizer）切分成离散的片段，再将每个片段映射为一个固定的整数编号（Token ID），最后通过嵌入矩阵（Embedding Lookup Table）转化为连续的高维稠密向量。
+直觉上人们常把 Token 简单等同于“字”或“词”。但在大模型的底层计算中，**Token 是神经网络处理人类自然语言的最小离散单元**。
+
+深度神经网络本质上是由浮点数矩阵构成的计算系统，它无法直接读写 ASCII 字符或 UTF-8 字符串。文本进入模型前，必须先由分词器（Tokenizer）切分为离散片段，将片段映射为整数编号（Token ID），再通过嵌入层（Embedding Lookup Table）转化为高维稠密向量。
 
 <figure>
   <img src="/figures/token/pipeline.svg" alt="文本到向量的转换流程" />
   <figcaption>文本到稠密向量的 Token 化转换流水线</figcaption>
 </figure>
 
-理解 Token 的生成机制、分词算法的演进以及中英文之间的切分差异，是看懂大模型上下文容量限制、显存瓶颈、计费逻辑乃至某些奇异行为（如「数不对单词字母」）的关键基石。
+理解 Token 的生成机制、分词算法以及词表规模的演进，是理解模型上下文长度限制、显存开销以及计费模式的基础。
 
 ---
 
-## 为什么不直接按字或词切分
+## 为什么不能只按字符或按词切分
 
-在自然语言处理的早期，研究者面临着一个两难的切分困境：
+在自然语言处理中，对文本进行切分通常面临两种极端的选择：
 
-1. **按字符切分（Character-level）**：将每个字母（a, b, c...）或每个汉字作为一个独立单位。
-   - **优点**：词表极小（英文字母加上常见标点不过上百个），永远不会遇到没见过的未知符号。
-   - **致命缺陷**：文本序列会变得极长。一个 500 词的英文段落可能会被切成 3000 个字符。由于标准自注意力机制的计算与显存复杂度与序列长度呈二次方关系（$O(N^2)$），过长的序列会让自注意力层的计算与 KV Cache 显存消耗瞬间爆炸。
-2. **按词切分（Word-level）**：按照空格或分词工具将完整的单词（apple, transformer）作为单位。
-   - **优点**：序列长度短，语义聚合度高。
-   - **致命缺陷**：词表无限膨胀。英语中存在词根变化、时态衍生、复合词以及海量人名术语；一旦遇到词表中未记录的生僻词，模型只能无奈地输出 `<UNK>`（Unknown，未登录词），造成严重的信息截断。
+1. **按字符切分（Character-level）**：将每个字母（a, b, c...）或汉字作为独立单位。
+   - **优点**：词表极小（英文字母与常见标点仅上百个），几乎不会遇到未登录词（Out-of-Vocabulary, OOV）。
+   - **缺陷**：序列长度极长。一段 500 词的英文会产生数千个字符。由于标准自注意力机制的计算与 KV Cache 显存开销与序列长度呈二次方关系（$O(N^2)$），过长的序列会导致计算量和显存急剧膨胀。
+2. **按完整词切分（Word-level）**：以空格或分词工具切出的完整单词（apple, transformer）为单位。
+   - **优点**：序列长度短，语义集中。
+   - **缺陷**：词表无限膨胀。英语中存在词根变化、时态衍生、复合词以及海量专有名词；一旦遇到词表中未记录的生僻词，模型只能输出 `<UNK>`（Unknown，未知词），造成信息丢失。
 
-为了打破这种「极小词表导致超长序列」与「超大词表导致生词死角」的对立，**子词分词算法（Subword Tokenization）** 应运而生。其核心思想非常优雅：**高频出现的完整词保留为独立 Token，低频出现的生僻词拆解为若干高频的词根或子片段**。
+为了兼顾序列紧凑度与词表覆盖率，**子词分词算法（Subword Tokenization）** 成为了现代大模型的标准方案：**高频出现的完整词保留为独立 Token，低频出现的词拆解为高频子片段（词根或字节组合）**。
 
 ---
 
-## BPE 算法：统计驱动的自底向上合并
+## BPE 算法的构建过程
 
-目前主流大模型（如 GPT 系列、Llama 系列、Qwen 等）普遍采用 **字节对编码（Byte Pair Encoding, BPE）** 或其变体（Byte-level BPE）。
-
-BPE 原本是一种通用的数据压缩算法，[Sennrich 等人在 2016 年发表的论文 *Neural Machine Translation of Rare Words with Subword Units*](https://arxiv.org/abs/1508.07909) 中，首次将其创造性地引入自然语言处理的子词切分领域。随后，[Radford 等人在 2019 年的 GPT-2 技术报告](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf) 中提出了直接在 UTF-8 字节流上运行的 Byte-level BPE，彻底奠定了现代大模型分词器的技术范式。此外，Google 在 BERT 中使用的 [WordPiece（Schuster & Nakajima 2012）](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/37842.pdf) 以及跨语言常用的 [SentencePiece（Kudo & Richardson 2018）](https://arxiv.org/abs/1808.06226)，也都是这一思路的分支。
+目前主流大模型（如 GPT 系列、Llama 系列、Qwen、DeepSeek 等）普遍采用 **字节对编码（Byte Pair Encoding, BPE）** 或 Byte-level BPE。
 
 <figure>
   <img src="/figures/token/bpe-merge.svg" alt="BPE 字节对编码合并机制" />
   <figcaption>BPE 字节对编码自底向上迭代合并机制</figcaption>
 </figure>
 
-BPE 的构建流程极其直观：
-1. **准备初始词表**：将训练语料中的所有单词拆解为最小单位（如所有 ASCII 字母与基础符号，或者 256 个 UTF-8 基础字节）。
-2. **统计频次**：遍历语料库，统计所有相邻 Token 组合（Pair）出现的频次。
-3. **合并最高频对**：挑出出现次数最多的那个相邻对（例如 `('e', 's')`），将其合并为一个新的复合 Token（`'es'`），并将这一合并规则写入规则库。
-4. **迭代重复**：在更新后的语料上再次统计并合并，直到词表达到预设的容量目标（例如 50,000 或 128,000）。
+BPE 原本是一种数据压缩算法，其核心逻辑是从最小单元出发，通过统计最高频相邻对并进行迭代合并：
 
-通过这一过程，高频词汇（如 `the`、`is`、`model`）在几轮合并后直接成为了单个 Token；而罕见词汇（如 `unbelievably`）则会被自然拆解为 `un` + `believ` + `ably` 三个高频词根。
+1. **基础词表初始化**：现代分词器直接以 256 个基础字节（UTF-8 字节 `0x00` 到 `0xFF`）作为初始词表，保证所有文本都能被表示，从根本上消除了 `<UNK>`；
+2. **统计相邻对频次**：遍历训练语料，统计所有相邻 Token 组合（Pair）的出现频次；
+3. **合并最高频对**：挑出频次最高的相邻对（例如 `('e', 's')`），合并为一个新的 Token（`'es'`），并将规则加入合并表（Merge Table）；
+4. **循环迭代**：在更新后的语料上重复上述统计与合并过程，直到词表达到预设容量（如 128k 或 152k）。
 
-我们可以用 Python 配合 OpenAI 开源的 `tiktoken` 库观察实际的分词切分效果：
+通过这种自底向上的迭代，高频词（如 `the`、`model`）在几轮合并后成为单独的 Token；而生僻词（如 `unbelievably`）则自然拆解为 `un` + `believ` + `ably`。
+
+### 正则切分规则的作用
+
+在实际工程实现（如 GPT-2/4、Llama）中，分词器在统计 BPE 合并前，会先用正则表达式将文本拆分为独立的原子块：
 
 ```python
-import tiktoken
-
-# 获取 GPT-4o 采用的 o200k_base 分词器
-encoding = tiktoken.get_encoding("o200k_base")
-
-text = "Transformer models encode text into tokens."
-token_ids = encoding.encode(text)
-tokens = [encoding.decode_single_token_bytes(t).decode('utf-8') for t in token_ids]
-
-print("Token IDs:", token_ids)
-print("切分片段:", tokens)
-# 输出:
-# Token IDs: [51978, 4211, 23783, 1495, 1109, 13783, 13]
-# 切分片段: ['Transformer', ' models', ' encode', ' text', ' into', ' tokens', '.']
+# GPT-4 / cl100k_base 采用的正则切分模式
+GPT4_SPLIT_PATTERN = r"""'s|'t|'re|'ve|'m|'ll|'d| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+"""
 ```
 
-> **注意前缀空格**：在上面的输出中，你会发现许多词的开头都带有一个空格（如 `' models'`、`' encode'`）。在 Byte-level BPE 中，空格被视为普通字符一同参与统计。因此，「包含前导空格的单词」与「单独开头的单词」在分词器看来是两个完全不同的 Token ID。
+**为什么需要这一步？**  
+如果不加限制，BPE 算法在统计时可能会将标点符号与单词合并（例如将 `dog!`、`dog?`、`dog.` 分别合并为不同的 Token），导致词表被大量带有标点的冗余词条填满。正则表达式将缩写、字母、数字、标点和空格隔离在各自的范畴内，确保 BPE 只在相同类别内部进行合并。
 
 ---
 
-## 词表规模与多语言「汉字刺客」
+## 词表规模与多语言压缩
 
-分词器的核心参数是 **词表大小（Vocabulary Size, 简写为 $V$）**。
-
-在早期大模型时代（如 GPT-2、GPT-3 及 GPT-3.5 使用的 `cl100k_base` 之前），训练语料主要以英文为主，词表大小通常设置在 30,000 到 50,000 左右。这导致了非英语语系（尤其是中文、日文、阿拉伯文）在使用大模型时遭遇了著名的「Token 刺客」现象。
-
-### 为什么早期汉字消耗的 Token 远多于英文
-
-根据 UTF-8 编码规范：
-- 标准英文字母与 ASCII 字符占用 **1 个字节（Byte）**；
-- 绝大多数常用汉字占用 **3 个字节（Bytes）**。
-
-如果一个模型的词表主要被英文高频子词填满，没有为中文汉字或高频中文词汇预留足够的位置，分词器就只能把汉字拆成 3 个独立的 UTF-8 字节碎片来表示。
+分词器的核心参数是 **词表大小（Vocabulary Size, $V$）**。
 
 <figure>
   <img src="/figures/token/vocab-comparison.svg" alt="词表规模与多语言压缩率对比" />
   <figcaption>词表规模演进与多语言文本压缩率对比</figcaption>
 </figure>
 
-这就造成了显著的非对称性：
-- 表达相同的信息量，英文段落可能只需 **100 个 Token**；
-- 中文翻译段落可能需要被拆解成 **250 到 300 个 Token**。
+### 早期小词表的碎片化问题
 
-这不仅导致中文调用 API 时的实际计费成本飙升 2~3 倍，而且同样标称为 32k 的上下文窗口，能容纳的中文有效字数只有英文的不到一半，严重制约了中文长文本的处理能力。
+在早期模型（如 GPT-2、LLaMA 1）中，词表通常仅设为 32k 或 50k 左右，且训练语料以英文为主：
+- 标准 ASCII 字符在 UTF-8 中占用 **1 个字节**；
+- 常用汉字在 UTF-8 中占用 **3 个字节**。
 
-### 现代大模型的破局：扩充多语言词表
+当词表中缺乏足够的中文词条时，一个汉字往往会被拆解为 2 到 3 个独立的字节 Token。这导致了早期非英语语系的“Token 膨胀”：表达相同语义，中文消耗的 Token 数量可达英文的 2 到 3 倍。
 
-为了解决多语言压缩效率低下的问题，近两年的主流大模型大幅扩充了词表体积：
-- **LLaMA 1 & 2**：词表仅为 32,000（中文极度碎片化）；
-- **LLaMA 3**：词表扩张到 128,256（增加了大量多语言与代码 Token）；
-- **Qwen 1.5 / 2.5**：词表扩张到 151,646 到 152,064；
-- **GPT-4o**：升级为 `o200k_base`，词表扩充至约 200,000。
+这不仅推高了非英语调用的 API 成本，更使得标称为 32k 的上下文窗口实际能容纳的中文信息量大打折扣。
 
-词表扩充到 128k+ 之后，常见的两字词、四字成语乃至多字专业术语（如「人工智能」、「中华人民共和国」）都能被压缩为仅 1~2 个 Token。中英文的实际信息压缩比（Compression Ratio）终于拉到了接近 1:1 的平准线。
+### 现代大模型的词表演进
 
----
+2024–2026 年的主流大模型普遍扩充了词表体积：
+- **Llama 2 (32k)** $\to$ **Llama 3 (128k)**；
+- **Qwen 1.5 / 2.5 (152k)**；
+- **GPT-4o (200k)**。
 
-## 度量衡的双重属性：容量尺度与计费尺度
-
-Token 既是大模型物理硬件层面的 **容量尺度**，也是商业应用层面的 **计费尺度**。
-
-### 1. 容量尺度：上下文与显存
-
-大模型的标称规格中，最核心的一项就是上下文窗口长度（Context Length, $L$）。无论是 8k、32k 还是 128k，这里的计数单位全是 Token。
-
-Token 数量直接决定了两项物理消耗：
-- **自注意力计算复杂度**：在没有任何稀疏优化的标准 Transformer 中，计算全序列关联的矩阵乘法复杂度为 $O(L^2)$。Token 数量翻倍，计算量呈平方级上升。
-- **KV Cache 显存开销**：在多轮对话与自回归生成过程中，每处理一个 Token，模型每一层的键向量（Key）和值向量（Value）都必须常驻显存。其显存消耗公式为：
-
-$$\text{KV Cache 大小 (Bytes)} = 2 \times n_{\text{layers}} \times d_{\text{model}} \times L \times \text{Bytes per float}$$
-
-其中 $n_{\text{layers}}$ 为网络层数，$d_{\text{model}}$ 为隐藏层维度，$L$ 为序列 Token 长度。对于一个千亿模型，128k 的 Token 序列仅 KV Cache 就会吃掉几十甚至上百 GB 的显存。
-
-### 2. 计费尺度：为什么输入比输出便宜
-
-在主流云服务商（如 OpenAI、Anthropic、阿里云等）的 API 价格表里，通常会区分两类价格：
-- **Prompt / Input Token（输入价格）**：相对低廉（如 \$0.15 / 1M tokens）；
-- **Completion / Output Token（输出价格）**：显著更贵（通常是输入的 3 到 5 倍，如 \$0.60 / 1M tokens）。
-
-很多开发者好奇：同样是一个 Token，为什么输出要比输入贵这么多？
-
-其本质原因在于两者在 GPU 计算模式上的根本差异：
-1. **输入阶段（Prefill 阶段）**：用户传入的整个 Prompt 可以被一次性并行送入 GPU。此时 GPU 的千百个计算核心处于高并发打满状态，属于 **计算密集型（Compute-Bound）**，吞吐速度极快，硬件利用效率极高。
-2. **输出阶段（Decoding 阶段）**：模型必须按自回归逻辑一个 Token 一个 Token 串行生成。每预测出一个新 Token，GPU 就要把全部百亿/千亿参数及整个历史 KV Cache 从显存（HBM）重新读取一次到计算核心中。此时算力严重闲置，瓶颈卡在显存带宽上，属于 **访存密集型（Memory-Bound）**，硬件吞吐效率极低。
-
-因此，Output Token 昂贵的溢价不是商业套路，而是为了补偿 GPU 串行推理时被闲置的计算带宽成本。
+词表扩充后，常见的中文双字词、四字成语乃至专业术语都能聚合为 1~2 个 Token，中英文的信息压缩率基本对齐。
 
 ---
 
-## 分词器引发的奇特「物理现象」
+## Token 机制带来的实际影响
 
-由于大模型直接打交道的是 Token ID 而不是字符流，这在现实交互中引发了许多看似匪夷所思的现象：
+由于模型底层直接处理的是 Token ID 而非原始字符流，这在实际交互中引发了若干常见现象：
 
-### 现象一：为什么模型数不对单词里的字母？
+### 1. 字符级任务表现受限
+例如询问 `"strawberry 里面有几个字母 r？"` 时，早期模型容易答错。这是因为分词器将 `strawberry` 作为一个整体 Token 输入，模型接收到的是一个单一的向量，并未直接看到内部字符序列。若要在 Prompt 中改善此类任务，通常需要引导模型将单词逐字符拆解输出（如 `s-t-r-a-w-b-e-r-r-y`）。
 
-最经典的例子是提问：`"How many 'r's are in 'strawberry'?"`（strawberry 里有几个字母 r？）。许多早期顶尖模型都会坚定地回答是 2 个。
+### 2. 多位数加减法与单数字切分
+如果分词器将 `12893` 切成 `[128, 93]`，把 `45912` 切成 `[45, 912]`，这种不规则的切分会打乱竖式计算的数位对齐。现代分词器（如 Llama 3）通常在正则切分中强制将数字逐位切开（`0-9` 各占一个 Token），以提高模型的算术运算稳定性。
 
-<figure>
-  <img src="/figures/token/pipeline.svg" alt="Token 切分导致的底层字符流盲区" />
-  <figcaption>Token 切分导致的底层字符流盲区</figcaption>
-</figure>
+### 3. 空格对分词边界的影响
+在 Byte-level BPE 中，空格会被当作普通字节参与合并。因此 `' world'`（带前缀空格）与 `'world'`（无前缀空格）对应不同的 Token ID。在设计 Prompt 时，尾部多余的空格可能会改变下一个 Token 的切分边界，从而影响补全结果。
 
-原因就在于分词器：`strawberry` 在绝大多数分词器中被整块切分为单个 Token `[strawberry]`（ID 为 42352）或者两个片段 `[straw, berry]`。进入 Transformer 运算的只有这个向量，模型根本没有机会「逐字查看」里面的每一个字母拼写。除非你在 Prompt 中强制要求它用连字符拆开（`s-t-r-a-w-b-e-r-r-y`）让其暴露每个字符，否则它只能靠黑盒统计概率瞎猜。
+### 4. 输入与输出的计费差异
+在云服务商的 API 计费中，Output Token 通常显著贵于 Input Token：
+- **Input 阶段（Prefill）**：用户输入的 Prompt 被一次性并行送入 GPU，计算核心利用率高，属于 **计算密集型（Compute-Bound）**；
+- **Output 阶段（Decoding）**：自回归生成必须串行逐字预测，每生成一个 Token 都要从显存中重新加载模型权重与 KV Cache，受显存带宽限制，属于 **访存密集型（Memory-Bound）**。
 
-### 现象二：多位数加减法容易算错
-
-如果你让大模型计算 `12893 + 45912`，有时它会在中间某一位算错。这是因为分词器在处理长数字时并没有统一的数学切分逻辑，可能会把 `12893` 切成 `[128, 93]`，把 `45912` 切成 `[45, 912]`。这种不对齐的数字切分打破了人类列竖式计算时「个十百千万」的对齐结构，给神经网络的内部数字推理造成了额外的认知障碍。
+因此，Output Token 的溢价反映了 GPU 串行推理时被闲置的计算带宽成本。
 
 ---
 
-## 读到这里该能分清
+## 最小代码实现
 
-Token 是大模型处理语言的最小离散单元。文本经分词器转化为整数 ID，再通过嵌入矩阵检索映射为高维连续向量。
+以下代码演示了基于字节流的 BPE 统计与合并逻辑：
 
-BPE 算法通过统计最高频相邻子词自底向上合并，兼顾了紧凑的序列长度与零未登录词（No OOV）的边界覆盖。
+```python
+def get_stats(ids):
+    """统计相邻 Token 对的出现频次"""
+    counts = {}
+    for pair in zip(ids, ids[1:]):
+        counts[pair] = counts.get(pair, 0) + 1
+    return counts
 
-中英文切分效率由词表规模决定。现代大模型通过扩充多语言词表（128k~200k），消除了早期 UTF-8 字节拆解导致的中文「Token 刺客」现象。
+def merge(ids, pair, idx):
+    """将序列中的目标相邻对替换为新的 Token ID"""
+    newids = []
+    i = 0
+    while i < len(ids):
+        if i < len(ids) - 1 and ids[i] == pair[0] and ids[i+1] == pair[1]:
+            newids.append(idx)
+            i += 2
+        else:
+            newids.append(ids[i])
+            i += 1
+    return newids
 
-Token 是硬件上下文与显存 KV Cache 的物理容量尺度，也是衡量 Prefill 并行计算与 Decode 串行访存瓶颈的商业计费尺度。
+def bpe_demo():
+    raw_text = "aaabdaaabac"
+    print("原始文本:", repr(raw_text))
+    
+    # 1. 转换为 UTF-8 字节序列 (基础词表 0-255)
+    tokens = list(raw_text.encode("utf-8"))
+    print("初始字节序列 (长度 %d):" % len(tokens), tokens)
+    
+    # 初始化词表映射: ID -> 字节串
+    vocab = {idx: bytes([idx]) for idx in range(256)}
+    
+    # 2. 迭代执行 3 轮合并
+    num_merges = 3
+    for i in range(num_merges):
+        stats = get_stats(tokens)
+        if not stats:
+            break
+        top_pair = max(stats, key=stats.get)
+        new_id = 256 + i
+        tokens = merge(tokens, top_pair, new_id)
+        vocab[new_id] = vocab[top_pair[0]] + vocab[top_pair[1]]
+        print(f"第 {i+1} 步合并 {top_pair} -> 新ID {new_id} ({repr(vocab[new_id].decode())}), 频次: {stats[top_pair]}")
+        
+    print("\n合并后 Token 序列 (长度 %d):" % len(tokens), tokens)
+    
+    # 3. 解码验证
+    decoded_bytes = b"".join(vocab[idx] for idx in tokens)
+    print("解码还原文本:", repr(decoded_bytes.decode("utf-8")))
 
-分词器的粗粒度聚合使得模型无法直接「感知」单词内部的单个字母拼写，这是导致数字母失误和数字对齐异常的底层原因。
+bpe_demo()
+```
 
-下一篇我们进入模型单次前向推理的视野边界，探讨长文本处理中的核心工作台与瓶颈——《上下文窗口与视野极限》。
+**控制台输出：**
+```text
+原始文本: 'aaabdaaabac'
+初始字节序列 (长度 11): [97, 97, 97, 98, 100, 97, 97, 97, 98, 97, 99]
+第 1 步合并 (97, 97) -> 新ID 256 ('aa'), 频次: 4
+第 2 步合并 (256, 97) -> 新ID 257 ('aaa'), 频次: 2
+第 3 步合并 (257, 98) -> 新ID 258 ('aaab'), 频次: 2
+
+合并后 Token 序列 (长度 5): [258, 100, 258, 97, 99]
+解码还原文本: 'aaabdaaabac'
+```
+
+---
+
+## 核心概念辨析
+
+- **按字符分词 vs 按词分词 vs 子词分词（BPE）**：
+  - 按字符序列过长引发自注意力二次方计算开销；
+  - 按词分词词表无限膨胀且存在 `<UNK>` 盲区；
+  - BPE 通过高频对合并在序列长度与词表规模之间取得平衡。
+- **Byte-level BPE vs 普通 BPE**：
+  - 普通 BPE 以字符为基础，仍可能遇到未知字符；
+  - Byte-level BPE 以 256 个 UTF-8 基础字节为底，从根本上消灭了未登录词。
+- **小词表（32k）vs 大词表（128k+）**：
+  - 小词表下非英语文本常被拆解为字节碎片，序列膨胀；
+  - 大词表大幅提升多语言压缩率，降低计算与显存开销。
+- **Prefill 阶段 vs Decoding 阶段**：
+  - Prefill 阶段并行计算，受 GPU 算力限制（Compute-bound）；
+  - Decoding 阶段串行逐字推理，受显存带宽限制（Memory-bound）。
+
+分词器将文本转换为离散的 Token 后，大模型如何在有限的单次推理中容纳这些序列？下一篇我们将探讨——《上下文窗口与视野极限》。
+
+---
 
 ## 参考文献
 
 1. Sennrich, R., Haddow, B., & Birch, A. (2016). [*Neural Machine Translation of Rare Words with Subword Units*](https://arxiv.org/abs/1508.07909). ACL 2016 / arXiv:1508.07909.
 2. Radford, A., Wu, J., Child, R., et al. (2019). [*Language Models are Unsupervised Multitask Learners*](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf). OpenAI Technical Report (GPT-2 Byte-level BPE).
-3. Schuster, M., & Nakajima, K. (2012). [*Japanese and Korean voice search*](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/37842.pdf). ICASSP 2012.
-4. Kudo, T., & Richardson, J. (2018). [*SentencePiece: A simple and language independent subword tokenizer and detokenizer for Neural Text Processing*](https://arxiv.org/abs/1808.06226). EMNLP 2018 / arXiv:1808.06226.
+3. Kudo, T., & Richardson, J. (2018). [*SentencePiece: A simple and language independent subword tokenizer and detokenizer for Neural Text Processing*](https://arxiv.org/abs/1808.06226). EMNLP 2018 / arXiv:1808.06226.
+4. Karpathy, Andrej. (2024). [*Let's build the GPT Tokenizer*](https://www.youtube.com/watch?v=zduSFxRajkE). YouTube / GitHub `minbpe`.
 5. OpenAI. (2023). [*tiktoken: A fast BPE tokeniser for use with OpenAI's models*](https://github.com/openai/tiktoken).

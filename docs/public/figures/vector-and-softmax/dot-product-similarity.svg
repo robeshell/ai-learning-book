@@ -45,9 +45,9 @@
       <g transform="translate(14, 134)">
         <rect width="256" height="88" rx="4" fill="#dcfce7"/>
         <text x="10" y="20" class="mono-large" fill="#15803d">a · b &gt; 0 (正向高分)</text>
-        <text x="10" y="38" class="box-desc" fill="#14532d">两向量方向接近，说明语义高度</text>
-        <text x="10" y="52" class="box-desc" fill="#14532d">重合（如“小猫”与“猫粮”）。</text>
-        <text x="10" y="72" class="box-desc" font-weight="700" fill="#166534">👉 自注意力 Q 与 K 高分来源！</text>
+        <text x="10" y="38" class="box-desc" fill="#14532d">两向量方向接近，说明特征空间</text>
+        <text x="10" y="52" class="box-desc" fill="#14532d">高度重合（如“小猫”与“小狗”）。</text>
+        <text x="10" y="72" class="box-desc" font-weight="700" fill="#166534">👉 空间同向特征匹配物理本质</text>
       </g>
     </g>
 
@@ -72,8 +72,8 @@
         <rect width="256" height="88" rx="4" fill="#f1f5f9"/>
         <text x="10" y="20" class="mono-large" fill="#334155">a · b = 0 (零分，无投影)</text>
         <text x="10" y="38" class="box-desc" fill="#475569">两概念维度正交，毫无语义交集</text>
-        <text x="10" y="52" class="box-desc" fill="#475569">（如“小猫”与“量子比特”）。</text>
-        <text x="10" y="72" class="box-desc" fill="#64748b">👉 注意力权重为 0，互不干扰。</text>
+        <text x="10" y="52" class="box-desc" fill="#475569">（如“小猫”与“潜水艇”）。</text>
+        <text x="10" y="72" class="box-desc" fill="#64748b">👉 相互正交分量在内积时完全归零</text>
       </g>
     </g>
 
@@ -99,7 +99,7 @@
         <text x="10" y="20" class="mono-large" fill="#c2410c">a · b &lt; 0 (负分，互斥)</text>
         <text x="10" y="38" class="box-desc" fill="#7c2d12">方向相反，意味着语义特征排斥</text>
         <text x="10" y="52" class="box-desc" fill="#7c2d12">（如“炎热”与“结冰”）。</text>
-        <text x="10" y="72" class="box-desc" fill="#9a3412">👉 后续 Softmax 压制为 ~0%。</text>
+        <text x="10" y="72" class="box-desc" fill="#9a3412">👉 经过 Softmax 后概率被极度压制</text>
       </g>
     </g>
 

@@ -16,7 +16,7 @@
   <rect width="960" height="380" fill="#ffffff"/>
 
   <!-- Header -->
-  <text x="36" y="44" class="title">无状态 HTTP 请求：多轮对话中的 Token「滚雪球」累积</text>
+  <text x="36" y="44" class="title">无状态 HTTP 请求：多轮交互中的数据「滚雪球」累积</text>
   <text x="36" y="68" class="subtitle">服务端不保存会话记忆，客户端必须在每次请求中完整重传历史，导致输入开销随轮次剧烈上升</text>
   <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
 

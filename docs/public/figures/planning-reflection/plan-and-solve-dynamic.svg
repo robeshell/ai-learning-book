@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13.5px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 11.5px; font-weight: 700; }
+      .box-desc { font-size: 10.5px; font-weight: 400; line-height: 1.35; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">Plan-and-Solve 任务规划与动态重规划（Re-planning）机制</text>
+  <text x="36" y="68" class="subtitle">先构建全局依赖拓扑（DAG），自顶向下分步推进；遭遇意外物理障碍时触发动态重规划自愈</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Pipeline 4 Stages -->
+  <g transform="translate(36, 114)">
+
+    <!-- Stage 1: Goal Decomposition (Width: 205) -->
+    <g transform="translate(0, 0)">
+      <rect width="200" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#dbeafe"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#1d4ed8">阶段 1</text>
+      <text x="12" y="52" class="col-title" fill="#1e40af">宏观目标分解</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="8" y="18" class="box-label" fill="#1e40af">分解为原子步骤 DAG：</text>
+        <text x="8" y="38" class="mono" fill="#1d4ed8">1. 扫描当前架构与依赖</text>
+        <text x="8" y="54" class="mono" fill="#1d4ed8">2. 迁移数据表 Schema</text>
+        <text x="8" y="70" class="mono" fill="#1d4ed8">3. 重构核心业务接口</text>
+        <text x="8" y="86" class="mono" fill="#1d4ed8">4. 运行全量回归测试</text>
+        <text x="8" y="112" class="box-desc" fill="#1e3a8a">• 明确先后顺序与依赖</text>
+        <text x="8" y="128" class="mono-bold" fill="#2563eb">➔ 拒绝盲目动手修改</text>
+      </g>
+    </g>
+
+    <!-- Arrow 1 -->
+    <g transform="translate(206, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Stage 2: Step Execution (Width: 205) -->
+    <g transform="translate(226, 0)">
+      <rect width="200" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#e2e8f0"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#475569">阶段 2</text>
+      <text x="12" y="52" class="col-title" fill="#0f172a">按部就班逐步执行</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="8" y="18" class="box-label" fill="#0f172a">维护看板状态机：</text>
+        <text x="8" y="38" class="mono" fill="#15803d">✔ 步骤 1: 完成</text>
+        <text x="8" y="54" class="mono" fill="#b45309">⚡ 步骤 2: 正在执行...</text>
+        <text x="8" y="70" class="mono" fill="#64748b">⏳ 步骤 3: 等待依赖</text>
+        <text x="8" y="86" class="mono" fill="#64748b">⏳ 步骤 4: 等待依赖</text>
+        <text x="8" y="112" class="box-desc" fill="#64748b">• 保持清晰的局部视野</text>
+        <text x="8" y="128" class="mono-bold" fill="#0f172a">➔ 降低单次认知负荷</text>
+      </g>
+    </g>
+
+    <!-- Arrow 2 -->
+    <g transform="translate(432, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Stage 3: Dynamic Re-plan (Width: 205) -->
+    <g transform="translate(452, 0)">
+      <rect width="200" height="236" rx="6" fill="#fdf4ff" stroke="#f5d0fe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#fae8ff"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#c026d3">阶段 3</text>
+      <text x="12" y="52" class="col-title" fill="#86198f">意外受阻与重规划</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#f5d0fe"/>
+        <text x="8" y="18" class="box-label" fill="#86198f">执行反馈报错：</text>
+        <text x="8" y="38" class="mono" fill="#b91c1c">"数据库包含未识别旧类型"</text>
+        <text x="8" y="58" class="box-label" fill="#86198f">动态插入补丁计划：</text>
+        <text x="8" y="76" class="mono" fill="#a21caf">+ 步骤 2.1: 转换旧数据</text>
+        <text x="8" y="92" class="mono" fill="#a21caf">+ 步骤 2.2: 重试迁移</text>
+        <text x="8" y="118" class="box-desc" fill="#701a75">• 动态调整后续拓扑</text>
+        <text x="8" y="134" class="mono-bold" fill="#86198f">➔ 自适应应对现实变化</text>
+      </g>
+    </g>
+
+    <!-- Arrow 3 -->
+    <g transform="translate(658, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Stage 4: Goal Accomplished (Width: 205) -->
+    <g transform="translate(678, 0)">
+      <rect width="205" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#dcfce7"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#16a34a">阶段 4</text>
+      <text x="12" y="52" class="col-title" fill="#166534">最终成果交付</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="181" height="154" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="8" y="18" class="box-label" fill="#166534">全步骤完成验收：</text>
+        <text x="8" y="38" class="mono" fill="#15803d">✔ 步骤 1~4 全绿通过</text>
+        <text x="8" y="56" class="box-desc" fill="#14532d">• 生成结构化交付报告</text>
+        <text x="8" y="72" class="box-desc" fill="#14532d">• 附带迁移测试覆盖率</text>
+        <text x="8" y="94" class="box-label" fill="#166534">工程价值：</text>
+        <text x="8" y="112" class="box-desc" fill="#14532d">• 复杂长任务可控可预期</text>
+        <text x="8" y="128" class="mono-bold" fill="#16a34a">➔ 告别黑盒盲目试错</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

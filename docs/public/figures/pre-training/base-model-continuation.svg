@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">Base 基座模型 vs Chat 助手：文本接龙与指令遵循的本质分界</text>
+  <text x="36" y="68" class="subtitle">预训练产出的 Base 模型只掌握自监督文本补全逻辑，不会主动理解人类的对话与问答意图</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 2-Column Comparison -->
+  <g transform="translate(36, 114)">
+
+    <!-- Left: Base Model (Text Completion) -->
+    <g transform="translate(0, 0)">
+      <rect width="426" height="236" rx="6" fill="#fff5f5" stroke="#fecaca" stroke-width="1.5"/>
+      <rect x="16" y="14" width="90" height="22" rx="4" fill="#fee2e2"/>
+      <text x="61" y="29" text-anchor="middle" class="tag" fill="#b91c1c">纯文本接龙</text>
+      <text x="116" y="30" class="col-title" fill="#991b1b">Base 基座模型（毛坯房）</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="86" rx="4" fill="#ffffff" stroke="#fca5a5"/>
+        <text x="12" y="20" class="mono-bold" fill="#0f172a">输入 Prompt: "中国的首都是哪里？"</text>
+        <line x1="12" y1="30" x2="382" y2="30" stroke="#fecaca" stroke-width="1"/>
+        <text x="12" y="48" class="mono" fill="#dc2626">可能续写 1: "A. 北京  B. 上海  C. 广州  D. 深圳"</text>
+        <text x="12" y="66" class="mono" fill="#dc2626">可能续写 2: "日本的首都是东京，法国的首都是巴黎..."</text>
+        <text x="12" y="82" class="mono" fill="#dc2626">可能续写 3: "这是一道常见的高中地理考题，请回答。"</text>
+      </g>
+
+      <g transform="translate(16, 144)">
+        <rect width="394" height="76" rx="4" fill="#fee2e2"/>
+        <text x="12" y="20" class="box-label" fill="#991b1b">物理本质：</text>
+        <text x="12" y="38" class="box-desc" fill="#7f1d1d">• 只优化 $P(\text{next\_token} \mid \text{context})$，模拟互联网页模式</text>
+        <text x="12" y="54" class="box-desc" fill="#7f1d1d">• 认为输入是试卷/网页开头，顺理成章往下出题或排版</text>
+        <text x="12" y="70" class="box-desc" fill="#7f1d1d">• 不具备「我是助手、你在向我提问」的交互认知</text>
+      </g>
+    </g>
+
+    <!-- Right: Chat / Instruct Model (Instruction Following) -->
+    <g transform="translate(462, 0)">
+      <rect width="426" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+      <rect x="16" y="14" width="90" height="22" rx="4" fill="#15803d"/>
+      <text x="61" y="29" text-anchor="middle" class="tag" fill="#ffffff">指令遵循</text>
+      <text x="116" y="30" class="col-title" fill="#166534">Chat / Instruct 模型（精装房）</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="86" rx="4" fill="#ffffff" stroke="#86efac"/>
+        <text x="12" y="20" class="mono-bold" fill="#0f172a">输入 Prompt: "中国的首都是哪里？"</text>
+        <line x1="12" y1="30" x2="382" y2="30" stroke="#bbf7d0" stroke-width="1"/>
+        <text x="12" y="52" class="mono-bold" fill="#15803d">模型回复: "中国的首都是北京。"</text>
+        <text x="12" y="72" class="box-desc" fill="#166534">准确识别用户意图，以第一人称助手口吻提供解答并停机</text>
+      </g>
+
+      <g transform="translate(16, 144)">
+        <rect width="394" height="76" rx="4" fill="#dcfce7"/>
+        <text x="12" y="20" class="box-label" fill="#166534">精装改造工序：</text>
+        <text x="12" y="38" class="box-desc" fill="#14532d">• SFT 监督微调：学会识别 &lt;|im_start|&gt;user 与回答角色</text>
+        <text x="12" y="54" class="box-desc" fill="#14532d">• RLHF 偏好对齐：抑制有害、冗长与无意义的接龙输出</text>
+        <text x="12" y="70" class="box-desc" fill="#14532d">• Base 提供知识蓄水池，后训练（Post-training）负责行为调教</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

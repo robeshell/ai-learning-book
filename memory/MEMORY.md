@@ -1,0 +1,4 @@
+- [事实证据链调研规范](research-evidence-chain.md) — 动笔前必须执行显式文献与开源实现调研，建立可追溯事实依据链
+- [图表与媒体说明文字精炼规范](caption-conciseness.md) — 配图与视频说明（<figcaption>）必须极简（10~25字短语标题），严禁复述正文大段原话
+- [简介与导语极简短语规范](description-conciseness.md) — 专栏、章节与文章 description 必须极简短语化（15~28字），杜绝套话废话模板
+- [基础知识专栏纯粹性规范](prerequisites-scope-purity.md) — 基础知识篇章严禁提前穿插大模型高阶术语，纯粹聚焦通用基础数学与物理

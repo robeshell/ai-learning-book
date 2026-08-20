@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+    <marker id="dist-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3b82f6"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">知识蒸馏（Knowledge Distillation）：从千亿教师到轻量学生模型</text>
+  <text x="36" y="68" class="subtitle">通过软概率分布（Soft Labels）与高质量思考轨迹，将庞大模型的「暗知识」高效迁移至小模型</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 3-Column Distillation Workflow -->
+  <g transform="translate(36, 114)">
+
+    <!-- Col 1: Teacher Model -->
+    <g transform="translate(0, 0)">
+      <rect width="270" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="14" y="14" width="70" height="22" rx="4" fill="#dbeafe"/>
+      <text x="49" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">教师模型</text>
+      <text x="92" y="30" class="col-title" fill="#1e40af">Teacher (千亿级)</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="242" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="10" y="20" class="box-label" fill="#1e40af">庞大知识图谱：</text>
+        <text x="10" y="38" class="mono" fill="#1e3a8a">• 70B / 671B 稠密参数</text>
+        <text x="10" y="54" class="box-desc" fill="#1e3a8a">• 输出平滑软标签（Soft Logits）</text>
+        <text x="10" y="70" class="box-desc" fill="#1e3a8a">• 生成完整的深度思考链（CoT）</text>
+      </g>
+
+      <g transform="translate(14, 142)">
+        <rect width="242" height="78" rx="4" fill="#dbeafe"/>
+        <text x="10" y="20" class="box-label" fill="#1e40af">暗知识（Dark Knowledge）：</text>
+        <text x="10" y="38" class="box-desc" fill="#1e3a8a">• 包含不仅是“对”，更包含次优解</text>
+        <text x="10" y="54" class="box-desc" fill="#1e3a8a">• 展现词汇之间的相对语义拓扑</text>
+      </g>
+    </g>
+
+    <!-- Arrow 1 -->
+    <path d="M 278 118 L 294 118" stroke="#3b82f6" stroke-width="2" marker-end="url(#dist-arrow)"/>
+
+    <!-- Col 2: Distillation Loss / Transfer -->
+    <g transform="translate(302, 0)">
+      <rect width="278" height="236" rx="6" fill="#fef3c7" stroke="#fcd34d" stroke-width="1.5"/>
+      <rect x="14" y="14" width="70" height="22" rx="4" fill="#fef3c7"/>
+      <text x="49" y="29" text-anchor="middle" class="tag" fill="#92400e">知识迁移</text>
+      <text x="92" y="30" class="col-title" fill="#92400e">蒸馏目标与对齐</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="250" height="84" rx="4" fill="#ffffff" stroke="#fcd34d"/>
+        <text x="10" y="18" class="box-label" fill="#92400e">两种现代蒸馏范式：</text>
+        <text x="10" y="36" class="mono-bold" fill="#78350f">1. KL 散度蒸馏 (Logits 拟合)</text>
+        <text x="10" y="54" class="mono-bold" fill="#78350f">2. 轨迹数据蒸馏 (SFT 微调)</text>
+        <text x="10" y="72" class="box-desc" fill="#92400e">用 Teacher 优质思考链直接训 Student</text>
+      </g>
+
+      <g transform="translate(14, 142)">
+        <rect width="250" height="78" rx="4" fill="#fef3c7"/>
+        <text x="10" y="20" class="box-label" fill="#92400e">迁移收益：</text>
+        <text x="10" y="38" class="box-desc" fill="#78350f">• 避免小模型从头预训练的高昂开销</text>
+        <text x="10" y="54" class="box-desc" fill="#78350f">• 小模型直接继承大模型的解题逻辑</text>
+      </g>
+    </g>
+
+    <!-- Arrow 2 -->
+    <path d="M 588 118 L 604 118" stroke="#3b82f6" stroke-width="2" marker-end="url(#dist-arrow)"/>
+
+    <!-- Col 3: Student Model -->
+    <g transform="translate(612, 0)">
+      <rect width="276" height="236" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="14" y="14" width="70" height="22" rx="4" fill="#dcfce7"/>
+      <text x="49" y="29" text-anchor="middle" class="tag" fill="#15803d">学生模型</text>
+      <text x="92" y="30" class="col-title" fill="#166534">Student (1.5B ~ 8B)</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="248" height="84" rx="4" fill="#ffffff" stroke="#86efac"/>
+        <text x="10" y="20" class="box-label" fill="#166534">轻量高性价比：</text>
+        <text x="10" y="38" class="mono" fill="#14532d">• 参数仅为教师的 1% ~ 10%</text>
+        <text x="10" y="54" class="box-desc" fill="#14532d">• 可单卡部署于 RTX 4090 或端侧</text>
+        <text x="10" y="70" class="mono-bold" fill="#15803d">➔ 在特定垂直任务上达到教师 90% 性能</text>
+      </g>
+
+      <g transform="translate(14, 142)">
+        <rect width="248" height="78" rx="4" fill="#dcfce7"/>
+        <text x="10" y="20" class="box-label" fill="#166534">工业代表作：</text>
+        <text x="10" y="38" class="box-desc" fill="#14532d">• DeepSeek-R1-Distill-Qwen-7B</text>
+        <text x="10" y="54" class="box-desc" fill="#14532d">• 以极低推理显存实现卓越数理推理</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

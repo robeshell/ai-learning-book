@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">大模型发动机 vs Harness 宿主底盘职责分工</text>
+  <text x="36" y="68" class="subtitle">大模型负责提供概率推断的大脑，Harness 宿主系统负责承载真实状态、物理控制与工程兜底</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Main Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Left: LLM Engine (Width: 426) -->
+    <g transform="translate(0, 0)">
+      <rect width="426" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="16" y="14" width="100" height="22" rx="4" fill="#e2e8f0"/>
+      <text x="66" y="29" text-anchor="middle" class="tag" fill="#475569">无状态大脑</text>
+      <text x="126" y="30" class="col-title" fill="#0f172a">LLM 模型（核心发动机）</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="12" y="20" class="box-label" fill="#0f172a">模型负责的范畴：</text>
+        <text x="12" y="38" class="mono" fill="#475569">• 语义理解与长程逻辑推理</text>
+        <text x="12" y="54" class="mono" fill="#475569">• 预测下一步应该调用什么工具</text>
+        <text x="12" y="70" class="mono-bold" fill="#0f172a">➔ 纯粹的矩阵计算，无真实状态感知</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#f1f5f9"/>
+        <text x="12" y="20" class="box-label" fill="#334155">模型管不了的事情：</text>
+        <text x="12" y="38" class="box-desc" fill="#64748b">• 无法自发截断爆满的上下文窗口</text>
+        <text x="12" y="54" class="box-desc" fill="#64748b">• 无法在自身进程崩溃后自动恢复现场</text>
+      </g>
+    </g>
+
+    <!-- Right: Harness Chassis (Width: 426) -->
+    <g transform="translate(462, 0)">
+      <rect width="426" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="16" y="14" width="100" height="22" rx="4" fill="#dbeafe"/>
+      <text x="66" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">宿主中控台</text>
+      <text x="126" y="30" class="col-title" fill="#1e40af">Harness 运行时（汽车底盘与中控）</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">Harness 掌控的硬性控制权：</text>
+        <text x="12" y="38" class="mono" fill="#1d4ed8">• 磁盘状态快照、事务性 Checkpointing</text>
+        <text x="12" y="54" class="mono" fill="#1d4ed8">• 物理网络/文件沙箱、权限鉴权拦截</text>
+        <text x="12" y="70" class="mono-bold" fill="#2563eb">➔ 保证系统在真实生产环境中的健壮与安全</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#dbeafe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">核心工程价值：</text>
+        <text x="12" y="38" class="box-desc" fill="#1e3a8a">• 超时强杀失控子进程，API 限流退避重试</text>
+        <text x="12" y="54" class="box-desc" fill="#1e3a8a">• 窗口爆满时自动执行日志裁剪与滚动压缩</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

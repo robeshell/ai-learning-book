@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 14px; font-weight: 700; }
+      .tag { font-size: 11px; font-weight: 600; }
+      .box-label { font-size: 12px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">Scaling Law 标度律：模型损失与计算规模的幂律关系</text>
+  <text x="36" y="68" class="subtitle">测试损失（Loss）随参数量 N、数据量 D 与总算力 C 呈现平滑幂律下降，指导万卡集群预训练预算</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Main Comparison Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Left: Kaplan vs Chinchilla Comparison (Width: 560) -->
+    <g transform="translate(0, 0)">
+      <rect width="560" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <text x="20" y="28" class="col-title" fill="#0f172a">计算最优分配：Kaplan 早期法则 vs Chinchilla 修正</text>
+
+      <!-- Row 1: Kaplan Law -->
+      <g transform="translate(20, 44)">
+        <rect width="520" height="80" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <rect x="12" y="12" width="110" height="24" rx="3" fill="#e2e8f0"/>
+        <text x="67" y="28" text-anchor="middle" class="tag" fill="#334155">Kaplan (2020)</text>
+        <text x="134" y="29" class="mono-bold" fill="#0f172a">参数量扩张优先（重模型、轻数据）</text>
+        <text x="12" y="54" class="box-desc" fill="#64748b">• 算力增加时：参数量按 73% 扩张，训练 Token 仅按 27% 增加</text>
+        <text x="12" y="70" class="mono" fill="#dc2626">➔ 导致早期 GPT-3 (175B) 仅喂了 300B Tokens，严重欠拟合（Under-trained）</text>
+      </g>
+
+      <!-- Row 2: Chinchilla Law -->
+      <g transform="translate(20, 136)">
+        <rect width="520" height="84" rx="4" fill="#f0fdf4" stroke="#86efac"/>
+        <rect x="12" y="12" width="110" height="24" rx="3" fill="#dcfce7"/>
+        <text x="67" y="28" text-anchor="middle" class="tag" fill="#15803d">Chinchilla (2022)</text>
+        <text x="134" y="29" class="mono-bold" fill="#166534">等比例协同扩张（参数与数据 1:1 同等重要）</text>
+        <text x="12" y="54" class="box-desc" fill="#14532d">• 算力翻倍时：参数量增加 73%，训练 Token 也必须增加 73%</text>
+        <text x="12" y="72" class="mono-bold" fill="#15803d">➔ 黄金经验法则：Tokens 数量 ≈ 20 × 参数量（如 7B 模型需 ≥ 140B Tokens）</text>
+      </g>
+    </g>
+
+    <!-- Right: Scaling Law Formula & Ledger (Width: 308) -->
+    <g transform="translate(580, 0)">
+      <rect width="308" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="16" y="14" width="90" height="22" rx="4" fill="#dbeafe"/>
+      <text x="61" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">理论基石</text>
+      <text x="116" y="30" class="col-title" fill="#1e40af">总算力公式</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="276" height="74" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="12" y="22" class="box-label" fill="#1e40af">总训练算力（FLOPs）：</text>
+        <text x="12" y="44" class="mono-bold" fill="#2563eb">C ≈ 6 × N × D</text>
+        <text x="12" y="62" class="mono" fill="#64748b">前向 2FLOP/param + 反向 4FLOP/param</text>
+      </g>
+
+      <g transform="translate(16, 132)">
+        <rect width="276" height="88" rx="4" fill="#dbeafe"/>
+        <text x="10" y="20" class="box-label" fill="#1e40af">现代预训练新趋势：</text>
+        <text x="10" y="38" class="box-desc" fill="#1e3a8a">• 超饱和训练（Over-training）：</text>
+        <text x="10" y="54" class="box-desc" fill="#1e3a8a">  Llama-3 (8B) 喂入 15T Tokens (1875×)</text>
+        <text x="10" y="70" class="box-desc" fill="#1e3a8a">• 牺牲训练期算力，换取部署期极低推理成本</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

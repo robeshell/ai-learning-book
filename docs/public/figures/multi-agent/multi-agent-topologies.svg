@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13.5px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 11.5px; font-weight: 700; }
+      .box-desc { font-size: 10.5px; font-weight: 400; line-height: 1.35; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">多智能体（Multi-Agent）三大经典协作拓扑模式</text>
+  <text x="36" y="68" class="subtitle">通过关注点分离与上下文物理隔离，解决单 Agent 角色冲突、工具膨胀与注意力稀释</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 3 Topologies Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Pattern 1: Sequential Pipeline (Width: 280) -->
+    <g transform="translate(0, 0)">
+      <rect width="280" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#dbeafe"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">模式 A</text>
+      <text x="104" y="30" class="col-title" fill="#1e40af">流水线串行链（Pipeline）</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="252" height="96" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="10" y="20" class="box-label" fill="#1e40af">严格单向阶段交付：</text>
+        <text x="10" y="38" class="mono" fill="#1d4ed8">调研 Agent ➔ 产出 Spec</text>
+        <text x="10" y="54" class="mono" fill="#1d4ed8">编码 Agent ➔ 编写代码</text>
+        <text x="10" y="70" class="mono" fill="#1d4ed8">测试 Agent ➔ 执行验证</text>
+        <text x="10" y="88" class="box-desc" fill="#1e3a8a">• 阶段产出物强契约流转</text>
+      </g>
+
+      <g transform="translate(14, 154)">
+        <rect width="252" height="66" rx="4" fill="#dbeafe"/>
+        <text x="10" y="20" class="box-label" fill="#1e40af">适用场景：</text>
+        <text x="10" y="38" class="box-desc" fill="#1e3a8a">• 阶段边界极其清晰的流水线开发</text>
+        <text x="10" y="54" class="box-desc" fill="#1e3a8a">• 上游产物严格作为下游输入</text>
+      </g>
+    </g>
+
+    <!-- Pattern 2: Supervisor / Workers (Width: 280) -->
+    <g transform="translate(304, 0)">
+      <rect width="280" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#dcfce7"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#16a34a">模式 B</text>
+      <text x="104" y="30" class="col-title" fill="#166534">主从分发（Supervisor）</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="252" height="96" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="10" y="20" class="box-label" fill="#166534">总指挥动态派发与汇总：</text>
+        <text x="10" y="38" class="mono" fill="#15803d">Supervisor（主控调度）</text>
+        <text x="10" y="54" class="mono" fill="#15803d">├── Worker 1: 扫描前端 (独立窗口)</text>
+        <text x="10" y="70" class="mono" fill="#15803d">└── Worker 2: 扫描后端 (独立窗口)</text>
+        <text x="10" y="88" class="box-desc" fill="#14532d">• 并行探索，汇聚到主控决策</text>
+      </g>
+
+      <g transform="translate(14, 154)">
+        <rect width="252" height="66" rx="4" fill="#dcfce7"/>
+        <text x="10" y="20" class="box-label" fill="#166534">适用场景：</text>
+        <text x="10" y="38" class="box-desc" fill="#14532d">• 复杂工程排查、多目录并行扫码</text>
+        <text x="10" y="54" class="box-desc" fill="#14532d">• 工业级 IDE / Coding Agent 标配</text>
+      </g>
+    </g>
+
+    <!-- Pattern 3: Debate & Joint Consensus (Width: 280) -->
+    <g transform="translate(608, 0)">
+      <rect width="280" height="236" rx="6" fill="#fdf4ff" stroke="#f5d0fe" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#fae8ff"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#c026d3">模式 C</text>
+      <text x="104" y="30" class="col-title" fill="#86198f">对抗辩论（Debate / Critic）</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="252" height="96" rx="4" fill="#ffffff" stroke="#f5d0fe"/>
+        <text x="10" y="20" class="box-label" fill="#86198f">红蓝对抗交叉审计：</text>
+        <text x="10" y="38" class="mono" fill="#a21caf">• 生成 Agent ➔ 提出架构方案</text>
+        <text x="10" y="54" class="mono" fill="#a21caf">• 挑刺 Agent ➔ 寻找安全与性能漏洞</text>
+        <text x="10" y="70" class="mono" fill="#a21caf">• 仲裁 Judge  ➔ 裁决最终胜出方案</text>
+        <text x="10" y="88" class="box-desc" fill="#701a75">• 破除单模型的自我谄媚盲区</text>
+      </g>
+
+      <g transform="translate(14, 154)">
+        <rect width="252" height="66" rx="4" fill="#fae8ff"/>
+        <text x="10" y="20" class="box-label" fill="#86198f">适用场景：</text>
+        <text x="10" y="38" class="box-desc" fill="#701a75">• 高危金融风控、核心安全漏洞审计</text>
+        <text x="10" y="54" class="box-desc" fill="#701a75">• 追求极高置信度的合成数据清洗</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

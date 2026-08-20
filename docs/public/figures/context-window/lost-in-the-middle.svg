@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .chart-label { font-size: 11px; fill: #64748b; }
+      .point-label { font-size: 12px; font-weight: 700; }
+      .box-title { font-size: 14px; font-weight: 700; fill: #0f172a; }
+      .box-desc { font-size: 12px; fill: #475569; }
+      .formula { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; fill: #1e3a8a; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">长文本中的检索性能分布：Lost in the Middle</text>
+  <text x="36" y="68" class="subtitle">随着上下文长度增加，模型对首尾信息的提取准确率较高，而位于中段的关键信息容易因注意力稀释而出现召回断崖</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Left: U-Curve Chart (width 480) -->
+  <g transform="translate(36, 116)">
+    <rect width="460" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="16" y="28" font-size="13px" font-weight="700" fill="#1e293b">文档位置与信息召回准确率 (U 型曲线)</text>
+
+    <!-- Axes -->
+    <line x1="60" y1="190" x2="430" y2="190" stroke="#94a3b8" stroke-width="1.5"/>
+    <line x1="60" y1="50" x2="60" y2="190" stroke="#94a3b8" stroke-width="1.5"/>
+
+    <!-- Y-axis labels -->
+    <text x="50" y="55" text-anchor="end" class="chart-label">100%</text>
+    <text x="50" y="120" text-anchor="end" class="chart-label">50%</text>
+    <text x="50" y="185" text-anchor="end" class="chart-label">0%</text>
+
+    <!-- X-axis labels -->
+    <text x="75" y="210" text-anchor="middle" class="chart-label">文档首部 (0%)</text>
+    <text x="245" y="210" text-anchor="middle" class="chart-label">文档中段 (50%)</text>
+    <text x="415" y="210" text-anchor="middle" class="chart-label">文档末尾 (100%)</text>
+
+    <!-- Grid lines -->
+    <line x1="60" y1="50" x2="430" y2="50" stroke="#e2e8f0" stroke-dasharray="3,3"/>
+    <line x1="60" y1="120" x2="430" y2="120" stroke="#e2e8f0" stroke-dasharray="3,3"/>
+
+    <!-- U-curve Path -->
+    <path d="M 75 60 Q 245 220 415 70" fill="none" stroke="#2563eb" stroke-width="3"/>
+
+    <!-- Highlight Points -->
+    <!-- Point 1: Head -->
+    <circle cx="75" cy="60" r="5" fill="#16a34a"/>
+    <text x="85" y="56" class="point-label" fill="#16a34a">首部效应 (高召回)</text>
+
+    <!-- Point 2: Middle -->
+    <circle cx="245" cy="140" r="6" fill="#dc2626"/>
+    <text x="245" y="165" text-anchor="middle" class="point-label" fill="#dc2626">迷失在中间 (召回断崖)</text>
+
+    <!-- Point 3: Tail -->
+    <circle cx="415" cy="70" r="5" fill="#16a34a"/>
+    <text x="405" y="60" text-anchor="end" class="point-label" fill="#16a34a">近因效应 (高召回)</text>
+  </g>
+
+  <!-- Right: Mechanism Explanation (width 400) -->
+  <g transform="translate(516, 116)">
+    <rect width="408" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+    <text x="16" y="28" class="box-title" fill="#1e40af">为什么中段信息容易被稀释？</text>
+
+    <g transform="translate(16, 46)">
+      <rect width="376" height="54" rx="4" fill="#ffffff" stroke="#dbeafe"/>
+      <text x="12" y="22" class="box-desc" font-weight="600" fill="#1e3a8a">1. Softmax 分母竞争机制</text>
+      <text x="12" y="42" class="formula">α_i = exp(s_i) / Σ_{j=1}^N exp(s_j)</text>
+    </g>
+
+    <g transform="translate(16, 108)">
+      <rect width="376" height="50" rx="4" fill="#ffffff" stroke="#dbeafe"/>
+      <text x="12" y="20" class="box-desc" font-weight="600" fill="#1e3a8a">2. 噪声 Token 分流权重</text>
+      <text x="12" y="38" class="box-desc">当 N 达到 10 万级时，海量背景 Token 共同分流总概率预算</text>
+    </g>
+
+    <g transform="translate(16, 166)">
+      <rect width="376" height="54" rx="4" fill="#ffffff" stroke="#dbeafe"/>
+      <text x="12" y="20" class="box-desc" font-weight="600" fill="#1e3a8a">3. 首尾位置偏置（Position Bias）</text>
+      <text x="12" y="38" class="box-desc">注意力汇（Attention Sink）沉淀在开头，近因衰减增强末尾</text>
+    </g>
+  </g>
+</svg>

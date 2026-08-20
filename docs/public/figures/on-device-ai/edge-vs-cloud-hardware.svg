@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13.5px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 11.5px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">云端数据中心 vs 移动端侧硬件物理约束对比</text>
+  <text x="36" y="68" class="subtitle">端侧设备受限于极低功耗与内存带宽；4-bit 极限压缩与 NPU 专用算力是离线运行的物理前提</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Main Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Left: Cloud (Width: 426) -->
+    <g transform="translate(0, 0)">
+      <rect width="426" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="16" y="14" width="110" height="22" rx="4" fill="#dbeafe"/>
+      <text x="71" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">云端算力中心</text>
+      <text x="136" y="30" class="col-title" fill="#1e40af">顶级加速卡集群 (H100 / B200)</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">硬件规格与物理指标：</text>
+        <text x="12" y="38" class="mono" fill="#1d4ed8">• 显存带宽: 3,350 GB/s (HBM3e 高速堆叠)</text>
+        <text x="12" y="54" class="mono" fill="#1d4ed8">• 功耗预算: 单卡 700W ~ 1000W（水冷机柜）</text>
+        <text x="12" y="70" class="mono-bold" fill="#2563eb">➔ 可承载 70B ~ 671B 巨型稠密/MoE 混合专家模型</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#dbeafe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">代价与隐患：</text>
+        <text x="12" y="38" class="box-desc" fill="#1e3a8a">• 必须持续联网，存在网络断连与排队网络延迟</text>
+        <text x="12" y="54" class="box-desc" fill="#1e3a8a">• 用户私人数据必须上传云端，存在隐私泄漏合规风险</text>
+      </g>
+    </g>
+
+    <!-- Right: Edge (Width: 426) -->
+    <g transform="translate(462, 0)">
+      <rect width="426" height="236" rx="6" fill="#fdf4ff" stroke="#f5d0fe" stroke-width="1.5"/>
+      <rect x="16" y="14" width="110" height="22" rx="4" fill="#fae8ff"/>
+      <text x="71" y="29" text-anchor="middle" class="tag" fill="#c026d3">移动端侧设备</text>
+      <text x="136" y="30" class="col-title" fill="#86198f">手机 / PC / 车载 NPU (1B ~ 3B)</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#f5d0fe"/>
+        <text x="12" y="20" class="box-label" fill="#86198f">残酷的端侧物理约束：</text>
+        <text x="12" y="38" class="mono" fill="#a21caf">• 统一内存带宽: 仅 50 ~ 85 GB/s (LPDDR5X)</text>
+        <text x="12" y="54" class="mono" fill="#a21caf">• 功耗预算: 严格限制在 3W ~ 8W（被动散热）</text>
+        <text x="12" y="70" class="mono-bold" fill="#86198f">➔ 必须经过 INT4 量化将 3B 模型压至 1.8GB 内存</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#fae8ff"/>
+        <text x="12" y="20" class="box-label" fill="#86198f">核心价值与权衡：</text>
+        <text x="12" y="38" class="box-desc" fill="#701a75">• 100% 本地离线运行、零 API 成本、绝对隐私安全</text>
+        <text x="12" y="54" class="box-desc" fill="#701a75">• 模型推理深度有限，无法胜任高复杂度逻辑长链</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

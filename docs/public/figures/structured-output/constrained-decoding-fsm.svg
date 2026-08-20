@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13.5px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 11.5px; font-weight: 700; }
+      .box-desc { font-size: 10.5px; font-weight: 400; line-height: 1.35; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">约束解码（Constrained Decoding）与 Logits Masking 机制</text>
+  <text x="36" y="68" class="subtitle">将 JSON Schema 编译为有限状态机（FSM），在每步采样前强制屏蔽所有非法 Token，实现 100% 语法合规</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Pipeline 4 Stages -->
+  <g transform="translate(36, 114)">
+
+    <!-- Stage 1: Schema to FSM (Width: 205) -->
+    <g transform="translate(0, 0)">
+      <rect width="200" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#dbeafe"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#1d4ed8">第 1 步</text>
+      <text x="12" y="52" class="col-title" fill="#1e40af">Schema 编译为 FSM</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="8" y="18" class="box-label" fill="#1e40af">构建语法状态机：</text>
+        <text x="8" y="36" class="mono" fill="#1d4ed8">Schema: {age: int}</text>
+        <text x="8" y="54" class="box-desc" fill="#1e3a8a">• 状态 S0: 等待 '{"'</text>
+        <text x="8" y="70" class="box-desc" fill="#1e3a8a">• 状态 S1: 等待 '"age"'</text>
+        <text x="8" y="86" class="box-desc" fill="#1e3a8a">• 状态 S2: 等待 ':'</text>
+        <text x="8" y="102" class="box-desc" fill="#1e3a8a">• 状态 S3: 等待 [0-9]+</text>
+        <text x="8" y="118" class="box-desc" fill="#1e3a8a">• 状态 S4: 等待 '}'</text>
+        <text x="8" y="138" class="mono-bold" fill="#2563eb">➔ 语法规则静态锁定</text>
+      </g>
+    </g>
+
+    <!-- Arrow 1 -->
+    <g transform="translate(206, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Stage 2: Raw Logits (Width: 205) -->
+    <g transform="translate(226, 0)">
+      <rect width="200" height="236" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#e2e8f0"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#475569">第 2 步</text>
+      <text x="12" y="52" class="col-title" fill="#0f172a">模型前向未过滤 Logits</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="8" y="18" class="box-label" fill="#0f172a">全词表原始输出：</text>
+        <text x="8" y="38" class="mono" fill="#475569">"28"    ➔ Logit: +8.5</text>
+        <text x="8" y="56" class="mono" fill="#475569">"好的"  ➔ Logit: +9.2</text>
+        <text x="8" y="74" class="mono" fill="#475569">"null"  ➔ Logit: +3.1</text>
+        <text x="8" y="92" class="mono" fill="#475569">"未知"  ➔ Logit: +4.0</text>
+        <text x="8" y="118" class="box-desc" fill="#64748b">• 若直接采样，模型极易输出聊天废话 "好的"</text>
+      </g>
+    </g>
+
+    <!-- Arrow 2 -->
+    <g transform="translate(432, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Stage 3: Dynamic Masking (Width: 205) -->
+    <g transform="translate(452, 0)">
+      <rect width="200" height="236" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#fee2e2"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#dc2626">第 3 步</text>
+      <text x="12" y="52" class="col-title" fill="#991b1b">动态 Logits 掩码屏蔽</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="176" height="154" rx="4" fill="#ffffff" stroke="#fecaca"/>
+        <text x="8" y="18" class="box-label" fill="#991b1b">FSM 校验当前状态 S3：</text>
+        <text x="8" y="38" class="mono" fill="#15803d">"28"   ➔ 允许 (合法数字)</text>
+        <text x="8" y="56" class="mono" fill="#b91c1c">"好的" ➔ 强制设为 -∞</text>
+        <text x="8" y="74" class="mono" fill="#b91c1c">"null" ➔ 强制设为 -∞</text>
+        <text x="8" y="92" class="mono" fill="#b91c1c">"未知" ➔ 强制设为 -∞</text>
+        <text x="8" y="120" class="mono-bold" fill="#dc2626">➔ 非法 Token 概率归零</text>
+      </g>
+    </g>
+
+    <!-- Arrow 3 -->
+    <g transform="translate(658, 110)">
+      <path d="M0,8 L14,8 M10,4 L14,8 L10,12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Stage 4: Guaranteed Output (Width: 205) -->
+    <g transform="translate(678, 0)">
+      <rect width="205" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+      <rect x="12" y="12" width="70" height="20" rx="4" fill="#dcfce7"/>
+      <text x="47" y="26" text-anchor="middle" class="tag" fill="#16a34a">第 4 步</text>
+      <text x="12" y="52" class="col-title" fill="#166534">100% 确定性合法生成</text>
+
+      <g transform="translate(12, 66)">
+        <rect width="181" height="154" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="8" y="18" class="box-label" fill="#166534">严格符合 JSON 语法：</text>
+        <text x="8" y="38" class="mono" fill="#15803d">{"age": 28}</text>
+        <text x="8" y="60" class="box-desc" fill="#14532d">• 零 JSON.parse 崩溃</text>
+        <text x="8" y="76" class="box-desc" fill="#14532d">• 零前导废话与代码块乱码</text>
+        <text x="8" y="92" class="box-desc" fill="#14532d">• 字段名与类型严格对齐</text>
+        <text x="8" y="122" class="mono-bold" fill="#16a34a">➔ 工业级无缝接入下游</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

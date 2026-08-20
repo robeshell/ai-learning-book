@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13.5px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 11.5px; font-weight: 700; }
+      .box-desc { font-size: 11px; font-weight: 400; line-height: 1.4; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">Coding Agent 与 Computer Use 架构与介质对比</text>
+  <text x="36" y="68" class="subtitle">代码与 CLI 是高确定性、高吞吐的数字载体；Computer Use 攻克了无 API 遗留软件的 GUI 交互壁垒</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Main Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Left: Coding Agent (Width: 426) -->
+    <g transform="translate(0, 0)">
+      <rect width="426" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="16" y="14" width="110" height="22" rx="4" fill="#dbeafe"/>
+      <text x="71" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">终端与代码</text>
+      <text x="136" y="30" class="col-title" fill="#1e40af">Coding Agent（确定性文本载体）</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">交互介质与工具：</text>
+        <text x="12" y="38" class="mono" fill="#1d4ed8">• 源码文件、Unified Diff 补丁替换</text>
+        <text x="12" y="54" class="mono" fill="#1d4ed8">• Bash 终端命令、Git 仓库管理、LSP 索引</text>
+        <text x="12" y="70" class="mono-bold" fill="#2563eb">➔ 拥有编译器与测试套件作为绝对裁判，精度极高</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#dbeafe"/>
+        <text x="12" y="20" class="box-label" fill="#1e40af">核心工程优势：</text>
+        <text x="12" y="38" class="box-desc" fill="#1e3a8a">• 吞吐量极高，Token 消耗极低，执行速度毫秒级</text>
+        <text x="12" y="54" class="box-desc" fill="#1e3a8a">• 工业级优先首选方案（Headless First 原则）</text>
+      </g>
+    </g>
+
+    <!-- Right: Computer Use (Width: 426) -->
+    <g transform="translate(462, 0)">
+      <rect width="426" height="236" rx="6" fill="#fdf4ff" stroke="#f5d0fe" stroke-width="1.5"/>
+      <rect x="16" y="14" width="110" height="22" rx="4" fill="#fae8ff"/>
+      <text x="71" y="29" text-anchor="middle" class="tag" fill="#c026d3">视觉与 GUI</text>
+      <text x="136" y="30" class="col-title" fill="#86198f">Computer Use（拟人键鼠操作）</text>
+
+      <g transform="translate(16, 48)">
+        <rect width="394" height="84" rx="4" fill="#ffffff" stroke="#f5d0fe"/>
+        <text x="12" y="20" class="box-label" fill="#86198f">交互介质与动作：</text>
+        <text x="12" y="38" class="mono" fill="#a21caf">• 屏幕高清截图（Multimodal Vision）</text>
+        <text x="12" y="54" class="mono" fill="#a21caf">• 鼠标绝对坐标点击 (x, y)、键盘打字与快捷键</text>
+        <text x="12" y="70" class="mono-bold" fill="#86198f">➔ 打破无 API 软件壁垒，直接操作任意桌面 GUI</text>
+      </g>
+
+      <g transform="translate(16, 142)">
+        <rect width="394" height="78" rx="4" fill="#fae8ff"/>
+        <text x="12" y="20" class="box-label" fill="#86198f">工程挑战与代价：</text>
+        <text x="12" y="38" class="box-desc" fill="#701a75">• 视觉 Token 消耗极大，受分辨率与网络延迟影响</text>
+        <text x="12" y="54" class="box-desc" fill="#701a75">• 缺乏确定性编译器，依赖视觉重绘确认操作结果</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

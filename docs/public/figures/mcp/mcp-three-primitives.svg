@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif; }
+      .title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 13px; font-weight: 400; fill: #64748b; }
+      .col-title { font-size: 13.5px; font-weight: 700; }
+      .tag { font-size: 10.5px; font-weight: 600; }
+      .box-label { font-size: 11.5px; font-weight: 700; }
+      .box-desc { font-size: 10.5px; font-weight: 400; line-height: 1.35; }
+      .mono { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; }
+      .mono-bold { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="960" height="380" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="36" y="44" class="title">MCP 核心三原语（Primitives）：Tools, Resources 与 Prompts</text>
+  <text x="36" y="68" class="subtitle">通过结构化协议解耦主动动作、静态资源与引导模板，构建清晰的大模型上下文交互面</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 3 Primitives Grid -->
+  <g transform="translate(36, 114)">
+
+    <!-- Primitive 1: Tools (Width: 280) -->
+    <g transform="translate(0, 0)">
+      <rect width="280" height="236" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#dbeafe"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#1d4ed8">模型主动驱动</text>
+      <text x="104" y="30" class="col-title" fill="#1e40af">Tools（动作执行）</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="252" height="96" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="10" y="20" class="box-label" fill="#1e40af">具副作用的可执行函数：</text>
+        <text x="10" y="38" class="mono" fill="#1d4ed8">• tools/list (声明列表)</text>
+        <text x="10" y="54" class="mono" fill="#1d4ed8">• tools/call (动态调用)</text>
+        <text x="10" y="72" class="box-desc" fill="#1e3a8a">• 示例：Git Commit, 发送邮件</text>
+        <text x="10" y="88" class="box-desc" fill="#1e3a8a">• 模型自回归生成参数包触发</text>
+      </g>
+
+      <g transform="translate(14, 154)">
+        <rect width="252" height="66" rx="4" fill="#dbeafe"/>
+        <text x="10" y="20" class="box-label" fill="#1e40af">权限防线：</text>
+        <text x="10" y="38" class="box-desc" fill="#1e3a8a">• 必须由宿主客户端向用户弹窗授权</text>
+        <text x="10" y="54" class="box-desc" fill="#1e3a8a">• 严禁授予 Server 越权写入权限</text>
+      </g>
+    </g>
+
+    <!-- Primitive 2: Resources (Width: 280) -->
+    <g transform="translate(304, 0)">
+      <rect width="280" height="236" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#dcfce7"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#16a34a">应用环境提供</text>
+      <text x="104" y="30" class="col-title" fill="#166534">Resources（只读资源）</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="252" height="96" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="10" y="20" class="box-label" fill="#166534">上下文只读数据流：</text>
+        <text x="10" y="38" class="mono" fill="#15803d">• resources/list (资源清单)</text>
+        <text x="10" y="54" class="mono" fill="#15803d">• resources/read (读取内容)</text>
+        <text x="10" y="72" class="box-desc" fill="#14532d">• 示例：file://app.log, db://schema</text>
+        <text x="10" y="88" class="box-desc" fill="#14532d">• 类似文件系统 URI，无执行副作用</text>
+      </g>
+
+      <g transform="translate(14, 154)">
+        <rect width="252" height="66" rx="4" fill="#dcfce7"/>
+        <text x="10" y="20" class="box-label" fill="#166534">工程价值：</text>
+        <text x="10" y="38" class="box-desc" fill="#14532d">• 宿主将本地文件/数据直接挂载进窗口</text>
+        <text x="10" y="54" class="box-desc" fill="#14532d">• 支持实时订阅（Subscribe）动态变化</text>
+      </g>
+    </g>
+
+    <!-- Primitive 3: Prompts (Width: 280) -->
+    <g transform="translate(608, 0)">
+      <rect width="280" height="236" rx="6" fill="#fdf4ff" stroke="#f5d0fe" stroke-width="1.5"/>
+      <rect x="14" y="14" width="80" height="22" rx="4" fill="#fae8ff"/>
+      <text x="54" y="29" text-anchor="middle" class="tag" fill="#c026d3">用户与流程控制</text>
+      <text x="104" y="30" class="col-title" fill="#86198f">Prompts（流程模板）</text>
+
+      <g transform="translate(14, 48)">
+        <rect width="252" height="96" rx="4" fill="#ffffff" stroke="#f5d0fe"/>
+        <text x="10" y="20" class="box-label" fill="#86198f">预设结构化对话工作流：</text>
+        <text x="10" y="38" class="mono" fill="#a21caf">• prompts/list (模板列表)</text>
+        <text x="10" y="54" class="mono" fill="#a21caf">• prompts/get (获取组装参数)</text>
+        <text x="10" y="72" class="box-desc" fill="#701a75">• 示例：代码审查模板、漏洞排查工作流</text>
+        <text x="10" y="88" class="box-desc" fill="#701a75">• 封装行业最佳实践并参数化输入</text>
+      </g>
+
+      <g transform="translate(14, 154)">
+        <rect width="252" height="66" rx="4" fill="#fae8ff"/>
+        <text x="10" y="20" class="box-label" fill="#86198f">使用场景：</text>
+        <text x="10" y="38" class="box-desc" fill="#701a75">• 一键触发复杂的预设多步骤分析流程</text>
+        <text x="10" y="54" class="box-desc" fill="#701a75">• 统一团队知识库与交互规范标准</text>
+      </g>
+    </g>
+
+  </g>
+</svg>
